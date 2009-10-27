@@ -1,0 +1,3 @@
+[submodule "external/GNToggleBar"]
+	path = external/GNToggleBar
+	url = git@github.com:bcochran/GNToggleBar.git
