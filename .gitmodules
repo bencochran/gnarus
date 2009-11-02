@@ -4,3 +4,6 @@
 [submodule "external/arkit"]
 	path = external/arkit
 	url = git@github.com:bcochran/iphonearkit.git
+[submodule "external/LayerManager"]
+	path = external/LayerManager
+	url = git@github.com:bcochran/LayerManager.git
