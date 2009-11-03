@@ -14,7 +14,9 @@
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
-
+	
+	// Chris didn't write this line, but oh well
+	
     // Override point for customization after application launch
     [window makeKeyAndVisible];
 }

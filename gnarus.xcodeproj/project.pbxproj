@@ -58,14 +58,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D /* libLayerManager.a */;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
 			remoteInfo = LayerManager;
 		};
 		B8BC14BF109EBE3C000701DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D /* LayerManager */;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = LayerManager;
 		};
 /* End PBXContainerItemProxy section */
