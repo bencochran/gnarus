@@ -14,6 +14,8 @@
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		B880D1A5109779E3005601EF /* libGNToggleBar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B880D1A4109779CC005601EF /* libGNToggleBar.a */; };
+		B880D3331097A724005601EF /* libARKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B880D3301097A719005601EF /* libARKit.a */; };
+		B8BC14BE109EBE35000701DF /* libLayerManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8BC14BD109EBE25000701DF /* libLayerManager.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +33,41 @@
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = GNToggleBar;
 		};
+		B880D32F1097A719005601EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B880D3271097A719005601EF /* ARKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B880D25510978DA7005601EF;
+			remoteInfo = ARKit;
+		};
+		B880D3311097A719005601EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B880D3271097A719005601EF /* ARKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1119294A106E7C3D00D96627;
+			remoteInfo = UnitTests;
+		};
+		B880D3351097A73B005601EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B880D3271097A719005601EF /* ARKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = B880D25410978DA7005601EF;
+			remoteInfo = ARKit;
+		};
+		B8BC14BC109EBE25000701DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = LayerManager;
+		};
+		B8BC14BF109EBE3C000701DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = LayerManager;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +82,8 @@
 		32CA4F630368D1EE00C91783 /* gnarus_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gnarus_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* gnarus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "gnarus-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		B880D19C109779CC005601EF /* GNToggleBar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GNToggleBar.xcodeproj; path = external/GNToggleBar/GNToggleBar.xcodeproj; sourceTree = "<group>"; };
+		B880D3271097A719005601EF /* ARKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ARKit.xcodeproj; path = external/arkit/ARKit.xcodeproj; sourceTree = "<group>"; };
+		B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LayerManager.xcodeproj; path = external/LayerManager/LayerManager.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,10 +91,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B880D3331097A724005601EF /* libARKit.a in Frameworks */,
 				B880D1A5109779E3005601EF /* libGNToggleBar.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
+				B8BC14BE109EBE35000701DF /* libLayerManager.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +153,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */,
+				B880D3271097A719005601EF /* ARKit.xcodeproj */,
 				B880D19C109779CC005601EF /* GNToggleBar.xcodeproj */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
@@ -124,6 +167,23 @@
 			isa = PBXGroup;
 			children = (
 				B880D1A4109779CC005601EF /* libGNToggleBar.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B880D3281097A719005601EF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B880D3301097A719005601EF /* libARKit.a */,
+				B880D3321097A719005601EF /* UnitTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B8BC14B6109EBE25000701DF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B8BC14BD109EBE25000701DF /* libLayerManager.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,6 +203,8 @@
 			);
 			dependencies = (
 				B880D1D910977B0E005601EF /* PBXTargetDependency */,
+				B880D3361097A73B005601EF /* PBXTargetDependency */,
+				B8BC14C0109EBE3C000701DF /* PBXTargetDependency */,
 			);
 			name = gnarus;
 			productName = gnarus;
@@ -161,8 +223,16 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = B880D3281097A719005601EF /* Products */;
+					ProjectRef = B880D3271097A719005601EF /* ARKit.xcodeproj */;
+				},
+				{
 					ProductGroup = B880D19D109779CC005601EF /* Products */;
 					ProjectRef = B880D19C109779CC005601EF /* GNToggleBar.xcodeproj */;
+				},
+				{
+					ProductGroup = B8BC14B6109EBE25000701DF /* Products */;
+					ProjectRef = B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -178,6 +248,27 @@
 			fileType = archive.ar;
 			path = libGNToggleBar.a;
 			remoteRef = B880D1A3109779CC005601EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B880D3301097A719005601EF /* libARKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libARKit.a;
+			remoteRef = B880D32F1097A719005601EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B880D3321097A719005601EF /* UnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.octest;
+			remoteRef = B880D3311097A719005601EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B8BC14BD109EBE25000701DF /* libLayerManager.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libLayerManager.a;
+			remoteRef = B8BC14BC109EBE25000701DF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -210,6 +301,16 @@
 			isa = PBXTargetDependency;
 			name = GNToggleBar;
 			targetProxy = B880D1D810977B0E005601EF /* PBXContainerItemProxy */;
+		};
+		B880D3361097A73B005601EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ARKit;
+			targetProxy = B880D3351097A73B005601EF /* PBXContainerItemProxy */;
+		};
+		B8BC14C0109EBE3C000701DF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = LayerManager;
+			targetProxy = B8BC14BF109EBE3C000701DF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

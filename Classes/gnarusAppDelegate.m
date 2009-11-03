@@ -16,6 +16,7 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
 
 	// ben typed a line, merge will have to happen
+	// Chris didn't write this line, but oh well
 	
     // Override point for customization after application launch
     [window makeKeyAndVisible];
