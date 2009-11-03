@@ -7,19 +7,23 @@
 //
 
 #import "gnarusAppDelegate.h"
+#import "LiveViewController.h"
 
 @implementation gnarusAppDelegate
 
-@synthesize window;
+@synthesize window, navController;
 
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {    
-
-	// ben typed a line, merge will have to happen
-	// Chris didn't write this line, but oh well
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
+	[application setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
 	
-    // Override point for customization after application launch
-    [window makeKeyAndVisible];
+	LiveViewController *viewController = [[LiveViewController alloc] initWithCoder:nil];
+	
+	self.navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+	[viewController release];
+	
+    [window addSubview:navController.view];
+	[window makeKeyAndVisible];
 }
 
 
