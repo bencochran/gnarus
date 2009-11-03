@@ -21,14 +21,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = B880D19C109779CC005601EF /* GNToggleBar.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D /* libGNToggleBar.a */;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
 			remoteInfo = GNToggleBar;
 		};
 		B880D1D810977B0E005601EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B880D19C109779CC005601EF /* GNToggleBar.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D /* GNToggleBar */;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = GNToggleBar;
 		};
 /* End PBXContainerItemProxy section */
