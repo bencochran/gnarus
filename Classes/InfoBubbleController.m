@@ -23,8 +23,7 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-	self.view = [InfoBubble infoBubbleWithTitle:@"Memorial"];
-
+	self.view = [InfoBubble infoBubbleWithTitle:self.title];
 }
 
 /*

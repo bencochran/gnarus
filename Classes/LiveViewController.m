@@ -44,29 +44,9 @@
 	imageView.image = [UIImage imageNamed:@"bg.jpg"];
 	[self.view addSubview:imageView];
 	
-	// Add a simple button
-	
-	//[UIButton buttonWithType:UIButtonTypeRoundedRect];
-//	UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-//	button.alpha = 0.8;
-//	[button setTitle:@"Push Me" forState:UIControlStateNormal];
-//	[button setTitle:@"Ouch" forState:UIControlStateHighlighted];
-//	[button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-//	
-//	button.frame = CGRectMake(0, 0, 100, 37);
-//	button.center = self.view.center;
-//	button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-//	[self.view addSubview:button];
-	
-//	InfoBubble *infoBubble = [InfoBubble infoBubbleWithTitle:@"test"];
-//	infoBubble.alpha = 0.90;
-//	[button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-	
-//	infoBubble.frame = CGRectMake(0, 0, 100, 70);
-//	infoBubble.center = self.view.center;
+	// Add an info bubble
 	InfoBubbleController *infoBubbleController = [[[InfoBubbleController alloc] init] autorelease];
-	//infoBubble.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-	//infoBubbleController.view.frame = CGRectMake(0, 0, 100, 70);
+	infoBubbleController.title = @"Memorial Hall";
 	infoBubbleController.view.center = self.view.center;
 	[self.view addSubview:infoBubbleController.view];
 	
