@@ -12,9 +12,11 @@
 
 @interface InfoBubble : UIView {
 	BubbleBackgroundView *_bubble;
+	UILabel *_label;
 }
 
 @property (nonatomic, retain) BubbleBackgroundView *bubble;
+@property (nonatomic, retain) UILabel *label;
 
 + (id)infoBubbleWithTitle:(NSString *)title;
 

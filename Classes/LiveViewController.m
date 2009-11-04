@@ -8,7 +8,7 @@
 
 #import "LiveViewController.h"
 #import <GnarusToggleBar/GnarusToggleBar.h>
-#import "InfoBubble.h"
+#import "InfoBubbleController.h"
 
 @implementation LiveViewController
 
@@ -58,14 +58,17 @@
 //	button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 //	[self.view addSubview:button];
 	
-	InfoBubble *infoBubble = [InfoBubble infoBubbleWithTitle:@"test"];
-	infoBubble.alpha = 0.90;
+//	InfoBubble *infoBubble = [InfoBubble infoBubbleWithTitle:@"test"];
+//	infoBubble.alpha = 0.90;
 //	[button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
 	
-	infoBubble.frame = CGRectMake(0, 0, 100, 70);
-	infoBubble.center = self.view.center;
+//	infoBubble.frame = CGRectMake(0, 0, 100, 70);
+//	infoBubble.center = self.view.center;
+	InfoBubbleController *infoBubbleController = [[[InfoBubbleController alloc] init] autorelease];
 	//infoBubble.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-	[self.view addSubview:infoBubble];
+	//infoBubbleController.view.frame = CGRectMake(0, 0, 100, 70);
+	infoBubbleController.view.center = self.view.center;
+	[self.view addSubview:infoBubbleController.view];
 	
 	// Add toggle bar
 	GNToggleBarController *toggleBarController = [[[GNToggleBarController alloc] init] autorelease];

@@ -11,37 +11,49 @@
 
 @implementation InfoBubble
 
-@synthesize bubble=_bubble;
+@synthesize bubble=_bubble, label=_label;
 
 + (id)infoBubbleWithTitle:(NSString *)title {
-	InfoBubble *bubble = [[[InfoBubble alloc] init] autorelease];
-	
-	return bubble;
+	return [[[InfoBubble alloc] initWithTitle:title] autorelease];
 }
 
-- (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
+- (id)initWithTitle:(NSString *)title {
+	if (self = [super init]) {
 		self.backgroundColor = [UIColor clearColor];
+		self.alpha = 0.8;
 		
-        // Initialization code
-		CGRect bubbleFrame = CGRectMake(0, 0, frame.size.width, frame.size.height);
+		// Use the size of the text to determine the width of this info bubble
+		UIFont *font = [UIFont boldSystemFontOfSize:14];
+		CGSize labelSize = [title sizeWithFont:font constrainedToSize:CGSizeMake(150, 0) lineBreakMode:UILineBreakModeTailTruncation];
+
+		self.frame = CGRectMake(0, 0, labelSize.width + 35, 79);
+		
+		// make the bubble background
+		CGRect bubbleFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
 		self.bubble = [[[BubbleBackgroundView alloc] initWithFrame:bubbleFrame] autorelease];
 		[self addSubview:self.bubble];
-    }
-    return self;
+		
+		// make the label
+		self.label = [[UILabel alloc] initWithFrame:CGRectMake(30, 7, labelSize.width, labelSize.height)];
+		self.label.backgroundColor = [UIColor clearColor];
+		self.label.text = title;
+		self.label.textColor = [UIColor whiteColor];
+		self.label.shadowColor = [UIColor blackColor];
+		self.label.shadowOffset = CGSizeMake(0, -1);
+		self.label.lineBreakMode = UILineBreakModeTailTruncation;
+		self.label.font = font;		
+		[self addSubview:self.label];
+	}
+	return self;
 }
-
 
 - (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-
-- (void)layoutSubviews {
-	CGRect bubbleFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-	self.bubble.frame = bubbleFrame;
+    // Drawing code ... nothing
 }
 
 - (void)dealloc {
+	[_label release];
+	[_bubble release];
     [super dealloc];
 }
 
@@ -61,6 +73,8 @@
 }
 
 - (void)drawRect:(CGRect)rect {
+	NSLog(@"bubble frame: %@", NSStringFromCGRect(self.frame));
+	NSLog(@"bubble bounds: %@", NSStringFromCGRect(self.bounds));
 	CGPoint origin = self.bounds.origin;
 	CGSize size = self.bounds.size;
 	
@@ -68,7 +82,7 @@
 //	CGRect bounds = [self bounds];
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	UIColor *color;
-	CGFloat alignStroke;
+	//CGFloat alignStroke;
 	CGFloat stroke;
 	CGMutablePathRef path;
 	CGPathRef strokePath;
@@ -102,7 +116,7 @@
 	else
 		stroke = round(stroke);
 	stroke *= 2.0;
-	alignStroke = fmod(0.5 * stroke, 1.0);
+	//alignStroke = fmod(0.5 * stroke, 1.0);
 	path = CGPathCreateMutable();
 	point = CGPointMake(origin.x, origin.y+4);
 	CGPathMoveToPoint(path, NULL, point.x, point.y);
@@ -192,7 +206,7 @@
 	
 	// glass
 	
-	alignStroke = 0.0;
+	//alignStroke = 0.0;
 	path = CGPathCreateMutable();
 	point = CGPointMake(origin.x, origin.y + 4);
 	CGPathMoveToPoint(path, NULL, point.x, point.y);
@@ -237,7 +251,7 @@
 	
 	// emboss top
 	
-	alignStroke = 0.0;
+	//alignStroke = 0.0;
 	path = CGPathCreateMutable();
 	point = CGPointMake(origin.x, origin.y + 4);
 	CGPathMoveToPoint(path, NULL, point.x, point.y);
@@ -282,7 +296,7 @@
 	
 	// emboss bottom
 	
-	alignStroke = 0.0;
+	//alignStroke = 0.0;
 	path = CGPathCreateMutable();
 	point = CGPointMake(origin.x, origin.y + 26);
 	CGPathMoveToPoint(path, NULL, point.x, point.y);
