@@ -11,7 +11,8 @@
 
 @implementation InfoBubble
 
-@synthesize bubble=_bubble, label=_label;
+@synthesize bubble=_bubble, label=_label, expandedBounds=_expandedBounds,
+			contractedBounds=_contractedBounds;
 
 + (id)infoBubbleWithTitle:(NSString *)title {
 	return [[[InfoBubble alloc] initWithTitle:title] autorelease];
@@ -21,20 +22,32 @@
 	if (self = [super init]) {
 		self.backgroundColor = [UIColor clearColor];
 		self.alpha = 0.8;
+		self.contentMode = UIViewContentModeRedraw;
+		//self.autoresizesSubviews = YES;
 		
 		// Use the size of the text to determine the width of this info bubble
 		UIFont *font = [UIFont boldSystemFontOfSize:14];
 		CGSize labelSize = [title sizeWithFont:font constrainedToSize:CGSizeMake(150, 0) lineBreakMode:UILineBreakModeTailTruncation];
 
-		self.frame = CGRectMake(0, 0, labelSize.width + 35, 79);
+		self.contractedBounds = CGRectMake(0, 0, labelSize.width + 35, 79);
+		self.expandedBounds = CGRectMake(-25, 0, labelSize.width + 85, 79);
+		
+		self.bounds = self.contractedBounds;
+		expanded = NO;
 		
 		// make the bubble background
-		CGRect bubbleFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+		CGRect bubbleFrame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.frame.size.width, self.frame.size.height);
 		self.bubble = [[[BubbleBackgroundView alloc] initWithFrame:bubbleFrame] autorelease];
 		[self addSubview:self.bubble];
 		
 		// make the label
-		self.label = [[UILabel alloc] initWithFrame:CGRectMake(30, 7, labelSize.width, labelSize.height)];
+		//CGRect labelFrame = CGRectMake(self.bounds.origin.x + self.bounds.size.width - labelSize.width - 5, self.bounds.origin.y+7, labelSize.width, labelSize.height);
+		CGRect labelFrame = CGRectMake(30, 7, labelSize.width, labelSize.height);
+		self.label = [[UILabel alloc] initWithFrame:labelFrame];
+//		CGPoint center = self.label.center;
+//		center.x = (self.bounds.size.width / 2.0) + 12.5; // 10 (for 
+//		self.label.center = center;
+
 		self.label.backgroundColor = [UIColor clearColor];
 		self.label.text = title;
 		self.label.textColor = [UIColor whiteColor];
@@ -49,6 +62,51 @@
 
 - (void)drawRect:(CGRect)rect {
     // Drawing code ... nothing
+}
+
+- (void)expand {
+	[UIView beginAnimations:@"expand" context:nil];
+	[UIView setAnimationDuration:0.3];
+	
+	self.bounds = self.expandedBounds;
+	self.bubble.frame = self.expandedBounds;
+	expanded = YES;
+	[UIView commitAnimations];
+
+}
+
+- (void)contract {
+	[UIView beginAnimations:@"contract" context:nil];
+	[UIView setAnimationDuration:0.3];
+
+	self.bounds = self.contractedBounds;
+	self.bubble.frame = self.contractedBounds;
+	expanded = NO;
+	[UIView commitAnimations];
+}
+
+- (void)layoutSubviews {
+//	CGPoint center = self.label.center;
+//	center.x = (self.bounds.size.width / 2.0) + 12.5; // 10 (for 
+//	self.label.center = center;
+	
+//	CGRect bubbleFrame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, self.frame.size.width, self.frame.size.height);
+//	self.bubble.frame = bubbleFrame;
+//	
+//	CGRect labelFrame = CGRectMake(self.bounds.origin.x + self.bounds.size.width - self.label.frame.size.width - 5, self.bounds.origin.y+7, self.label.frame.size.width, self.label.frame.size.height);
+//	self.label.frame = labelFrame;
+//	[super layoutSubviews];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	UITouch *touch = [touches anyObject];
+	NSLog(@"touch ended: %@", touch);
+	if (expanded) {
+		[self contract];
+	} else {
+		[self expand];
+	}
+
 }
 
 - (void)dealloc {
@@ -67,9 +125,17 @@
 - (id) initWithFrame:(CGRect)frame {
 	if (self = [super initWithFrame:frame]) {
 		self.backgroundColor = [UIColor clearColor];
-		NSLog(@"bubble frame: %@", NSStringFromCGRect(frame));
+		self.contentMode = UIViewContentModeRedraw;
+//		self.contentStretch = CGRectMake(0.1, 0, 0.8, 0.5);
+//		self.contentStretch = CGRectMake(0.5, 0.5, 0.0, 0.0);
+//		self.contentStretch = CGRectMake(0, 0, 0.25, 0.25);
 	}
 	return self;
+}
+
+- (void)setFrame:(CGRect)frame {
+	NSLog(@"bubble setFrame: %@",NSStringFromCGRect(frame));
+	[super setFrame:frame];
 }
 
 - (void)drawRect:(CGRect)rect {
