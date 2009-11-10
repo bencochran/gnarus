@@ -23,6 +23,7 @@
 		self.backgroundColor = [UIColor clearColor];
 		self.alpha = 0.8;
 		self.contentMode = UIViewContentModeRedraw;
+		self.clipsToBounds = NO;
 		//self.autoresizesSubviews = YES;
 		
 		// Use the size of the text to determine the width of this info bubble
@@ -129,6 +130,7 @@
 //		self.contentStretch = CGRectMake(0.1, 0, 0.8, 0.5);
 //		self.contentStretch = CGRectMake(0.5, 0.5, 0.0, 0.0);
 //		self.contentStretch = CGRectMake(0, 0, 0.25, 0.25);
+		self.clipsToBounds = NO;
 	}
 	return self;
 }
