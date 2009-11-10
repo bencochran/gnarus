@@ -352,6 +352,7 @@
 				GCC_PREFIX_HEADER = gnarus_Prefix.pch;
 				INFOPLIST_FILE = "gnarus-Info.plist";
 				PRODUCT_NAME = gnarus;
+				SDKROOT = iphoneos3.1;
 			};
 			name = Debug;
 		};
