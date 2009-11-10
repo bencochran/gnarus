@@ -15,6 +15,8 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		B81A805F10A1171900FDDD60 /* InfoBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A805E10A1171900FDDD60 /* InfoBubble.m */; };
 		B833706210A150650036C038 /* InfoBubbleController.m in Sources */ = {isa = PBXBuildFile; fileRef = B833706110A150650036C038 /* InfoBubbleController.m */; };
+		B88092E810A9E40F0061E490 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B88092E710A9E40F0061E490 /* QuartzCore.framework */; };
+		B88092EE10A9E4220061E490 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B88092ED10A9E4220061E490 /* CoreLocation.framework */; };
 		B896C16E109FFDDC00259858 /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B896C16D109FFDDC00259858 /* LiveViewController.m */; };
 		B896C1C910A0038800259858 /* libLayerManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8BC14BD109EBE25000701DF /* libLayerManager.a */; };
 		B896C1EB10A003EE00259858 /* libGNToggleBar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B880D1A4109779CC005601EF /* libGNToggleBar.a */; };
@@ -90,6 +92,8 @@
 		B81A805E10A1171900FDDD60 /* InfoBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoBubble.m; sourceTree = "<group>"; };
 		B833706010A150650036C038 /* InfoBubbleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoBubbleController.h; sourceTree = "<group>"; };
 		B833706110A150650036C038 /* InfoBubbleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoBubbleController.m; sourceTree = "<group>"; };
+		B88092E710A9E40F0061E490 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B88092ED10A9E4220061E490 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B880D19C109779CC005601EF /* GNToggleBar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GNToggleBar.xcodeproj; path = external/GNToggleBar/GNToggleBar.xcodeproj; sourceTree = "<group>"; };
 		B880D3271097A719005601EF /* ARKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ARKit.xcodeproj; path = external/arkit/ARKit.xcodeproj; sourceTree = "<group>"; };
 		B896C16C109FFDDC00259858 /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
@@ -110,6 +114,8 @@
 				B896C1C910A0038800259858 /* libLayerManager.a in Frameworks */,
 				B896C1EB10A003EE00259858 /* libGNToggleBar.a in Frameworks */,
 				B896C1EC10A003F100259858 /* libARKit.a in Frameworks */,
+				B88092E810A9E40F0061E490 /* QuartzCore.framework in Frameworks */,
+				B88092EE10A9E4220061E490 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,6 +186,8 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+				B88092E710A9E40F0061E490 /* QuartzCore.framework */,
+				B88092ED10A9E4220061E490 /* CoreLocation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

@@ -8,6 +8,7 @@
 
 #import "LiveViewController.h"
 #import <GnarusToggleBar/GnarusToggleBar.h>
+#import <ARKit/ARKit.h>
 #import "InfoBubbleController.h"
 
 @implementation LiveViewController
@@ -36,7 +37,26 @@
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {	
+- (void)viewDidLoad {
+#if !TARGET_IPHONE_SIMULATOR
+
+	ARGeoViewController *arViewController = [[ARGeoViewController alloc] init];	
+	arViewController.delegate = self;
+	arViewController.debugMode = YES;
+	
+	CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:37.41711 longitude:-122.02528];
+	arViewController.centerLocation = newCenter;
+	[newCenter release];
+	
+	[arViewController startListening];
+	[self.view addSubview:arViewController.view];
+	//[arViewController release];
+	
+	NSLog(@"Running on device");
+
+#else
+
+	
 	// Add image
 	UIImageView *imageView = [[[UIImageView alloc] initWithFrame:self.view.frame] autorelease];
 	imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -44,6 +64,8 @@
 	imageView.image = [UIImage imageNamed:@"bg.jpg"];
 	[self.view addSubview:imageView];
 	
+	NSLog(@"Running in simulator");
+#endif
 	// Add an info bubble
 	InfoBubbleController *infoBubbleController = [[[InfoBubbleController alloc] init] autorelease];
 	infoBubbleController.title = @"Memorial Hall";
