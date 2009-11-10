@@ -13,6 +13,8 @@
 
 @implementation LiveViewController
 
+@synthesize arViewController=_arViewController;
+
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -40,22 +42,63 @@
 - (void)viewDidLoad {
 #if !TARGET_IPHONE_SIMULATOR
 
-	ARGeoViewController *arViewController = [[ARGeoViewController alloc] init];	
-	arViewController.delegate = self;
-	arViewController.debugMode = YES;
+	self.arViewController = [[ARGeoViewController alloc] init];	
+	self.arViewController.delegate = self;
+	self.arViewController.wantsFullScreenLayout = NO;
 	
-	CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:37.41711 longitude:-122.02528];
-	arViewController.centerLocation = newCenter;
+	NSMutableArray *tempLocationArray = [[NSMutableArray alloc] initWithCapacity:10];
+	CLLocation *tempLocation;
+	ARGeoCoordinate *tempCoordinate;
+	
+	NSString *errorDesc = nil;
+	NSPropertyListFormat format;
+	NSString *plistPath;
+	NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+	plistPath = [rootPath stringByAppendingFormat:@"Locations.plist"];
+	if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
+		plistPath = [[NSBundle mainBundle] pathForResource:@"Locations" ofType:@"plist"];
+	}
+	NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+	NSArray *temp = (NSArray *)[NSPropertyListSerialization propertyListFromData:plistXML mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc];
+	if (!temp) {
+		NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
+	}
+	
+	NSNumber *lat;
+	NSNumber *lon;
+	
+	NSDictionary *locationDict;
+	for (locationDict in temp) {
+		NSLog(@"Lat: %@, Lon %@, %@", [locationDict objectForKey:@"latitude"], [locationDict objectForKey:@"longitude"], [locationDict objectForKey:@"name"]);
+		
+		lat = [locationDict objectForKey:@"latitude"];
+		lon = [locationDict objectForKey:@"longitude"];
+		
+		tempLocation = [[CLLocation alloc] initWithLatitude:[lat doubleValue] longitude:[lon doubleValue]];		
+		
+		tempCoordinate = [ARGeoCoordinate coordinateWithLocation:tempLocation];
+		tempCoordinate.title = [locationDict objectForKey:@"name"];
+		
+		[tempLocationArray addObject:tempCoordinate];
+		[tempLocation release];
+	}	
+	
+	[self.arViewController addCoordinates:tempLocationArray];
+	[tempLocationArray release];
+	
+	
+	CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:44.455464206683956 longitude:-93.15729260444641];
+	self.arViewController.centerLocation = newCenter;
 	[newCenter release];
 	
-	[arViewController startListening];
-	[self.view addSubview:arViewController.view];
+	[self.arViewController startListening];
+	[self.view addSubview:self.arViewController.view];
 	//[arViewController release];
 	
 	NSLog(@"Running on device");
 
 #else
-
+	self.arViewController = nil;
 	
 	// Add image
 	UIImageView *imageView = [[[UIImageView alloc] initWithFrame:self.view.frame] autorelease];
@@ -82,11 +125,17 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+	[self.arViewController viewWillAppear:NO];
 	[self.navigationController setNavigationBarHidden:YES animated:animated];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:animated];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	[self.arViewController viewDidAppear:NO];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
+	[self.arViewController viewWillDisappear:NO];
 	[self.navigationController setNavigationBarHidden:NO animated:animated];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
 }
@@ -119,8 +168,16 @@
 }
 
 - (void)viewDidUnload {
+	[self.arViewController viewDidUnload];
 	// Release any retained subviews of the main view.
 	// e.g. self.myOutlet = nil;
+}
+
+- (UIView *)viewForCoordinate:(ARCoordinate *)coordinate {
+	InfoBubbleController *infoBubbleController = [[[InfoBubbleController alloc] init] autorelease];
+	infoBubbleController.title = coordinate.title;
+	//infoBubbleController.view.center = self.view.center;
+	return infoBubbleController.view;	
 }
 
 

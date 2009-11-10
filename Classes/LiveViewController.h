@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ARKit/ARKit.h>
 
 
-@interface LiveViewController : UIViewController {
-
+@interface LiveViewController : UIViewController <ARViewDelegate> {
+	ARGeoViewController *_arViewController;
 }
+
+@property (nonatomic, retain) ARGeoViewController *arViewController;
+
+- (UIView *)viewForCoordinate:(ARCoordinate *)coordinate;
 
 @end
