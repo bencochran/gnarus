@@ -10,11 +10,15 @@
 #import <ARKit/ARKit.h>
 
 
-@interface LiveViewController : UIViewController <ARViewDelegate> {
+@interface LiveViewController : UIViewController <ARViewDelegate, CLLocationManagerDelegate> {
 	ARGeoViewController *_arViewController;
+	
+	CLLocationManager *_locationManager;
 }
 
 @property (nonatomic, retain) ARGeoViewController *arViewController;
+@property (nonatomic, retain) CLLocationManager *locationManager;
+
 
 - (UIView *)viewForCoordinate:(ARCoordinate *)coordinate;
 

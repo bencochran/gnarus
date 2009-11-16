@@ -13,7 +13,7 @@
 
 @implementation LiveViewController
 
-@synthesize arViewController=_arViewController;
+@synthesize arViewController=_arViewController, locationManager=_locationManager;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -27,7 +27,7 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [super initWithCoder:aDecoder]) {
-		self.wantsFullScreenLayout = YES;
+		self.wantsFullScreenLayout = NO;
 	}
 	return self;
 }
@@ -44,7 +44,7 @@
 
 	self.arViewController = [[ARGeoViewController alloc] init];	
 	self.arViewController.delegate = self;
-	self.arViewController.wantsFullScreenLayout = NO;
+	//self.arViewController.wantsFullScreenLayout = NO;
 	
 	NSMutableArray *tempLocationArray = [[NSMutableArray alloc] initWithCapacity:10];
 	CLLocation *tempLocation;
@@ -87,9 +87,9 @@
 	[tempLocationArray release];
 	
 	
-	CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:44.455464206683956 longitude:-93.15729260444641];
-	self.arViewController.centerLocation = newCenter;
-	[newCenter release];
+//	CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:44.455464206683956 longitude:-93.15729260444641];
+//	self.arViewController.centerLocation = newCenter;
+//	[newCenter release];
 	
 	[self.arViewController startListening];
 	[self.view addSubview:self.arViewController.view];
@@ -107,14 +107,14 @@
 	imageView.image = [UIImage imageNamed:@"bg.jpg"];
 	[self.view addSubview:imageView];
 	
-	NSLog(@"Running in simulator");
-#endif
 	// Add an info bubble
 	InfoBubbleController *infoBubbleController = [[[InfoBubbleController alloc] init] autorelease];
 	infoBubbleController.title = @"Memorial Hall";
 	infoBubbleController.view.center = self.view.center;
-	[self.view addSubview:infoBubbleController.view];
+	[self.view addSubview:infoBubbleController.view];	
 	
+	NSLog(@"Running in simulator");
+#endif	
 	// Add toggle bar
 	GNToggleBarController *toggleBarController = [[[GNToggleBarController alloc] init] autorelease];
 	[self.view addSubview:toggleBarController.view];
@@ -142,7 +142,17 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[self.arViewController viewWillAppear:NO];
 	[self.navigationController setNavigationBarHidden:YES animated:animated];
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:animated];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:animated];
+	
+    self.locationManager = [[[CLLocationManager alloc] init] autorelease];
+    self.locationManager.delegate = self;
+	// Set our desired accuracy to 
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    // When "tracking" the user, the distance filter can be used to control the frequency with which location measurements
+    // are delivered by the manager. If the change in distance is less than the filter, a location will not be delivered.
+    //locationManager.distanceFilter = [[setupInfo objectForKey:kSetupInfoKeyDistanceFilter] doubleValue];
+    // Once configured, the location manager must be "started".
+    [self.locationManager startUpdatingLocation];	
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -188,17 +198,42 @@
 	// e.g. self.myOutlet = nil;
 }
 
+- (void)dealloc {
+	[_locationManager release];
+	[_arViewController release];
+	
+    [super dealloc];
+}
+
+#pragma mark Location Manager
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    // Test that the horizontal accuracy does not indicate an invalid measurement
+    if (newLocation.horizontalAccuracy < 0) return;
+	
+    // Test the age of the location measurement to determine if the measurement is cached
+    NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+    if (locationAge > 5.0) return;
+
+	// Update the ARViewController's center
+	self.arViewController.centerLocation = newLocation;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    // The location "unknown" error simply means the manager is currently unable to get the location.
+    if ([error code] != kCLErrorLocationUnknown) {
+		/// Give an alert about this.
+        //[self stopUpdatingLocation:NSLocalizedString(@"Error", @"Error")];
+    }
+}
+
+#pragma mark ARKit Delegate
+
 - (UIView *)viewForCoordinate:(ARCoordinate *)coordinate {
 	InfoBubbleController *infoBubbleController = [[[InfoBubbleController alloc] init] autorelease];
 	infoBubbleController.title = coordinate.title;
 	//infoBubbleController.view.center = self.view.center;
 	return infoBubbleController.view;	
 }
-
-
-- (void)dealloc {
-    [super dealloc];
-}
-
 
 @end
