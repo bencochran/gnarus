@@ -15,6 +15,10 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		B81A805F10A1171900FDDD60 /* InfoBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A805E10A1171900FDDD60 /* InfoBubble.m */; };
 		B833706210A150650036C038 /* InfoBubbleController.m in Sources */ = {isa = PBXBuildFile; fileRef = B833706110A150650036C038 /* InfoBubbleController.m */; };
+		B844939D10B1B57600A0E348 /* gas.png in Resources */ = {isa = PBXBuildFile; fileRef = B844939C10B1B57600A0E348 /* gas.png */; };
+		B844939F10B1B58300A0E348 /* trees.png in Resources */ = {isa = PBXBuildFile; fileRef = B844939E10B1B58300A0E348 /* trees.png */; };
+		B84493A310B1B59C00A0E348 /* sports.png in Resources */ = {isa = PBXBuildFile; fileRef = B84493A210B1B59C00A0E348 /* sports.png */; };
+		B84493F210B1B9FA00A0E348 /* academic.png in Resources */ = {isa = PBXBuildFile; fileRef = B84493F110B1B9FA00A0E348 /* academic.png */; };
 		B867CF3510A9F380001A24A7 /* Locations.plist in Resources */ = {isa = PBXBuildFile; fileRef = B867CF3410A9F380001A24A7 /* Locations.plist */; };
 		B88092E810A9E40F0061E490 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B88092E710A9E40F0061E490 /* QuartzCore.framework */; };
 		B88092EE10A9E4220061E490 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B88092ED10A9E4220061E490 /* CoreLocation.framework */; };
@@ -94,6 +98,10 @@
 		B81A805E10A1171900FDDD60 /* InfoBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoBubble.m; sourceTree = "<group>"; };
 		B833706010A150650036C038 /* InfoBubbleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoBubbleController.h; sourceTree = "<group>"; };
 		B833706110A150650036C038 /* InfoBubbleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoBubbleController.m; sourceTree = "<group>"; };
+		B844939C10B1B57600A0E348 /* gas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gas.png; sourceTree = "<group>"; };
+		B844939E10B1B58300A0E348 /* trees.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trees.png; sourceTree = "<group>"; };
+		B84493A210B1B59C00A0E348 /* sports.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sports.png; sourceTree = "<group>"; };
+		B84493F110B1B9FA00A0E348 /* academic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = academic.png; sourceTree = "<group>"; };
 		B867CF3410A9F380001A24A7 /* Locations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Locations.plist; sourceTree = "<group>"; };
 		B88092E710A9E40F0061E490 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B88092ED10A9E4220061E490 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -173,6 +181,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B84493A210B1B59C00A0E348 /* sports.png */,
+				B84493F110B1B9FA00A0E348 /* academic.png */,
+				B844939E10B1B58300A0E348 /* trees.png */,
+				B844939C10B1B57600A0E348 /* gas.png */,
 				B867CF3410A9F380001A24A7 /* Locations.plist */,
 				B8A59CE310AAA7B000EA6120 /* food.png */,
 				B8B395B710A4E23500ACF114 /* Icon.png */,
@@ -318,6 +330,10 @@
 				B8B395B810A4E23500ACF114 /* Icon.png in Resources */,
 				B867CF3510A9F380001A24A7 /* Locations.plist in Resources */,
 				B8A59CE410AAA7B000EA6120 /* food.png in Resources */,
+				B844939D10B1B57600A0E348 /* gas.png in Resources */,
+				B844939F10B1B58300A0E348 /* trees.png in Resources */,
+				B84493A310B1B59C00A0E348 /* sports.png in Resources */,
+				B84493F210B1B9FA00A0E348 /* academic.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

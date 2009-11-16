@@ -121,6 +121,21 @@
 	CGRect barFrame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + self.view.frame.size.height - 58, self.view.frame.size.width, 58);
 	toggleBarController.view.frame = barFrame;
 
+	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Sports" image:[UIImage imageNamed:@"sports.png"]] autorelease];
+	[toggleBarController addQuickToggleItem:item];
+	
+	item = [[[GNToggleItem alloc] initWithTitle:@"Trees" image:[UIImage imageNamed:@"trees.png"]] autorelease];
+	[toggleBarController addQuickToggleItem:item];
+	
+	item = [[[GNToggleItem alloc] initWithTitle:@"Food" image:[UIImage imageNamed:@"food.png"]] autorelease];
+	[toggleBarController addQuickToggleItem:item];
+	
+	item = [[[GNToggleItem alloc] initWithTitle:@"Gas" image:[UIImage imageNamed:@"gas.png"]] autorelease];
+	[toggleBarController addQuickToggleItem:item];
+	
+	item = [[[GNToggleItem alloc] initWithTitle:@"Academic" image:[UIImage imageNamed:@"academic.png"]] autorelease];
+	[toggleBarController addQuickToggleItem:item];
+	
     [super viewDidLoad];
 }
 
