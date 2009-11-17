@@ -40,9 +40,19 @@
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
+	self.locationManager = [[[CLLocationManager alloc] init] autorelease];
+    self.locationManager.delegate = self;
+	// Set our desired accuracy to 
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+	//self.locationManager.headingFilter = kCLHeadingFilterNone;
+    // When "tracking" the user, the distance filter can be used to control the frequency with which location measurements
+    // are delivered by the manager. If the change in distance is less than the filter, a location will not be delivered.
+    //locationManager.distanceFilter = [[setupInfo objectForKey:kSetupInfoKeyDistanceFilter] doubleValue];
+	
 #if !TARGET_IPHONE_SIMULATOR
 
-	self.arViewController = [[ARGeoViewController alloc] init];	
+	NSLog(@"location manager: %@", self.locationManager);
+	self.arViewController = [[ARGeoViewController alloc] initWithLocationManager:self.locationManager];	
 	self.arViewController.delegate = self;
 	//self.arViewController.wantsFullScreenLayout = NO;
 	
@@ -101,7 +111,6 @@
 //	self.arViewController.centerLocation = newCenter;
 //	[newCenter release];
 	
-	[self.arViewController startListening];
 	[self.view addSubview:self.arViewController.view];
 	//[arViewController release];
 	
@@ -154,15 +163,9 @@
 	[self.navigationController setNavigationBarHidden:YES animated:animated];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:animated];
 	
-    self.locationManager = [[[CLLocationManager alloc] init] autorelease];
-    self.locationManager.delegate = self;
-	// Set our desired accuracy to 
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    // When "tracking" the user, the distance filter can be used to control the frequency with which location measurements
-    // are delivered by the manager. If the change in distance is less than the filter, a location will not be delivered.
-    //locationManager.distanceFilter = [[setupInfo objectForKey:kSetupInfoKeyDistanceFilter] doubleValue];
     // Once configured, the location manager must be "started".
-    [self.locationManager startUpdatingLocation];	
+    [self.locationManager startUpdatingLocation];
+	[self.arViewController startListening];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -170,6 +173,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+	// Stop locationManager from listening
 	[self.arViewController viewWillDisappear:NO];
 	[self.navigationController setNavigationBarHidden:NO animated:animated];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
