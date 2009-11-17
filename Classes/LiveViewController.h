@@ -9,17 +9,29 @@
 #import <UIKit/UIKit.h>
 #import <ARKit/ARKit.h>
 
+@class LiveViewGlassController;
 
 @interface LiveViewController : UIViewController <ARViewDelegate, CLLocationManagerDelegate> {
 	ARGeoViewController *_arViewController;
 	
 	CLLocationManager *_locationManager;
+	
+	LiveViewGlassController *_glassController;
 }
 
 @property (nonatomic, retain) ARGeoViewController *arViewController;
 @property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, retain) LiveViewGlassController *glassController;
 
 
 - (UIView *)viewForCoordinate:(ARCoordinate *)coordinate;
+
+@end
+
+////////////////////////////////////////////////////////////
+
+@interface LiveViewGlassController : UIViewController {
+	
+}
 
 @end

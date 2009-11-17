@@ -13,7 +13,8 @@
 
 @implementation LiveViewController
 
-@synthesize arViewController=_arViewController, locationManager=_locationManager;
+@synthesize arViewController=_arViewController, locationManager=_locationManager,
+			glassController=_glassController;
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -35,7 +36,7 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	self.view = [[[UIView alloc] init] autorelease];
-	self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	//self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -112,6 +113,7 @@
 //	[newCenter release];
 	
 	[self.view addSubview:self.arViewController.view];
+	//self.view = self.arViewController.view;
 	//[arViewController release];
 	
 	NSLog(@"Running on device");
@@ -133,27 +135,10 @@
 	[self.view addSubview:infoBubbleController.view];	
 	
 	NSLog(@"Running in simulator");
-#endif	
-	// Add toggle bar
-	GNToggleBarController *toggleBarController = [[[GNToggleBarController alloc] init] autorelease];
-	[self.view addSubview:toggleBarController.view];
-	CGRect barFrame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + self.view.frame.size.height - 58, self.view.frame.size.width, 58);
-	toggleBarController.view.frame = barFrame;
-
-	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Sports" image:[UIImage imageNamed:@"sports.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
+#endif
 	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Trees" image:[UIImage imageNamed:@"trees.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
-	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Food" image:[UIImage imageNamed:@"food.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
-	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Gas" image:[UIImage imageNamed:@"gas.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
-	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Academic" image:[UIImage imageNamed:@"academic.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
+	self.glassController = [[[LiveViewGlassController alloc] init] autorelease];
+	[self.view addSubview:self.glassController.view];
 	
     [super viewDidLoad];
 }
@@ -193,10 +178,8 @@
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
-// Override to allow orientations other than the default portrait orientation.
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+- (BOOL)shouldAutorotateViewsToInterfaceOrientation:(UIInterfaceOrientation)possibleOrientation {
+    return (possibleOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -257,5 +240,50 @@
 	//infoBubbleController.view.center = self.view.center;
 	return infoBubbleController.view;	
 }
+
+@end
+
+////////////////////////////////////////////////////////////
+
+@implementation LiveViewGlassController
+
+- (void)loadView {
+	self.view = [[[UIView alloc] init] autorelease];
+	self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+}
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+	NSLog(@"glass view did load");
+	// Add toggle bar
+	GNToggleBarController *toggleBarController = [[[GNToggleBarController alloc] init] autorelease];
+	[self.view addSubview:toggleBarController.view];
+	CGRect barFrame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + self.view.frame.size.height - 58, self.view.frame.size.width, 58);
+	toggleBarController.view.frame = barFrame;
+	
+	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Sports" image:[UIImage imageNamed:@"sports.png"]] autorelease];
+	[toggleBarController addQuickToggleItem:item];
+	
+	item = [[[GNToggleItem alloc] initWithTitle:@"Trees" image:[UIImage imageNamed:@"trees.png"]] autorelease];
+	[toggleBarController addQuickToggleItem:item];
+	
+	item = [[[GNToggleItem alloc] initWithTitle:@"Food" image:[UIImage imageNamed:@"food.png"]] autorelease];
+	[toggleBarController addQuickToggleItem:item];
+	
+	item = [[[GNToggleItem alloc] initWithTitle:@"Gas" image:[UIImage imageNamed:@"gas.png"]] autorelease];
+	[toggleBarController addQuickToggleItem:item];
+	
+	item = [[[GNToggleItem alloc] initWithTitle:@"Academic" image:[UIImage imageNamed:@"academic.png"]] autorelease];
+	[toggleBarController addQuickToggleItem:item];
+	
+    [super viewDidLoad];
+}
+
+// Override to allow orientations other than the default portrait orientation.
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
 
 @end
