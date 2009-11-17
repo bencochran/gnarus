@@ -7,6 +7,8 @@
 		<integer>0</integer>
 		<key>latitude</key>
 		<integer>-90</integer>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>South Pole</string>
 	</dict>
@@ -15,6 +17,8 @@
 		<integer>0</integer>
 		<key>latitude</key>
 		<integer>90</integer>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>North Pole</string>
 	</dict>
@@ -23,6 +27,8 @@
 		<real>-93.15367698669434</real>
 		<key>latitude</key>
 		<real>44.46247103015391</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>Center for Math &amp; Computing</string>
 	</dict>
@@ -31,6 +37,8 @@
 		<real>-93.15469086170197</real>
 		<key>latitude</key>
 		<real>44.46019294756044</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>Chapel</string>
 	</dict>
@@ -39,6 +47,8 @@
 		<real>-93.1561017036438</real>
 		<key>latitude</key>
 		<real>44.46139900235912</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>Sayles</string>
 	</dict>
@@ -47,6 +57,8 @@
 		<real>-93.15734624862671</real>
 		<key>latitude</key>
 		<real>44.45551015580615</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>Home</string>
 	</dict>
@@ -55,6 +67,8 @@
 		<real>-93.1485915184021</real>
 		<key>latitude</key>
 		<real>44.46018911877539</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>Bell Field</string>
 	</dict>
@@ -63,6 +77,8 @@
 		<real>-105.782067</real>
 		<key>latitude</key>
 		<real>39.550051</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>Denver</string>
 	</dict>
@@ -71,6 +87,8 @@
 		<real>-122.670399</real>
 		<key>latitude</key>
 		<real>45.523875</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>Portland</string>
 	</dict>
@@ -79,6 +97,8 @@
 		<real>-87.62433299999999</real>
 		<key>latitude</key>
 		<real>41.879535</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>Chicago</string>
 	</dict>
@@ -87,6 +107,8 @@
 		<real>-97.745209</real>
 		<key>latitude</key>
 		<real>30.268735</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>Austin</string>
 	</dict>
@@ -95,6 +117,8 @@
 		<real>-0.126236</real>
 		<key>latitude</key>
 		<real>51.500152</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>London</string>
 	</dict>
@@ -103,6 +127,8 @@
 		<real>2.350987</real>
 		<key>latitude</key>
 		<real>48.856667</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>Paris</string>
 	</dict>
@@ -111,6 +137,8 @@
 		<real>-122.347276</real>
 		<key>latitude</key>
 		<real>47.620973</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>Seattle</string>
 	</dict>
@@ -119,6 +147,8 @@
 		<real>78.96288</real>
 		<key>latitude</key>
 		<real>20.593684</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>India</string>
 	</dict>
@@ -127,6 +157,8 @@
 		<real>12.568116</real>
 		<key>latitude</key>
 		<real>55.676294</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>Copenhagen</string>
 	</dict>
@@ -135,6 +167,8 @@
 		<real>-155.665283</real>
 		<key>latitude</key>
 		<real>19.611544</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>Hawaii</string>
 	</dict>
@@ -143,6 +177,8 @@
 		<real>174.885971</real>
 		<key>latitude</key>
 		<real>-40.900557</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>New Zealand</string>
 	</dict>
@@ -151,6 +187,8 @@
 		<real>-73.986951</real>
 		<key>latitude</key>
 		<real>40.756054</real>
+		<key>altitude</key>
+		<integer>260</integer>
 		<key>name</key>
 		<string>New York City</string>
 	</dict>

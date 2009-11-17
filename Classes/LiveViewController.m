@@ -47,6 +47,7 @@
 	//self.arViewController.wantsFullScreenLayout = NO;
 	
 	NSMutableArray *tempLocationArray = [[NSMutableArray alloc] initWithCapacity:10];
+	CLLocationCoordinate2D tempCoord2D;
 	CLLocation *tempLocation;
 	ARGeoCoordinate *tempCoordinate;
 	
@@ -66,15 +67,24 @@
 	
 	NSNumber *lat;
 	NSNumber *lon;
+	NSNumber *altitude;
 	
 	NSDictionary *locationDict;
 	for (locationDict in temp) {
-		NSLog(@"Lat: %@, Lon %@, %@", [locationDict objectForKey:@"latitude"], [locationDict objectForKey:@"longitude"], [locationDict objectForKey:@"name"]);
+		NSLog(@"Lat: %@, Lon %@, Altitude %@, %@", [locationDict objectForKey:@"latitude"], [locationDict objectForKey:@"longitude"], [locationDict objectForKey:@"altitude"], [locationDict objectForKey:@"name"]);
 		
 		lat = [locationDict objectForKey:@"latitude"];
 		lon = [locationDict objectForKey:@"longitude"];
+		altitude = [locationDict objectForKey:@"altitude"];
 		
-		tempLocation = [[CLLocation alloc] initWithLatitude:[lat doubleValue] longitude:[lon doubleValue]];		
+		tempCoord2D.latitude = [lat doubleValue];
+		tempCoord2D.longitude = [lon doubleValue];
+		
+		tempLocation = [[CLLocation alloc] initWithCoordinate:tempCoord2D altitude:[altitude doubleValue] horizontalAccuracy:0.0 verticalAccuracy:0.0 timestamp:[NSDate date]];
+		
+//		tempLocation = [[CLLocation alloc] initWithLatitude:[lat doubleValue] longitude:[lon doubleValue]];		
+//		
+//		tempLocation = [[CLLocation alloc] initWithCoordinate:(CLLocationCoordinate2D)coordinate altitude:(CLLocationDistance)altitude horizontalAccuracy:(CLLocationAccuracy)hAccuracy verticalAccuracy:(CLLocationAccuracy)vAccuracy timestamp:(NSDate *)timestamp]
 		
 		tempCoordinate = [ARGeoCoordinate coordinateWithLocation:tempLocation];
 		tempCoordinate.title = [locationDict objectForKey:@"name"];
@@ -208,6 +218,10 @@
 #pragma mark Location Manager
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+	NSLog(@"location: %@", newLocation);
+	NSLog(@"altitude: %f", newLocation.altitude);
+	NSLog(@"verticalAccuracy: %f", newLocation.verticalAccuracy);
+
     // Test that the horizontal accuracy does not indicate an invalid measurement
     if (newLocation.horizontalAccuracy < 0) return;
 	
@@ -215,11 +229,15 @@
     NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
     if (locationAge > 5.0) return;
 
+	
+	NSLog(@"using");
 	// Update the ARViewController's center
 	self.arViewController.centerLocation = newLocation;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+	NSLog(@"error: %@", error);
+
     // The location "unknown" error simply means the manager is currently unable to get the location.
     if ([error code] != kCLErrorLocationUnknown) {
 		/// Give an alert about this.
