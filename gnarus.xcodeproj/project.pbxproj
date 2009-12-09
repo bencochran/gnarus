@@ -22,6 +22,7 @@
 		B867CF3510A9F380001A24A7 /* Locations.plist in Resources */ = {isa = PBXBuildFile; fileRef = B867CF3410A9F380001A24A7 /* Locations.plist */; };
 		B88092E810A9E40F0061E490 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B88092E710A9E40F0061E490 /* QuartzCore.framework */; };
 		B88092EE10A9E4220061E490 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B88092ED10A9E4220061E490 /* CoreLocation.framework */; };
+		B88D782110CF857E003A76A1 /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = B88D782010CF857E003A76A1 /* bird.png */; };
 		B896C16E109FFDDC00259858 /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B896C16D109FFDDC00259858 /* LiveViewController.m */; };
 		B896C1C910A0038800259858 /* libLayerManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8BC14BD109EBE25000701DF /* libLayerManager.a */; };
 		B896C1EB10A003EE00259858 /* libGNToggleBar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B880D1A4109779CC005601EF /* libGNToggleBar.a */; };
@@ -32,6 +33,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B81C4D3110CF4AFC00EA3205 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A215FFFC10B2546600774314;
+			remoteInfo = TesterApp;
+		};
 		B880D1A3109779CC005601EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B880D19C109779CC005601EF /* GNToggleBar.xcodeproj */;
@@ -107,6 +115,7 @@
 		B88092ED10A9E4220061E490 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B880D19C109779CC005601EF /* GNToggleBar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GNToggleBar.xcodeproj; path = external/GNToggleBar/GNToggleBar.xcodeproj; sourceTree = "<group>"; };
 		B880D3271097A719005601EF /* ARKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ARKit.xcodeproj; path = external/arkit/ARKit.xcodeproj; sourceTree = "<group>"; };
+		B88D782010CF857E003A76A1 /* bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bird.png; sourceTree = "<group>"; };
 		B896C16C109FFDDC00259858 /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
 		B896C16D109FFDDC00259858 /* LiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveViewController.m; sourceTree = "<group>"; };
 		B896C3C910A0186600259858 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
@@ -181,6 +190,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B88D782010CF857E003A76A1 /* bird.png */,
 				B84493A210B1B59C00A0E348 /* sports.png */,
 				B84493F110B1B9FA00A0E348 /* academic.png */,
 				B844939E10B1B58300A0E348 /* trees.png */,
@@ -231,6 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				B8BC14BD109EBE25000701DF /* libLayerManager.a */,
+				B81C4D3210CF4AFC00EA3205 /* TesterApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -290,6 +301,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		B81C4D3210CF4AFC00EA3205 /* TesterApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = TesterApp.app;
+			remoteRef = B81C4D3110CF4AFC00EA3205 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		B880D1A4109779CC005601EF /* libGNToggleBar.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -334,6 +352,7 @@
 				B84493A310B1B59C00A0E348 /* sports.png in Resources */,
 				B84493F210B1B9FA00A0E348 /* academic.png in Resources */,
 				B8FC80A510B1DCC800CA8F7C /* Icon.png in Resources */,
+				B88D782110CF857E003A76A1 /* bird.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

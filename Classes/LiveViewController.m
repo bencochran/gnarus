@@ -7,7 +7,6 @@
 //
 
 #import "LiveViewController.h"
-#import <GnarusToggleBar/GnarusToggleBar.h>
 #import <ARKit/ARKit.h>
 #import "InfoBubbleController.h"
 
@@ -247,6 +246,8 @@
 
 @implementation LiveViewGlassController
 
+@synthesize toggleBarController=_toggleBarController, itemsToLayers=_itemsToLayers;
+
 - (void)loadView {
 	self.view = [[[UIView alloc] init] autorelease];
 	self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -255,28 +256,50 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
 	NSLog(@"glass view did load");
+	self.itemsToLayers = [NSMutableDictionary dictionary];
+	
 	// Add toggle bar
-	GNToggleBarController *toggleBarController = [[[GNToggleBarController alloc] init] autorelease];
-	[self.view addSubview:toggleBarController.view];
+	self.toggleBarController = [[[GNToggleBarController alloc] init] autorelease];
+	self.toggleBarController.delegate = self;
+	
+	[self.view addSubview:self.toggleBarController.view];
 	CGRect barFrame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + self.view.frame.size.height - 58, self.view.frame.size.width, 58);
-	toggleBarController.view.frame = barFrame;
+	self.toggleBarController.view.frame = barFrame;
 	
-	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Sports" image:[UIImage imageNamed:@"sports.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
+//	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Sports" image:[UIImage imageNamed:@"sports.png"]] autorelease];
+//	GNLayer *layer = [[[CarletonBuildings alloc] init] autorelease];
+//	[self.toggleBarController addQuickToggleItem:item];
+//	[self.itemsToLayers setObject:layer forKey:item];
+//	
+//	item = [[[GNToggleItem alloc] initWithTitle:@"Trees" image:[UIImage imageNamed:@"trees.png"]] autorelease];
+//	[self.toggleBarController addQuickToggleItem:item];
+//	[self.itemsToLayers setObject:layer forKey:item];
+//	
+//	item = [[[GNToggleItem alloc] initWithTitle:@"Food" image:[UIImage imageNamed:@"food.png"]] autorelease];
+//	[self.toggleBarController addQuickToggleItem:item];
+//	[self.itemsToLayers setObject:layer forKey:item];
+//
+//	item = [[[GNToggleItem alloc] initWithTitle:@"Gas" image:[UIImage imageNamed:@"gas.png"]] autorelease];
+//	[self.toggleBarController addQuickToggleItem:item];
+//	[self.itemsToLayers setObject:layer forKey:item];
 	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Trees" image:[UIImage imageNamed:@"trees.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
+	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Academic" image:[UIImage imageNamed:@"academic.png"]] autorelease];
+	GNLayer *layer = [[[CarletonBuildings alloc] init] autorelease];
+	[self.toggleBarController addQuickToggleItem:item];
+	[self.itemsToLayers setObject:layer forKey:item];
+	[[GNLayerManager sharedManager] addLayer:layer active:NO];
 	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Food" image:[UIImage imageNamed:@"food.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
-	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Gas" image:[UIImage imageNamed:@"gas.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
-	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Academic" image:[UIImage imageNamed:@"academic.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
-	
+	item = [[[GNToggleItem alloc] initWithTitle:@"Tweets" image:[UIImage imageNamed:@"bird.png"]] autorelease];
+	layer = [[[TweetLayer alloc] init] autorelease];
+	[self.toggleBarController addQuickToggleItem:item];
+	[self.itemsToLayers setObject:layer forKey:item];
+	[[GNLayerManager sharedManager] addLayer:layer active:NO];
+
     [super viewDidLoad];
+}
+
+- (GNLayer *)layerForToggleItem:(GNToggleItem*)item {
+	return [self.itemsToLayers objectForKey:item];
 }
 
 // Override to allow orientations other than the default portrait orientation.
@@ -285,5 +308,36 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
+
+- (NSArray *) sortedLayersForLandmark:(GNLandmark *)landmark {
+	// Copy the main (ordered) array of layers from the toggle bar then
+	// filter it based on whether or not each ayer is in the landmark's
+	// active layer list
+	NSMutableArray* returnArray = [NSMutableArray array];
+	
+	NSArray* activeLayers = landmark.activeLayers;
+	
+	GNLayer* layer;
+	
+	for (GNToggleItem* item in [self.toggleBarController activeToggleItems]) {
+		layer = [self layerForToggleItem:item];
+		if ([activeLayers containsObject:layer]) {
+			[returnArray addObject:item];
+		}
+	}
+	
+	return returnArray;
+}
+
+#pragma mark Toggle Bar Delegate
+
+- (void)toggleBarController:(GNToggleBarController *)toggleBarController toggleItem:(GNToggleItem *)toggleItem changedToState:(BOOL)active {
+	GNLayer *layer = [self layerForToggleItem:toggleItem];
+	[[GNLayerManager sharedManager] setLayer:layer active:active];
+	
+	
+	NSLog(@"toggleItem %@ became %@", toggleItem, active ? @"active" : @"inactive");
+	NSLog(@"GNLayerManager %@", [GNLayerManager sharedManager]);
+}
 
 @end

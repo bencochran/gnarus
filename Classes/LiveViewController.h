@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <ARKit/ARKit.h>
+#import <GnarusToggleBar/GnarusToggleBar.h>
+#import <LayerManager/LayerManager.h>
 
 @class LiveViewGlassController;
 
@@ -30,8 +32,14 @@
 
 ////////////////////////////////////////////////////////////
 
-@interface LiveViewGlassController : UIViewController {
-	
+@interface LiveViewGlassController : UIViewController <GNToggleBarDelegate> {
+	GNToggleBarController *_toggleBarController;
+	NSMutableDictionary *_itemsToLayers;
 }
+
+@property (nonatomic, retain) GNToggleBarController *toggleBarController;
+@property (nonatomic, retain) NSMutableDictionary *itemsToLayers;
+
+- (NSArray *) sortedLayersForLandmark:(GNLandmark *)landmark;
 
 @end
