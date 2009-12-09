@@ -208,10 +208,12 @@
 	NSLog(@"altitude: %f", newLocation.altitude);
 	NSLog(@"verticalAccuracy: %f", newLocation.verticalAccuracy);
 
-    // Test that the horizontal accuracy does not indicate an invalid measurement
+    // Test that the horizontal accuracy does not indicate an invalid
+	// measurement
     if (newLocation.horizontalAccuracy < 0) return;
 	
-    // Test the age of the location measurement to determine if the measurement is cached
+    // Test the age of the location measurement to determine if the measurement
+	// is cached
     NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
     if (locationAge > 5.0) return;
 
@@ -224,7 +226,8 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
 	NSLog(@"error: %@", error);
 
-    // The location "unknown" error simply means the manager is currently unable to get the location.
+    // The location "unknown" error simply means the manager is currently unable
+	// to get the location.
     if ([error code] != kCLErrorLocationUnknown) {
 		/// Give an alert about this.
         //[self stopUpdatingLocation:NSLocalizedString(@"Error", @"Error")];
@@ -266,23 +269,11 @@
 	CGRect barFrame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + self.view.frame.size.height - 58, self.view.frame.size.width, 58);
 	self.toggleBarController.view.frame = barFrame;
 	
-//	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Sports" image:[UIImage imageNamed:@"sports.png"]] autorelease];
-//	GNLayer *layer = [[[CarletonBuildings alloc] init] autorelease];
-//	[self.toggleBarController addQuickToggleItem:item];
-//	[self.itemsToLayers setObject:layer forKey:item];
-//	
-//	item = [[[GNToggleItem alloc] initWithTitle:@"Trees" image:[UIImage imageNamed:@"trees.png"]] autorelease];
-//	[self.toggleBarController addQuickToggleItem:item];
-//	[self.itemsToLayers setObject:layer forKey:item];
-//	
-//	item = [[[GNToggleItem alloc] initWithTitle:@"Food" image:[UIImage imageNamed:@"food.png"]] autorelease];
-//	[self.toggleBarController addQuickToggleItem:item];
-//	[self.itemsToLayers setObject:layer forKey:item];
-//
-//	item = [[[GNToggleItem alloc] initWithTitle:@"Gas" image:[UIImage imageNamed:@"gas.png"]] autorelease];
-//	[self.toggleBarController addQuickToggleItem:item];
-//	[self.itemsToLayers setObject:layer forKey:item];
-	
+	// Instead of initializing the items and layers this way, we'll be
+	// unarchiving archived copies of items/layers using the NSCoder protocol
+	// specification
+	// see http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html
+	// or lecture 9 of the Stanford class
 	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Academic" image:[UIImage imageNamed:@"academic.png"]] autorelease];
 	GNLayer *layer = [[[CarletonBuildings alloc] init] autorelease];
 	[self.toggleBarController addQuickToggleItem:item];
@@ -295,24 +286,31 @@
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
 
+	// Other items for eventual use:
+	// item = [[[GNToggleItem alloc] initWithTitle:@"Sports" image:[UIImage imageNamed:@"sports.png"]] autorelease];
+	// item = [[[GNToggleItem alloc] initWithTitle:@"Trees" image:[UIImage imageNamed:@"trees.png"]] autorelease];
+	// item = [[[GNToggleItem alloc] initWithTitle:@"Food" image:[UIImage imageNamed:@"food.png"]] autorelease];
+	// item = [[[GNToggleItem alloc] initWithTitle:@"Gas" image:[UIImage imageNamed:@"gas.png"]] autorelease];	
+	
     [super viewDidLoad];
 }
 
+// For a GNToggleItem, return its associated GNLayer
 - (GNLayer *)layerForToggleItem:(GNToggleItem*)item {
 	return [self.itemsToLayers objectForKey:item];
 }
 
-// Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
+	// All but upside down. That's a wack orientation.
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-
-- (NSArray *) sortedLayersForLandmark:(GNLandmark *)landmark {
-	// Copy the main (ordered) array of layers from the toggle bar then
-	// filter it based on whether or not each ayer is in the landmark's
-	// active layer list
+// For a GNLandmark, return an array of its active layers sorted according to
+// the order specified by the user using the GNToggleBar
+- (NSArray *)sortedLayersForLandmark:(GNLandmark *)landmark {
+	// Copy the main (ordered) array of layers from the toggle bar then filter
+	// it based on whether or not each ayer is in the landmark's active layer
+	// list
 	NSMutableArray* returnArray = [NSMutableArray array];
 	
 	NSArray* activeLayers = landmark.activeLayers;
@@ -331,13 +329,10 @@
 
 #pragma mark Toggle Bar Delegate
 
+// When items are toggled, let the layer manager know about it
 - (void)toggleBarController:(GNToggleBarController *)toggleBarController toggleItem:(GNToggleItem *)toggleItem changedToState:(BOOL)active {
 	GNLayer *layer = [self layerForToggleItem:toggleItem];
 	[[GNLayerManager sharedManager] setLayer:layer active:active];
-	
-	
-	NSLog(@"toggleItem %@ became %@", toggleItem, active ? @"active" : @"inactive");
-	NSLog(@"GNLayerManager %@", [GNLayerManager sharedManager]);
 }
 
 @end
