@@ -58,7 +58,7 @@
 	
 	NSMutableArray *tempLocationArray = [[NSMutableArray alloc] initWithCapacity:10];
 	CLLocationCoordinate2D tempCoord2D;
-	CLLocation *tempLocation;
+	GNLandmark *tempLocation;
 	ARGeoCoordinate *tempCoordinate;
 	
 	NSString *errorDesc = nil;
@@ -87,15 +87,7 @@
 		lon = [locationDict objectForKey:@"longitude"];
 		altitude = [locationDict objectForKey:@"altitude"];
 		
-		tempCoord2D.latitude = [lat doubleValue];
-		tempCoord2D.longitude = [lon doubleValue];
-		
-		tempLocation = [[CLLocation alloc] initWithCoordinate:tempCoord2D altitude:[altitude doubleValue] horizontalAccuracy:0.0 verticalAccuracy:0.0 timestamp:[NSDate date]];
-		
-//		tempLocation = [[CLLocation alloc] initWithLatitude:[lat doubleValue] longitude:[lon doubleValue]];		
-//		
-//		tempLocation = [[CLLocation alloc] initWithCoordinate:(CLLocationCoordinate2D)coordinate altitude:(CLLocationDistance)altitude horizontalAccuracy:(CLLocationAccuracy)hAccuracy verticalAccuracy:(CLLocationAccuracy)vAccuracy timestamp:(NSDate *)timestamp]
-		
+		tempLocation = [GNLandmark landmarkWithID:10 name:@"Name!" latitude:[lat doubleValue] longitude:[lon floatValue] altitude:[altitude doubleValue]];
 		tempCoordinate = [ARGeoCoordinate coordinateWithLocation:tempLocation];
 		tempCoordinate.title = [locationDict objectForKey:@"name"];
 		
@@ -139,7 +131,18 @@
 	self.glassController = [[[LiveViewGlassController alloc] init] autorelease];
 	[self.view addSubview:self.glassController.view];
 	
+	// Add ourself as an observer to LayerManager updates
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(locationsUpdated:)
+												 name:GNLandmarksUpdated
+											   object:[GNLayerManager sharedManager]];
+	 
     [super viewDidLoad];
+}
+
+- (void)locationsUpdated:(NSNotification *)note {
+	NSLog(@"%@ from %@", [note name], [note object]);
+	NSLog(@"userInfo: %@", [note userInfo]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -217,10 +220,18 @@
     NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
     if (locationAge > 5.0) return;
 
-	
-	NSLog(@"using");
 	// Update the ARViewController's center
 	self.arViewController.centerLocation = newLocation;
+	
+	NSArray *landmarks = [[GNLayerManager sharedManager] getNClosestLandmarks:10 toLocation:newLocation maxDistance:10];
+	ARGeoCoordinate *coordinate;
+	for (GNLandmark *landmark in landmarks) {
+		coordinate = [ARGeoCoordinate coordinateWithLocation:landmark];
+		coordinate.title = landmark.name;
+		
+		[self.arViewController addCoordinate:coordinate];
+	}	
+	
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
