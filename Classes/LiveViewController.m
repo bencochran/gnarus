@@ -225,9 +225,9 @@
 	
 	NSArray *landmarks = [[GNLayerManager sharedManager] getNClosestLandmarks:10 toLocation:newLocation maxDistance:10];
 	ARGeoCoordinate *coordinate;
-	for (GNLandmark *landmark in landmarks) {
-		coordinate = [ARGeoCoordinate coordinateWithLocation:landmark];
-		coordinate.title = landmark.name;
+	for (GNDistAndLandmark *gndl in landmarks) {
+		coordinate = [ARGeoCoordinate coordinateWithLocation:gndl.landmark];
+		coordinate.title = gndl.landmark.name;
 		
 		[self.arViewController addCoordinate:coordinate];
 	}	

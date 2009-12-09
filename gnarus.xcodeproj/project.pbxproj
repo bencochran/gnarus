@@ -33,13 +33,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		B81C4D3110CF4AFC00EA3205 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A215FFFC10B2546600774314;
-			remoteInfo = TesterApp;
-		};
 		B880D1A3109779CC005601EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B880D19C109779CC005601EF /* GNToggleBar.xcodeproj */;
@@ -301,13 +294,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		B81C4D3210CF4AFC00EA3205 /* TesterApp.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = TesterApp.app;
-			remoteRef = B81C4D3110CF4AFC00EA3205 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		B880D1A4109779CC005601EF /* libGNToggleBar.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
