@@ -7,7 +7,6 @@
 //
 
 #import "LiveViewController.h"
-#import <GnarusToggleBar/GnarusToggleBar.h>
 #import <ARKit/ARKit.h>
 #import "InfoBubbleController.h"
 
@@ -59,7 +58,7 @@
 	
 	NSMutableArray *tempLocationArray = [[NSMutableArray alloc] initWithCapacity:10];
 	CLLocationCoordinate2D tempCoord2D;
-	CLLocation *tempLocation;
+	GNLandmark *tempLocation;
 	ARGeoCoordinate *tempCoordinate;
 	
 	NSString *errorDesc = nil;
@@ -88,15 +87,7 @@
 		lon = [locationDict objectForKey:@"longitude"];
 		altitude = [locationDict objectForKey:@"altitude"];
 		
-		tempCoord2D.latitude = [lat doubleValue];
-		tempCoord2D.longitude = [lon doubleValue];
-		
-		tempLocation = [[CLLocation alloc] initWithCoordinate:tempCoord2D altitude:[altitude doubleValue] horizontalAccuracy:0.0 verticalAccuracy:0.0 timestamp:[NSDate date]];
-		
-//		tempLocation = [[CLLocation alloc] initWithLatitude:[lat doubleValue] longitude:[lon doubleValue]];		
-//		
-//		tempLocation = [[CLLocation alloc] initWithCoordinate:(CLLocationCoordinate2D)coordinate altitude:(CLLocationDistance)altitude horizontalAccuracy:(CLLocationAccuracy)hAccuracy verticalAccuracy:(CLLocationAccuracy)vAccuracy timestamp:(NSDate *)timestamp]
-		
+		tempLocation = [GNLandmark landmarkWithID:10 name:@"Name!" latitude:[lat doubleValue] longitude:[lon floatValue] altitude:[altitude doubleValue]];
 		tempCoordinate = [ARGeoCoordinate coordinateWithLocation:tempLocation];
 		tempCoordinate.title = [locationDict objectForKey:@"name"];
 		
@@ -140,7 +131,18 @@
 	self.glassController = [[[LiveViewGlassController alloc] init] autorelease];
 	[self.view addSubview:self.glassController.view];
 	
+	// Add ourself as an observer to LayerManager updates
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(locationsUpdated:)
+												 name:GNLandmarksUpdated
+											   object:[GNLayerManager sharedManager]];
+	 
     [super viewDidLoad];
+}
+
+- (void)locationsUpdated:(NSNotification *)note {
+	NSLog(@"%@ from %@", [note name], [note object]);
+	NSLog(@"userInfo: %@", [note userInfo]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -209,23 +211,34 @@
 	NSLog(@"altitude: %f", newLocation.altitude);
 	NSLog(@"verticalAccuracy: %f", newLocation.verticalAccuracy);
 
-    // Test that the horizontal accuracy does not indicate an invalid measurement
+    // Test that the horizontal accuracy does not indicate an invalid
+	// measurement
     if (newLocation.horizontalAccuracy < 0) return;
 	
-    // Test the age of the location measurement to determine if the measurement is cached
+    // Test the age of the location measurement to determine if the measurement
+	// is cached
     NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
     if (locationAge > 5.0) return;
 
-	
-	NSLog(@"using");
 	// Update the ARViewController's center
 	self.arViewController.centerLocation = newLocation;
+	
+	NSArray *landmarks = [[GNLayerManager sharedManager] getNClosestLandmarks:10 toLocation:newLocation maxDistance:10];
+	ARGeoCoordinate *coordinate;
+	for (GNLandmark *landmark in landmarks) {
+		coordinate = [ARGeoCoordinate coordinateWithLocation:landmark];
+		coordinate.title = landmark.name;
+		
+		[self.arViewController addCoordinate:coordinate];
+	}	
+	
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
 	NSLog(@"error: %@", error);
 
-    // The location "unknown" error simply means the manager is currently unable to get the location.
+    // The location "unknown" error simply means the manager is currently unable
+	// to get the location.
     if ([error code] != kCLErrorLocationUnknown) {
 		/// Give an alert about this.
         //[self stopUpdatingLocation:NSLocalizedString(@"Error", @"Error")];
@@ -247,6 +260,8 @@
 
 @implementation LiveViewGlassController
 
+@synthesize toggleBarController=_toggleBarController, itemsToLayers=_itemsToLayers;
+
 - (void)loadView {
 	self.view = [[[UIView alloc] init] autorelease];
 	self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -255,35 +270,80 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
 	NSLog(@"glass view did load");
+	self.itemsToLayers = [NSMutableDictionary dictionary];
+	
 	// Add toggle bar
-	GNToggleBarController *toggleBarController = [[[GNToggleBarController alloc] init] autorelease];
-	[self.view addSubview:toggleBarController.view];
+	self.toggleBarController = [[[GNToggleBarController alloc] init] autorelease];
+	self.toggleBarController.delegate = self;
+	
+	[self.view addSubview:self.toggleBarController.view];
 	CGRect barFrame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + self.view.frame.size.height - 58, self.view.frame.size.width, 58);
-	toggleBarController.view.frame = barFrame;
+	self.toggleBarController.view.frame = barFrame;
 	
-	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Sports" image:[UIImage imageNamed:@"sports.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
+	// Instead of initializing the items and layers this way, we'll be
+	// unarchiving archived copies of items/layers using the NSCoder protocol
+	// specification
+	// see http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html
+	// or lecture 9 of the Stanford class
+	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Academic" image:[UIImage imageNamed:@"academic.png"]] autorelease];
+	GNLayer *layer = [[[CarletonBuildings alloc] init] autorelease];
+	[self.toggleBarController addQuickToggleItem:item];
+	[self.itemsToLayers setObject:layer forKey:item];
+	[[GNLayerManager sharedManager] addLayer:layer active:NO];
 	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Trees" image:[UIImage imageNamed:@"trees.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
-	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Food" image:[UIImage imageNamed:@"food.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
-	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Gas" image:[UIImage imageNamed:@"gas.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
-	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Academic" image:[UIImage imageNamed:@"academic.png"]] autorelease];
-	[toggleBarController addQuickToggleItem:item];
+	item = [[[GNToggleItem alloc] initWithTitle:@"Tweets" image:[UIImage imageNamed:@"bird.png"]] autorelease];
+	layer = [[[TweetLayer alloc] init] autorelease];
+	[self.toggleBarController addQuickToggleItem:item];
+	[self.itemsToLayers setObject:layer forKey:item];
+	[[GNLayerManager sharedManager] addLayer:layer active:NO];
+
+	// Other items for eventual use:
+	// item = [[[GNToggleItem alloc] initWithTitle:@"Sports" image:[UIImage imageNamed:@"sports.png"]] autorelease];
+	// item = [[[GNToggleItem alloc] initWithTitle:@"Trees" image:[UIImage imageNamed:@"trees.png"]] autorelease];
+	// item = [[[GNToggleItem alloc] initWithTitle:@"Food" image:[UIImage imageNamed:@"food.png"]] autorelease];
+	// item = [[[GNToggleItem alloc] initWithTitle:@"Gas" image:[UIImage imageNamed:@"gas.png"]] autorelease];	
 	
     [super viewDidLoad];
 }
 
-// Override to allow orientations other than the default portrait orientation.
+// For a GNToggleItem, return its associated GNLayer
+- (GNLayer *)layerForToggleItem:(GNToggleItem*)item {
+	return [self.itemsToLayers objectForKey:item];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
+	// All but upside down. That's a wack orientation.
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
+// For a GNLandmark, return an array of its active layers sorted according to
+// the order specified by the user using the GNToggleBar
+- (NSArray *)sortedLayersForLandmark:(GNLandmark *)landmark {
+	// Copy the main (ordered) array of layers from the toggle bar then filter
+	// it based on whether or not each ayer is in the landmark's active layer
+	// list
+	NSMutableArray* returnArray = [NSMutableArray array];
+	
+	NSArray* activeLayers = landmark.activeLayers;
+	
+	GNLayer* layer;
+	
+	for (GNToggleItem* item in [self.toggleBarController activeToggleItems]) {
+		layer = [self layerForToggleItem:item];
+		if ([activeLayers containsObject:layer]) {
+			[returnArray addObject:item];
+		}
+	}
+	
+	return returnArray;
+}
+
+#pragma mark Toggle Bar Delegate
+
+// When items are toggled, let the layer manager know about it
+- (void)toggleBarController:(GNToggleBarController *)toggleBarController toggleItem:(GNToggleItem *)toggleItem changedToState:(BOOL)active {
+	GNLayer *layer = [self layerForToggleItem:toggleItem];
+	[[GNLayerManager sharedManager] setLayer:layer active:active];
+}
 
 @end
