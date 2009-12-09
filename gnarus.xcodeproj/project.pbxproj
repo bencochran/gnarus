@@ -38,7 +38,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = A215FFFC10B2546600774314 /* TesterApp.app */;
+			remoteGlobalIDString = A215FFFC10B2546600774314;
 			remoteInfo = TesterApp;
 		};
 		B880D1A3109779CC005601EF /* PBXContainerItemProxy */ = {
@@ -75,13 +75,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = B880D25410978DA7005601EF;
 			remoteInfo = ARKit;
-		};
-		B88E925410B342A6003D8FC2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A215FFFC10B2546600774314;
-			remoteInfo = TesterApp;
 		};
 		B8BC14BC109EBE25000701DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -338,13 +331,6 @@
 			fileType = wrapper.cfbundle;
 			path = UnitTests.octest;
 			remoteRef = B880D3311097A719005601EF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		B88E925510B342A6003D8FC2 /* TesterApp.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = TesterApp.app;
-			remoteRef = B88E925410B342A6003D8FC2 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		B8BC14BD109EBE25000701DF /* libLayerManager.a */ = {

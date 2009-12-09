@@ -143,6 +143,15 @@
 - (void)locationsUpdated:(NSNotification *)note {
 	NSLog(@"%@ from %@", [note name], [note object]);
 	NSLog(@"userInfo: %@", [note userInfo]);
+	
+	NSArray *landmarks = [note.userInfo objectForKey:@"landmarks"];
+	ARGeoCoordinate *coordinate;
+	for (GNLandmark *landmark in landmarks) {
+		coordinate = [ARGeoCoordinate coordinateWithLocation:landmark];
+		coordinate.title = landmark.name;
+		
+		[self.arViewController addCoordinate:coordinate];
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -231,7 +240,6 @@
 		
 		[self.arViewController addCoordinate:coordinate];
 	}	
-	
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
