@@ -28,6 +28,7 @@
 		B896C1EC10A003F100259858 /* libARKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B880D3301097A719005601EF /* libARKit.a */; };
 		B896C3CA10A0186600259858 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B896C3C910A0186600259858 /* bg.jpg */; };
 		B8A59CE410AAA7B000EA6120 /* food.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A59CE310AAA7B000EA6120 /* food.png */; };
+		B8F1044410CB85C900B6F7A9 /* libisimulate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F1044310CB85C900B6F7A9 /* libisimulate.a */; };
 		B8FC80A510B1DCC800CA8F7C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FC80A410B1DCC800CA8F7C /* Icon.png */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = B880D25410978DA7005601EF;
 			remoteInfo = ARKit;
+		};
+		B88E925410B342A6003D8FC2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A215FFFC10B2546600774314;
+			remoteInfo = TesterApp;
 		};
 		B8BC14BC109EBE25000701DF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -112,6 +120,7 @@
 		B896C3C910A0186600259858 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
 		B8A59CE310AAA7B000EA6120 /* food.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = food.png; sourceTree = "<group>"; };
 		B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LayerManager.xcodeproj; path = external/LayerManager/LayerManager.xcodeproj; sourceTree = "<group>"; };
+		B8F1044310CB85C900B6F7A9 /* libisimulate.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libisimulate.a; sourceTree = "<group>"; };
 		B8FC80A410B1DCC800CA8F7C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,6 +137,7 @@
 				B896C1EC10A003F100259858 /* libARKit.a in Frameworks */,
 				B88092E810A9E40F0061E490 /* QuartzCore.framework in Frameworks */,
 				B88092EE10A9E4220061E490 /* CoreLocation.framework in Frameworks */,
+				B8F1044410CB85C900B6F7A9 /* libisimulate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +208,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B8F1044310CB85C900B6F7A9 /* libisimulate.a */,
 				B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */,
 				B880D3271097A719005601EF /* ARKit.xcodeproj */,
 				B880D19C109779CC005601EF /* GNToggleBar.xcodeproj */,
@@ -231,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				B8BC14BD109EBE25000701DF /* libLayerManager.a */,
+				B88E925510B342A6003D8FC2 /* TesterApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -311,6 +323,13 @@
 			remoteRef = B880D3311097A719005601EF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		B88E925510B342A6003D8FC2 /* TesterApp.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = TesterApp.app;
+			remoteRef = B88E925410B342A6003D8FC2 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		B8BC14BD109EBE25000701DF /* libLayerManager.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -383,6 +402,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = gnarus_Prefix.pch;
 				INFOPLIST_FILE = "gnarus-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = gnarus;
 				SDKROOT = iphoneos3.1;
 			};
@@ -396,6 +419,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = gnarus_Prefix.pch;
 				INFOPLIST_FILE = "gnarus-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = gnarus;
 			};
 			name = Release;
@@ -409,6 +436,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "external//**";
+				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.1.2;
 			};
@@ -422,6 +450,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_LDFLAGS = "-ObjC";
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.1.2;
 			};
