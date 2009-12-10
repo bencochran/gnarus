@@ -29,7 +29,6 @@
 		B896C1EC10A003F100259858 /* libARKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B880D3301097A719005601EF /* libARKit.a */; };
 		B896C3CA10A0186600259858 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B896C3C910A0186600259858 /* bg.jpg */; };
 		B8A59CE410AAA7B000EA6120 /* food.png in Resources */ = {isa = PBXBuildFile; fileRef = B8A59CE310AAA7B000EA6120 /* food.png */; };
-		B8F1044410CB85C900B6F7A9 /* libisimulate.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B8F1044310CB85C900B6F7A9 /* libisimulate.a */; };
 		B8FC80A510B1DCC800CA8F7C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FC80A410B1DCC800CA8F7C /* Icon.png */; };
 /* End PBXBuildFile section */
 
@@ -139,7 +138,6 @@
 				B896C1EC10A003F100259858 /* libARKit.a in Frameworks */,
 				B88092E810A9E40F0061E490 /* QuartzCore.framework in Frameworks */,
 				B88092EE10A9E4220061E490 /* CoreLocation.framework in Frameworks */,
-				B8F1044410CB85C900B6F7A9 /* libisimulate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

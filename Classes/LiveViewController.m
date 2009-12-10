@@ -56,47 +56,46 @@
 	self.arViewController.delegate = self;
 	//self.arViewController.wantsFullScreenLayout = NO;
 	
-	NSMutableArray *tempLocationArray = [[NSMutableArray alloc] initWithCapacity:10];
-	CLLocationCoordinate2D tempCoord2D;
-	GNLandmark *tempLocation;
-	ARGeoCoordinate *tempCoordinate;
-	
-	NSString *errorDesc = nil;
-	NSPropertyListFormat format;
-	NSString *plistPath;
-	NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-	plistPath = [rootPath stringByAppendingFormat:@"Locations.plist"];
-	if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-		plistPath = [[NSBundle mainBundle] pathForResource:@"Locations" ofType:@"plist"];
-	}
-	NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
-	NSArray *temp = (NSArray *)[NSPropertyListSerialization propertyListFromData:plistXML mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc];
-	if (!temp) {
-		NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
-	}
-	
-	NSNumber *lat;
-	NSNumber *lon;
-	NSNumber *altitude;
-	
-	NSDictionary *locationDict;
-	for (locationDict in temp) {
-		NSLog(@"Lat: %@, Lon %@, Altitude %@, %@", [locationDict objectForKey:@"latitude"], [locationDict objectForKey:@"longitude"], [locationDict objectForKey:@"altitude"], [locationDict objectForKey:@"name"]);
-		
-		lat = [locationDict objectForKey:@"latitude"];
-		lon = [locationDict objectForKey:@"longitude"];
-		altitude = [locationDict objectForKey:@"altitude"];
-		
-		tempLocation = [GNLandmark landmarkWithID:10 name:@"Name!" latitude:[lat doubleValue] longitude:[lon floatValue] altitude:[altitude doubleValue]];
-		tempCoordinate = [ARGeoCoordinate coordinateWithLocation:tempLocation];
-		tempCoordinate.title = [locationDict objectForKey:@"name"];
-		
-		[tempLocationArray addObject:tempCoordinate];
-		[tempLocation release];
-	}	
-	
-	[self.arViewController addCoordinates:tempLocationArray];
-	[tempLocationArray release];
+//	NSMutableArray *tempLocationArray = [[NSMutableArray alloc] initWithCapacity:10];
+//	CLLocationCoordinate2D tempCoord2D;
+//	GNLandmark *tempLocation;
+//	ARGeoCoordinate *tempCoordinate;
+//	
+//	NSString *errorDesc = nil;
+//	NSPropertyListFormat format;
+//	NSString *plistPath;
+//	NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//	plistPath = [rootPath stringByAppendingFormat:@"Locations.plist"];
+//	if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
+//		plistPath = [[NSBundle mainBundle] pathForResource:@"Locations" ofType:@"plist"];
+//	}
+//	NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+//	NSArray *temp = (NSArray *)[NSPropertyListSerialization propertyListFromData:plistXML mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc];
+//	if (!temp) {
+//		NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
+//	}
+//	
+//	NSNumber *lat;
+//	NSNumber *lon;
+//	NSNumber *altitude;
+//	
+//	NSDictionary *locationDict;
+//	for (locationDict in temp) {
+//		NSLog(@"Lat: %@, Lon %@, Altitude %@, %@", [locationDict objectForKey:@"latitude"], [locationDict objectForKey:@"longitude"], [locationDict objectForKey:@"altitude"], [locationDict objectForKey:@"name"]);
+//		
+//		lat = [locationDict objectForKey:@"latitude"];
+//		lon = [locationDict objectForKey:@"longitude"];
+//		altitude = [locationDict objectForKey:@"altitude"];
+//		
+//		tempLocation = [GNLandmark landmarkWithID:10 name:@"Name!" latitude:[lat doubleValue] longitude:[lon floatValue] altitude:[altitude doubleValue]];
+//		tempCoordinate = [ARGeoCoordinate coordinateWithLocation:tempLocation];
+//		tempCoordinate.title = [locationDict objectForKey:@"name"];
+//		
+//		[tempLocationArray addObject:tempCoordinate];
+//	}	
+//	
+//	[self.arViewController addCoordinates:tempLocationArray];
+//	[tempLocationArray release];
 	
 	
 //	CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:44.455464206683956 longitude:-93.15729260444641];
@@ -146,6 +145,7 @@
 	
 	NSArray *landmarks = [note.userInfo objectForKey:@"landmarks"];
 	ARGeoCoordinate *coordinate;
+	[self.arViewController clearCoordinates];
 	for (GNLandmark *landmark in landmarks) {
 		coordinate = [ARGeoCoordinate coordinateWithLocation:landmark];
 		coordinate.title = landmark.name;
@@ -295,13 +295,13 @@
 	// or lecture 9 of the Stanford class
 	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Academic" image:[UIImage imageNamed:@"academic.png"]] autorelease];
 	GNLayer *layer = [[[CarletonBuildings alloc] init] autorelease];
-	[self.toggleBarController addQuickToggleItem:item];
+	[self.toggleBarController addToggleItem:item];
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
 	
 	item = [[[GNToggleItem alloc] initWithTitle:@"Tweets" image:[UIImage imageNamed:@"bird.png"]] autorelease];
 	layer = [[[TweetLayer alloc] init] autorelease];
-	[self.toggleBarController addQuickToggleItem:item];
+	[self.toggleBarController addToggleItem:item];
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
 
