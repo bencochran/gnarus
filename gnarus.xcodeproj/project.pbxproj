@@ -40,6 +40,13 @@
 			remoteGlobalIDString = A215FFFC10B2546600774314;
 			remoteInfo = TesterApp;
 		};
+		B8747DB710F5755400B1938E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A251AE6A10F522FC0041E1D7;
+			remoteInfo = LMUnitTests;
+		};
 		B880D1A3109779CC005601EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B880D19C109779CC005601EF /* GNToggleBar.xcodeproj */;
@@ -244,6 +251,7 @@
 			children = (
 				B8BC14BD109EBE25000701DF /* libLayerManager.a */,
 				B806601B10D037D5006248A8 /* TesterApp.app */,
+				B8747DB810F5755400B1938E /* LMUnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -308,6 +316,13 @@
 			fileType = wrapper.application;
 			path = TesterApp.app;
 			remoteRef = B806601A10D037D5006248A8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B8747DB810F5755400B1938E /* LMUnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = LMUnitTests.octest;
+			remoteRef = B8747DB710F5755400B1938E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		B880D1A4109779CC005601EF /* libGNToggleBar.a */ = {
