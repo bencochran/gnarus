@@ -232,14 +232,7 @@
 	// Update the ARViewController's center
 	self.arViewController.centerLocation = newLocation;
 	
-	NSArray *landmarks = [[GNLayerManager sharedManager] getNClosestLandmarks:10 toLocation:newLocation maxDistance:10];
-	ARGeoCoordinate *coordinate;
-	for (GNLandmark *landmark in landmarks) {
-		coordinate = [ARGeoCoordinate coordinateWithLocation:landmark];
-		coordinate.title = landmark.name;
-		
-		[self.arViewController addCoordinate:coordinate];
-	}	
+	[[GNLayerManager sharedManager] updateToCenterLocation:newLocation];	
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
@@ -294,7 +287,7 @@
 	// see http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html
 	// or lecture 9 of the Stanford class
 	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Academic" image:[UIImage imageNamed:@"academic.png"]] autorelease];
-	GNLayer *layer = [[[CarletonBuildings alloc] init] autorelease];
+	GNLayer *layer = [[[CarletonBuildingsLayer alloc] init] autorelease];
 	[self.toggleBarController addToggleItem:item];
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
@@ -352,6 +345,9 @@
 - (void)toggleBarController:(GNToggleBarController *)toggleBarController toggleItem:(GNToggleItem *)toggleItem changedToState:(BOOL)active {
 	GNLayer *layer = [self layerForToggleItem:toggleItem];
 	[[GNLayerManager sharedManager] setLayer:layer active:active];
+	
+	// Update our landmarks
+	[[GNLayerManager sharedManager] updateWithPreviousLocation];
 }
 
 @end
