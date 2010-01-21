@@ -9,6 +9,7 @@
 #import "LiveViewController.h"
 #import <ARKit/ARKit.h>
 #import "InfoBubbleController.h"
+#import "LayerListViewController.h"
 
 @implementation LiveViewController
 
@@ -361,9 +362,36 @@
 #pragma mark ARKit Delegate
 
 - (UIView *)viewForCoordinate:(ARCoordinate *)coordinate {
-	InfoBubbleController *infoBubbleController = [[[InfoBubbleController alloc] init] autorelease];
-	infoBubbleController.title = coordinate.title;
-	return infoBubbleController.view;	
+	ARGeoCoordinate *geoCoordinate = (ARGeoCoordinate *)coordinate;
+	if (geoCoordinate.geoLocation != nil) {
+		GNLandmark *landmark = (GNLandmark *)geoCoordinate.geoLocation;
+		if (landmark.name != nil) {
+			InfoBubbleController *infoBubbleController = [InfoBubbleController bubbleControllerForLandmark:landmark];
+			
+			[[NSNotificationCenter defaultCenter] addObserver:self
+													 selector:@selector(didSelectLandmark:)
+														 name:GNSelectedLandmark
+													   object:landmark];
+
+			// infoBubbleController needs to stick around so we retain it
+			// this should be done in a better way as we're currently leaking
+			// memory here
+			[infoBubbleController retain];
+			return infoBubbleController.view;
+		}
+	}
+	return nil;
+//
+//	InfoBubbleController *infoBubbleController = [InfoBubbleController bubbleForLandmark:coordinate.geoLandmark];
+//	InfoBubbleController *infoBubbleController = [[[InfoBubbleController alloc] init] autorelease];
+//	infoBubbleController.title = coordinate.title;
+//	return infoBubbleController.view;	
+}
+
+- (void)didSelectLandmark:(NSNotification *)note {
+	LayerListViewController *layerList = [[LayerListViewController alloc] initWithLandmark:(GNLandmark *)note.object];
+	[self.navigationController pushViewController:layerList animated:YES];
+	[layerList release];
 }
 
 @end

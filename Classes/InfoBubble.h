@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class BubbleBackgroundView;
+@protocol InfoBubbleDelegate;
 
 @interface InfoBubble : UIView {
 	BubbleBackgroundView *_bubble;
@@ -17,13 +18,15 @@
 	CGRect _expandedBounds;
 	CGRect _contractedBounds;
 	BOOL expanded;
+	
+	NSObject<InfoBubbleDelegate> *_delegate;
 }
 
 @property (nonatomic, retain) BubbleBackgroundView *bubble;
 @property (nonatomic, retain) UILabel *label;
 @property (nonatomic) CGRect expandedBounds;
 @property (nonatomic) CGRect contractedBounds;
-
+@property (nonatomic, assign) NSObject<InfoBubbleDelegate> *delegate;
 
 + (id)infoBubbleWithTitle:(NSString *)title;
 
@@ -37,5 +40,13 @@
 @interface BubbleBackgroundView : UIView {
 
 }
+
+@end
+
+////////////////////////////////////////////////////////////
+
+@protocol InfoBubbleDelegate
+
+- (void)didSelectBubble:(InfoBubble *)bubble;
 
 @end

@@ -7,9 +7,24 @@
 //
 
 #import "InfoBubbleController.h"
-#import "InfoBubble.h"
 
 @implementation InfoBubbleController
+
+NSString *const GNSelectedLandmark = @"GNSelectedLandmark";
+
+@synthesize landmark;
+
++ (id)bubbleControllerForLandmark:(GNLandmark *)aLandmark {
+	return [[[InfoBubbleController alloc] initWithLandmark:aLandmark] autorelease];
+}
+
+- (id)initWithLandmark:(GNLandmark *)aLandmark {
+	if (self = [super init]) {
+		landmark = aLandmark;
+	}
+	
+	return self;
+}
 
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -23,7 +38,16 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-	self.view = [InfoBubble infoBubbleWithTitle:self.title];
+	InfoBubble *bubble = [InfoBubble infoBubbleWithTitle:self.landmark.name];
+	bubble.delegate = self;
+	self.view = bubble;
+}
+
+- (void)didSelectBubble:(InfoBubble *)bubble {
+	NSLog(@"Will post notification for landmark: %@", self.landmark);
+	[[NSNotificationCenter defaultCenter] postNotificationName:GNSelectedLandmark
+														object:self.landmark
+													  userInfo:nil];	
 }
 
 /*
@@ -55,6 +79,13 @@
 
 
 - (void)dealloc {
+	NSLog(@"Lost bubble controller for landmark: %@", landmark);
+	
+	[landmark release];
+	
+	// Unhook us from being the delegate
+	[(InfoBubble *)self.view setDelegate:nil];
+	
     [super dealloc];
 }
 

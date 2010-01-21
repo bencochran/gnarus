@@ -12,7 +12,7 @@
 @implementation InfoBubble
 
 @synthesize bubble=_bubble, label=_label, expandedBounds=_expandedBounds,
-			contractedBounds=_contractedBounds;
+			contractedBounds=_contractedBounds, delegate=_delegate;
 
 + (id)infoBubbleWithTitle:(NSString *)title {
 	return [[[InfoBubble alloc] initWithTitle:title] autorelease];
@@ -102,11 +102,18 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	UITouch *touch = [touches anyObject];
 	NSLog(@"touch ended: %@", touch);
-	if (expanded) {
-		[self contract];
-	} else {
-		[self expand];
+	
+	NSLog(@"delegate: %@", self.delegate);
+	
+	if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectBubble:)]) {
+		[self.delegate didSelectBubble:self];
 	}
+	
+//	if (expanded) {
+//		[self contract];
+//	} else {
+//		[self expand];
+//	}
 
 }
 

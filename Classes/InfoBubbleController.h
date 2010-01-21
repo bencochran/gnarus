@@ -7,10 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <LayerManager/LayerManager.h>
+#import "InfoBubble.h"
 
+extern NSString *const GNSelectedLandmark;
 
-@interface InfoBubbleController : UIViewController {
-
+@interface InfoBubbleController : UIViewController <InfoBubbleDelegate> {
+	GNLandmark *landmark;
 }
+
+@property (nonatomic, readonly) GNLandmark *landmark;
+
++ (id)bubbleControllerForLandmark:(GNLandmark *)aLandmark;
+- (id)initWithLandmark:(GNLandmark *)aLandmark;
 
 @end
