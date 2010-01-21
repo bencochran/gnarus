@@ -10,21 +10,29 @@
 #import <ARKit/ARKit.h>
 #import <GnarusToggleBar/GnarusToggleBar.h>
 #import <LayerManager/LayerManager.h>
+#import <MapKit/MapKit.h>
 
-@class LiveViewGlassController;
-
-@interface LiveViewController : UIViewController <ARViewDelegate, CLLocationManagerDelegate> {
+@interface LiveViewController : UIViewController <ARViewDelegate, CLLocationManagerDelegate, UIAccelerometerDelegate, GNToggleBarDelegate> {
 	ARGeoViewController *_arViewController;
+	
+	MKMapView *_mapView;
 	
 	CLLocationManager *_locationManager;
 	
-	LiveViewGlassController *_glassController;
+	BOOL pointingDown;
+	
+	GNToggleBarController *_toggleBarController;
+	NSMutableDictionary *_itemsToLayers;
+
 }
 
 @property (nonatomic, retain) ARGeoViewController *arViewController;
 @property (nonatomic, retain) CLLocationManager *locationManager;
-@property (nonatomic, retain) LiveViewGlassController *glassController;
+@property (nonatomic, retain) MKMapView *mapView;
+@property (nonatomic, retain) GNToggleBarController *toggleBarController;
+@property (nonatomic, retain) NSMutableDictionary *itemsToLayers;
 
+- (NSArray *) sortedLayersForLandmark:(GNLandmark *)landmark;
 
 - (UIView *)viewForCoordinate:(ARCoordinate *)coordinate;
 
@@ -32,14 +40,12 @@
 
 ////////////////////////////////////////////////////////////
 
-@interface LiveViewGlassController : UIViewController <GNToggleBarDelegate> {
-	GNToggleBarController *_toggleBarController;
-	NSMutableDictionary *_itemsToLayers;
+@interface LandmarkAnnotation : NSObject <MKAnnotation>
+{
+	GNLandmark *landmark;
 }
 
-@property (nonatomic, retain) GNToggleBarController *toggleBarController;
-@property (nonatomic, retain) NSMutableDictionary *itemsToLayers;
-
-- (NSArray *) sortedLayersForLandmark:(GNLandmark *)landmark;
++ (id)annotationForLandmark:(GNLandmark *)aLandmark;
+- (id)initWithLandmark:(GNLandmark *)aLandmark;
 
 @end

@@ -15,6 +15,7 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		B81A805F10A1171900FDDD60 /* InfoBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A805E10A1171900FDDD60 /* InfoBubble.m */; };
 		B833706210A150650036C038 /* InfoBubbleController.m in Sources */ = {isa = PBXBuildFile; fileRef = B833706110A150650036C038 /* InfoBubbleController.m */; };
+		B83A411A1107DCE400C2FD2D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83A41191107DCE400C2FD2D /* MapKit.framework */; };
 		B844939D10B1B57600A0E348 /* gas.png in Resources */ = {isa = PBXBuildFile; fileRef = B844939C10B1B57600A0E348 /* gas.png */; };
 		B844939F10B1B58300A0E348 /* trees.png in Resources */ = {isa = PBXBuildFile; fileRef = B844939E10B1B58300A0E348 /* trees.png */; };
 		B84493A310B1B59C00A0E348 /* sports.png in Resources */ = {isa = PBXBuildFile; fileRef = B84493A210B1B59C00A0E348 /* sports.png */; };
@@ -113,6 +114,7 @@
 		B81A805E10A1171900FDDD60 /* InfoBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoBubble.m; sourceTree = "<group>"; };
 		B833706010A150650036C038 /* InfoBubbleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoBubbleController.h; sourceTree = "<group>"; };
 		B833706110A150650036C038 /* InfoBubbleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoBubbleController.m; sourceTree = "<group>"; };
+		B83A41191107DCE400C2FD2D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B844939C10B1B57600A0E348 /* gas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gas.png; sourceTree = "<group>"; };
 		B844939E10B1B58300A0E348 /* trees.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trees.png; sourceTree = "<group>"; };
 		B84493A210B1B59C00A0E348 /* sports.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sports.png; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				B896C1EC10A003F100259858 /* libARKit.a in Frameworks */,
 				B88092E810A9E40F0061E490 /* QuartzCore.framework in Frameworks */,
 				B88092EE10A9E4220061E490 /* CoreLocation.framework in Frameworks */,
+				B83A411A1107DCE400C2FD2D /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +228,7 @@
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				B88092E710A9E40F0061E490 /* QuartzCore.framework */,
 				B88092ED10A9E4220061E490 /* CoreLocation.framework */,
+				B83A41191107DCE400C2FD2D /* MapKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

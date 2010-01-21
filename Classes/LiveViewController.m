@@ -13,21 +13,13 @@
 @implementation LiveViewController
 
 @synthesize arViewController=_arViewController, locationManager=_locationManager,
-			glassController=_glassController;
-
-/*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
+			mapView=_mapView, toggleBarController=_toggleBarController,
+			itemsToLayers=_itemsToLayers;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
 	if (self = [super initWithCoder:aDecoder]) {
 		self.wantsFullScreenLayout = NO;
+		pointingDown = NO;
 	}
 	return self;
 }
@@ -49,60 +41,30 @@
     // are delivered by the manager. If the change in distance is less than the filter, a location will not be delivered.
     //locationManager.distanceFilter = [[setupInfo objectForKey:kSetupInfoKeyDistanceFilter] doubleValue];
 	
+	
+	UIAccelerometer *accelerometer = [UIAccelerometer sharedAccelerometer];
+	accelerometer.updateInterval = 0.01;
+	accelerometer.delegate = self;
+	
+	
 #if !TARGET_IPHONE_SIMULATOR
 
 	NSLog(@"location manager: %@", self.locationManager);
-	self.arViewController = [[ARGeoViewController alloc] initWithLocationManager:self.locationManager];	
+
+	self.arViewController = [[ARGeoViewController alloc] initWithLocationManager:self.locationManager accelerometer:accelerometer];	
 	self.arViewController.delegate = self;
-	//self.arViewController.wantsFullScreenLayout = NO;
-	
-//	NSMutableArray *tempLocationArray = [[NSMutableArray alloc] initWithCapacity:10];
-//	CLLocationCoordinate2D tempCoord2D;
-//	GNLandmark *tempLocation;
-//	ARGeoCoordinate *tempCoordinate;
-//	
-//	NSString *errorDesc = nil;
-//	NSPropertyListFormat format;
-//	NSString *plistPath;
-//	NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//	plistPath = [rootPath stringByAppendingFormat:@"Locations.plist"];
-//	if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-//		plistPath = [[NSBundle mainBundle] pathForResource:@"Locations" ofType:@"plist"];
-//	}
-//	NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
-//	NSArray *temp = (NSArray *)[NSPropertyListSerialization propertyListFromData:plistXML mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc];
-//	if (!temp) {
-//		NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
-//	}
-//	
-//	NSNumber *lat;
-//	NSNumber *lon;
-//	NSNumber *altitude;
-//	
-//	NSDictionary *locationDict;
-//	for (locationDict in temp) {
-//		NSLog(@"Lat: %@, Lon %@, Altitude %@, %@", [locationDict objectForKey:@"latitude"], [locationDict objectForKey:@"longitude"], [locationDict objectForKey:@"altitude"], [locationDict objectForKey:@"name"]);
-//		
-//		lat = [locationDict objectForKey:@"latitude"];
-//		lon = [locationDict objectForKey:@"longitude"];
-//		altitude = [locationDict objectForKey:@"altitude"];
-//		
-//		tempLocation = [GNLandmark landmarkWithID:10 name:@"Name!" latitude:[lat doubleValue] longitude:[lon floatValue] altitude:[altitude doubleValue]];
-//		tempCoordinate = [ARGeoCoordinate coordinateWithLocation:tempLocation];
-//		tempCoordinate.title = [locationDict objectForKey:@"name"];
-//		
-//		[tempLocationArray addObject:tempCoordinate];
-//	}	
-//	
-//	[self.arViewController addCoordinates:tempLocationArray];
-//	[tempLocationArray release];
-	
-	
-//	CLLocation *newCenter = [[CLLocation alloc] initWithLatitude:44.455464206683956 longitude:-93.15729260444641];
-//	self.arViewController.centerLocation = newCenter;
-//	[newCenter release];
-	
+		
 	[self.view addSubview:self.arViewController.view];
+	
+	self.mapView = [[MKMapView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	[self.view addSubview:self.mapView];
+	
+//	self.mapView.zoomEnabled = NO;
+//	self.mapView.scrollEnabled = NO;
+	self.mapView.showsUserLocation = YES;
+	
+	self.mapView.alpha = 0;
+	
 	//self.view = self.arViewController.view;
 	//[arViewController release];
 	
@@ -110,6 +72,7 @@
 
 #else
 	self.arViewController = nil;
+	self.mapView = nil;
 	
 	// Add image
 	UIImageView *imageView = [[[UIImageView alloc] initWithFrame:self.view.frame] autorelease];
@@ -127,8 +90,34 @@
 	NSLog(@"Running in simulator");
 #endif
 	
-	self.glassController = [[[LiveViewGlassController alloc] init] autorelease];
-	[self.view addSubview:self.glassController.view];
+	// Add toggle bar
+	self.toggleBarController = [[[GNToggleBarController alloc] init] autorelease];
+	self.toggleBarController.delegate = self;
+	
+	[self.view addSubview:self.toggleBarController.view];
+	
+	self.itemsToLayers = [NSMutableDictionary dictionary];
+	
+	CGRect barFrame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + self.view.frame.size.height - 58, self.view.frame.size.width, 58);
+	self.toggleBarController.view.frame = barFrame;
+
+	// Instead of initializing the items and layers this way, we'll be
+	// unarchiving archived copies of items/layers using the NSCoder protocol
+	// specification
+	// see http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html
+	// or lecture 9 of the Stanford class
+	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Academic" image:[UIImage imageNamed:@"academic.png"]] autorelease];
+	GNLayer *layer = [[[CarletonBuildingsLayer alloc] init] autorelease];
+	[self.toggleBarController addToggleItem:item];
+	[self.itemsToLayers setObject:layer forKey:item];
+	[[GNLayerManager sharedManager] addLayer:layer active:NO];
+	
+	item = [[[GNToggleItem alloc] initWithTitle:@"Tweets" image:[UIImage imageNamed:@"bird.png"]] autorelease];
+	layer = [[[TweetLayer alloc] init] autorelease];
+	[self.toggleBarController addToggleItem:item];
+	[self.itemsToLayers setObject:layer forKey:item];
+	[[GNLayerManager sharedManager] addLayer:layer active:NO];
+	
 	
 	// Add ourself as an observer to LayerManager updates
 	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -139,6 +128,47 @@
     [super viewDidLoad];
 }
 
+// For a GNToggleItem, return its associated GNLayer
+- (GNLayer *)layerForToggleItem:(GNToggleItem*)item {
+	NSLog(@"self.itemsToLayers: %@", self.itemsToLayers);
+	return [self.itemsToLayers objectForKey:item];
+}
+
+// For a GNLandmark, return an array of its active layers sorted according to
+// the order specified by the user using the GNToggleBar
+- (NSArray *)sortedLayersForLandmark:(GNLandmark *)landmark {
+	// Copy the main (ordered) array of layers from the toggle bar then filter
+	// it based on whether or not each ayer is in the landmark's active layer
+	// list
+	NSMutableArray* returnArray = [NSMutableArray array];
+	
+	NSArray* activeLayers = landmark.activeLayers;
+	
+	GNLayer* layer;
+	
+	for (GNToggleItem* item in [self.toggleBarController activeToggleItems]) {
+		layer = [self layerForToggleItem:item];
+		if ([activeLayers containsObject:layer]) {
+			[returnArray addObject:item];
+		}
+	}
+	
+	return returnArray;
+}
+
+#pragma mark Toggle Bar Delegate
+
+// When items are toggled, let the layer manager know about it
+- (void)toggleBarController:(GNToggleBarController *)toggleBarController toggleItem:(GNToggleItem *)toggleItem changedToState:(BOOL)active {
+	GNLayer *layer = [self layerForToggleItem:toggleItem];
+	NSLog(@"Layer: %@", layer);
+	[[GNLayerManager sharedManager] setLayer:layer active:active];
+	
+	// Update our landmarks
+	[[GNLayerManager sharedManager] updateWithPreviousLocation];
+}
+
+
 - (void)locationsUpdated:(NSNotification *)note {
 	NSLog(@"%@ from %@", [note name], [note object]);
 	NSLog(@"userInfo: %@", [note userInfo]);
@@ -146,11 +176,14 @@
 	NSArray *landmarks = [note.userInfo objectForKey:@"landmarks"];
 	ARGeoCoordinate *coordinate;
 	[self.arViewController clearCoordinates];
+	[self.mapView removeAnnotations:self.mapView.annotations];
 	for (GNLandmark *landmark in landmarks) {
 		coordinate = [ARGeoCoordinate coordinateWithLocation:landmark];
 		coordinate.title = landmark.name;
 		
 		[self.arViewController addCoordinate:coordinate];
+		
+		[self.mapView addAnnotation:[LandmarkAnnotation annotationForLandmark:landmark]];
 	}
 }
 
@@ -232,7 +265,18 @@
 	// Update the ARViewController's center
 	self.arViewController.centerLocation = newLocation;
 	
-	[[GNLayerManager sharedManager] updateToCenterLocation:newLocation];	
+	[[GNLayerManager sharedManager] updateToCenterLocation:newLocation];
+	
+	MKCoordinateRegion region;
+	MKCoordinateSpan span;
+	span.latitudeDelta = 0.5;
+	span.longitudeDelta = 0.5;
+	region.center = newLocation.coordinate;
+	region.span = span;
+	
+//	[self.mapView setCenterCoordinate:newLocation.coordinate animated:YES];
+	[self.mapView setRegion:region animated:YES];
+	NSLog(@"Using!");
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
@@ -246,12 +290,36 @@
     }
 }
 
+#pragma mark Accelerometer Manager
+
+#define kFilteringFactor 0.05
+
+- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
+
+	if (acceleration.z < -0.8 && !pointingDown) {
+		pointingDown = YES;
+		
+		[UIView beginAnimations:@"ShowMap" context:nil];
+		[UIView setAnimationDuration:0.5];
+		self.mapView.alpha = 1;
+		[UIView commitAnimations];
+		NSLog(@"now facing down");
+	} else if (acceleration.z > -0.5 && pointingDown) {
+		pointingDown = NO;
+		
+		[UIView beginAnimations:@"ShowMap" context:nil];
+		[UIView setAnimationDuration:0.5];
+		self.mapView.alpha = 0;
+		[UIView commitAnimations];
+		NSLog(@"now facing up");
+	}
+}
+
 #pragma mark ARKit Delegate
 
 - (UIView *)viewForCoordinate:(ARCoordinate *)coordinate {
 	InfoBubbleController *infoBubbleController = [[[InfoBubbleController alloc] init] autorelease];
 	infoBubbleController.title = coordinate.title;
-	//infoBubbleController.view.center = self.view.center;
 	return infoBubbleController.view;	
 }
 
@@ -259,95 +327,31 @@
 
 ////////////////////////////////////////////////////////////
 
-@implementation LiveViewGlassController
+@implementation LandmarkAnnotation
 
-@synthesize toggleBarController=_toggleBarController, itemsToLayers=_itemsToLayers;
-
-- (void)loadView {
-	self.view = [[[UIView alloc] init] autorelease];
-	self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
++ (id)annotationForLandmark:(GNLandmark *)aLandmark {
+	return [[[LandmarkAnnotation alloc] initWithLandmark:aLandmark] autorelease];
 }
 
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad {
-	NSLog(@"glass view did load");
-	self.itemsToLayers = [NSMutableDictionary dictionary];
-	
-	// Add toggle bar
-	self.toggleBarController = [[[GNToggleBarController alloc] init] autorelease];
-	self.toggleBarController.delegate = self;
-	
-	[self.view addSubview:self.toggleBarController.view];
-	CGRect barFrame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y + self.view.frame.size.height - 58, self.view.frame.size.width, 58);
-	self.toggleBarController.view.frame = barFrame;
-	
-	// Instead of initializing the items and layers this way, we'll be
-	// unarchiving archived copies of items/layers using the NSCoder protocol
-	// specification
-	// see http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html
-	// or lecture 9 of the Stanford class
-	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Academic" image:[UIImage imageNamed:@"academic.png"]] autorelease];
-	GNLayer *layer = [[[CarletonBuildingsLayer alloc] init] autorelease];
-	[self.toggleBarController addToggleItem:item];
-	[self.itemsToLayers setObject:layer forKey:item];
-	[[GNLayerManager sharedManager] addLayer:layer active:NO];
-	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Tweets" image:[UIImage imageNamed:@"bird.png"]] autorelease];
-	layer = [[[TweetLayer alloc] init] autorelease];
-	[self.toggleBarController addToggleItem:item];
-	[self.itemsToLayers setObject:layer forKey:item];
-	[[GNLayerManager sharedManager] addLayer:layer active:NO];
-
-	// Other items for eventual use:
-	// item = [[[GNToggleItem alloc] initWithTitle:@"Sports" image:[UIImage imageNamed:@"sports.png"]] autorelease];
-	// item = [[[GNToggleItem alloc] initWithTitle:@"Trees" image:[UIImage imageNamed:@"trees.png"]] autorelease];
-	// item = [[[GNToggleItem alloc] initWithTitle:@"Food" image:[UIImage imageNamed:@"food.png"]] autorelease];
-	// item = [[[GNToggleItem alloc] initWithTitle:@"Gas" image:[UIImage imageNamed:@"gas.png"]] autorelease];	
-	
-    [super viewDidLoad];
-}
-
-// For a GNToggleItem, return its associated GNLayer
-- (GNLayer *)layerForToggleItem:(GNToggleItem*)item {
-	return [self.itemsToLayers objectForKey:item];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	// All but upside down. That's a wack orientation.
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-}
-
-// For a GNLandmark, return an array of its active layers sorted according to
-// the order specified by the user using the GNToggleBar
-- (NSArray *)sortedLayersForLandmark:(GNLandmark *)landmark {
-	// Copy the main (ordered) array of layers from the toggle bar then filter
-	// it based on whether or not each ayer is in the landmark's active layer
-	// list
-	NSMutableArray* returnArray = [NSMutableArray array];
-	
-	NSArray* activeLayers = landmark.activeLayers;
-	
-	GNLayer* layer;
-	
-	for (GNToggleItem* item in [self.toggleBarController activeToggleItems]) {
-		layer = [self layerForToggleItem:item];
-		if ([activeLayers containsObject:layer]) {
-			[returnArray addObject:item];
-		}
+- (id)initWithLandmark:(GNLandmark *)aLandmark {
+	if (self = [super init]) {
+		landmark = [aLandmark retain];
 	}
-	
-	return returnArray;
+	return self;
 }
 
-#pragma mark Toggle Bar Delegate
+- (CLLocationCoordinate2D)coordinate {
+	return landmark.coordinate;
+}
 
-// When items are toggled, let the layer manager know about it
-- (void)toggleBarController:(GNToggleBarController *)toggleBarController toggleItem:(GNToggleItem *)toggleItem changedToState:(BOOL)active {
-	GNLayer *layer = [self layerForToggleItem:toggleItem];
-	[[GNLayerManager sharedManager] setLayer:layer active:active];
+- (NSString *)title {
+	return landmark.name;
+}
+
+- (void)dealloc {
+	[landmark release];
 	
-	// Update our landmarks
-	[[GNLayerManager sharedManager] updateWithPreviousLocation];
+	[super dealloc];
 }
 
 @end
