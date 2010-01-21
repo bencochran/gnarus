@@ -37,15 +37,3 @@
 - (UIView *)viewForCoordinate:(ARCoordinate *)coordinate;
 
 @end
-
-////////////////////////////////////////////////////////////
-
-@interface LandmarkAnnotation : NSObject <MKAnnotation>
-{
-	GNLandmark *landmark;
-}
-
-+ (id)annotationForLandmark:(GNLandmark *)aLandmark;
-- (id)initWithLandmark:(GNLandmark *)aLandmark;
-
-@end

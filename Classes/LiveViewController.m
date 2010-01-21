@@ -176,14 +176,52 @@
 	NSArray *landmarks = [note.userInfo objectForKey:@"landmarks"];
 	ARGeoCoordinate *coordinate;
 	[self.arViewController clearCoordinates];
-	[self.mapView removeAnnotations:self.mapView.annotations];
+	NSLog(@"annotations: %@", self.mapView.annotations);
+	
+	// By default we'll mark all annotations for removal
+	NSMutableArray *annotationsToRemove = [NSMutableArray arrayWithArray:self.mapView.annotations];
+	
+	// Never remove the userLocation annotation
+	[annotationsToRemove removeObject:self.mapView.userLocation];
+
+	// Set up a region centered on the user, initialize its span to be 0
+	MKCoordinateRegion region;
+	region.center = self.arViewController.centerLocation.coordinate;
+	region.span.latitudeDelta = 0;
+	region.span.longitudeDelta = 0;
+
+	
 	for (GNLandmark *landmark in landmarks) {
 		coordinate = [ARGeoCoordinate coordinateWithLocation:landmark];
 		coordinate.title = landmark.name;
 		
 		[self.arViewController addCoordinate:coordinate];
 		
-		[self.mapView addAnnotation:[LandmarkAnnotation annotationForLandmark:landmark]];
+		if ([annotationsToRemove containsObject:landmark]) {
+			// Don't remove it if we still have that landmark around
+			[annotationsToRemove removeObject:landmark];
+		} else {
+			// But if it wasn't going to be removed that means we need to
+			// add it.
+			[self.mapView addAnnotation:landmark];
+		}
+		
+		// For the region's span, compute the delta-lat/lon from each coordinate
+		// to the center, double it (since the center's in, well, the center),
+		// and make it the official delta-lat/lon if it's larger than the
+		// previous value
+		region.span.latitudeDelta = MAX(region.span.latitudeDelta,
+										fabs(region.center.latitude - landmark.coordinate.latitude) * 2 + 0.002);
+		region.span.longitudeDelta = MAX(region.span.longitudeDelta,
+										fabs(region.center.longitude - landmark.coordinate.longitude) * 2 + 0.002);
+	}
+	
+	// Finally, remove annotations that actually don't exist anymore
+	[self.mapView removeAnnotations:annotationsToRemove];
+	
+	// Only if we computed a span do we actually go to that region
+	if (region.span.latitudeDelta > 0 && region.span.longitudeDelta > 0) {
+		[self.mapView setRegion:region animated:YES];
 	}
 }
 
@@ -275,7 +313,7 @@
 	region.span = span;
 	
 //	[self.mapView setCenterCoordinate:newLocation.coordinate animated:YES];
-	[self.mapView setRegion:region animated:YES];
+//	[self.mapView setRegion:region animated:YES];
 	NSLog(@"Using!");
 }
 
@@ -321,37 +359,6 @@
 	InfoBubbleController *infoBubbleController = [[[InfoBubbleController alloc] init] autorelease];
 	infoBubbleController.title = coordinate.title;
 	return infoBubbleController.view;	
-}
-
-@end
-
-////////////////////////////////////////////////////////////
-
-@implementation LandmarkAnnotation
-
-+ (id)annotationForLandmark:(GNLandmark *)aLandmark {
-	return [[[LandmarkAnnotation alloc] initWithLandmark:aLandmark] autorelease];
-}
-
-- (id)initWithLandmark:(GNLandmark *)aLandmark {
-	if (self = [super init]) {
-		landmark = [aLandmark retain];
-	}
-	return self;
-}
-
-- (CLLocationCoordinate2D)coordinate {
-	return landmark.coordinate;
-}
-
-- (NSString *)title {
-	return landmark.name;
-}
-
-- (void)dealloc {
-	[landmark release];
-	
-	[super dealloc];
 }
 
 @end
