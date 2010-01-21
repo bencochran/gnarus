@@ -245,8 +245,10 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+	[self.locationManager stopUpdatingLocation];
+	
 	// Stop locationManager from listening
-	[self.arViewController viewWillDisappear:NO];
+	[self.arViewController viewWillDisappear:animated];
 	[self.navigationController setNavigationBarHidden:NO animated:animated];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
 }
