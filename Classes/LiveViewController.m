@@ -112,6 +112,12 @@
 	[self.toggleBarController addToggleItem:item];
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
+		
+	item = [[[GNToggleItem alloc] initWithTitle:@"Dining" image:[UIImage imageNamed:@"food.png"]] autorelease];
+	layer = [[[DiningAreasLayer alloc] init] autorelease];
+	[self.toggleBarController addToggleItem:item];
+	[self.itemsToLayers setObject:layer forKey:item];
+	[[GNLayerManager sharedManager] addLayer:layer active:NO];	
 	
 	item = [[[GNToggleItem alloc] initWithTitle:@"Tweets" image:[UIImage imageNamed:@"bird.png"]] autorelease];
 	layer = [[[TweetLayer alloc] init] autorelease];
