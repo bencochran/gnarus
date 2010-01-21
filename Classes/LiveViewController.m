@@ -161,7 +161,7 @@
 // When items are toggled, let the layer manager know about it
 - (void)toggleBarController:(GNToggleBarController *)toggleBarController toggleItem:(GNToggleItem *)toggleItem changedToState:(BOOL)active {
 	GNLayer *layer = [self layerForToggleItem:toggleItem];
-	NSLog(@"Layer: %@", layer);
+
 	[[GNLayerManager sharedManager] setLayer:layer active:active];
 	
 	// Update our landmarks
@@ -169,16 +169,13 @@
 }
 
 
-- (void)locationsUpdated:(NSNotification *)note {
-	NSLog(@"%@ from %@", [note name], [note object]);
-	NSLog(@"userInfo: %@", [note userInfo]);
-	
+- (void)locationsUpdated:(NSNotification *)note {	
 	NSArray *landmarks = [note.userInfo objectForKey:@"landmarks"];
-	ARGeoCoordinate *coordinate;
-	[self.arViewController clearCoordinates];
-	NSLog(@"annotations: %@", self.mapView.annotations);
+
+	// By default we'll mark all location for removal
+	NSMutableArray *locationsToRemove = [NSMutableArray arrayWithArray:self.arViewController.locations];
 	
-	// By default we'll mark all annotations for removal
+	// We'll do the same for annotations, marking them for removal by default
 	NSMutableArray *annotationsToRemove = [NSMutableArray arrayWithArray:self.mapView.annotations];
 	
 	// Never remove the userLocation annotation
@@ -192,17 +189,22 @@
 
 	
 	for (GNLandmark *landmark in landmarks) {
-		coordinate = [ARGeoCoordinate coordinateWithLocation:landmark];
-		coordinate.title = landmark.name;
 		
-		[self.arViewController addCoordinate:coordinate];
-		
-		if ([annotationsToRemove containsObject:landmark]) {
-			// Don't remove it if we still have that landmark around
-			[annotationsToRemove removeObject:landmark];
+		if ([locationsToRemove containsObject:landmark]) {
+			// Don't remove locations that are still around
+			[locationsToRemove removeObject:landmark];
 		} else {
 			// But if it wasn't going to be removed that means we need to
 			// add it.
+			[self.arViewController addLocation:landmark withTitle:landmark.name];
+		}
+
+
+		// Use the same logic for annotations that we use for locations in the
+		// ARView
+		if ([annotationsToRemove containsObject:landmark]) {
+			[annotationsToRemove removeObject:landmark];
+		} else {
 			[self.mapView addAnnotation:landmark];
 		}
 		
@@ -215,6 +217,9 @@
 		region.span.longitudeDelta = MAX(region.span.longitudeDelta,
 										fabs(region.center.longitude - landmark.coordinate.longitude) * 2 + 0.002);
 	}
+	
+	// Finally, remove locations that actually don't exist anymore
+	[self.arViewController removeLocations:locationsToRemove];
 	
 	// Finally, remove annotations that actually don't exist anymore
 	[self.mapView removeAnnotations:annotationsToRemove];
