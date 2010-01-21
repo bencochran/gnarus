@@ -119,7 +119,6 @@
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
 	
-	
 	// Add ourself as an observer to LayerManager updates
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(locationsUpdated:)
@@ -389,9 +388,21 @@
 }
 
 - (void)didSelectLandmark:(NSNotification *)note {
-	LayerListViewController *layerList = [[LayerListViewController alloc] initWithLandmark:(GNLandmark *)note.object];
-	[self.navigationController pushViewController:layerList animated:YES];
-	[layerList release];
+	GNLandmark *landmark = (GNLandmark *)note.object;
+	if (landmark.activeLayers.count > 1) {
+		// If we have more than one active layer for that landmark, give us a
+		// list of layers to drill down in to
+		LayerListViewController *layerList = [[LayerListViewController alloc] initWithLandmark:landmark];
+		[self.navigationController pushViewController:layerList animated:YES];
+		[layerList release];
+	} else {
+		// Otherwise, take us straight into the ViewController for the only
+		// layer
+		GNLayer *layer = [landmark.activeLayers objectAtIndex:0];
+		UIViewController *viewController = [layer viewControllerForLandmark:landmark];
+		[self.navigationController pushViewController:viewController animated:YES];
+	}
+
 }
 
 @end
