@@ -18,6 +18,7 @@
 	MKMapView *_mapView;
 	
 	CLLocationManager *_locationManager;
+	CLLocation *lastUsedLocation;
 	
 	BOOL pointingDown;
 	

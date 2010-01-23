@@ -21,6 +21,7 @@
 	if (self = [super initWithCoder:aDecoder]) {
 		self.wantsFullScreenLayout = NO;
 		pointingDown = NO;
+		lastUsedLocation = nil;
 	}
 	return self;
 }
@@ -271,6 +272,7 @@
 	[viewController.view addSubview:label];
 
 	[self.navigationController pushViewController:viewController animated:YES];
+	[viewController release];
 }
 
 - (BOOL)shouldAutorotateViewsToInterfaceOrientation:(UIInterfaceOrientation)possibleOrientation {
@@ -293,6 +295,7 @@
 - (void)dealloc {
 	[_locationManager release];
 	[_arViewController release];
+	[lastUsedLocation release];
 	
     [super dealloc];
 }
@@ -300,10 +303,6 @@
 #pragma mark Location Manager
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-	NSLog(@"location: %@", newLocation);
-	NSLog(@"altitude: %f", newLocation.altitude);
-	NSLog(@"verticalAccuracy: %f", newLocation.verticalAccuracy);
-
     // Test that the horizontal accuracy does not indicate an invalid
 	// measurement
     if (newLocation.horizontalAccuracy < 0) return;
@@ -313,8 +312,23 @@
     NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
     if (locationAge > 5.0) return;
 
-	// Update the ARViewController's center
+	// Update the ARViewController's center with every location update
 	self.arViewController.centerLocation = newLocation;
+
+	NSLog(@"newLocation: %@", newLocation);
+				
+	// If the last used location is set, is withing 10 meters of the new
+	// location and was stored within 5 minutes of the new location, skip
+	// updating our layer manager.
+	if (lastUsedLocation != nil && [lastUsedLocation getDistanceFrom:newLocation] < 10 && -[lastUsedLocation.timestamp timeIntervalSinceDate:newLocation.timestamp] < 60 * 5) {
+		NSLog(@"Ignoring");
+		return;
+	}
+	NSLog(@"Using");
+	
+	// Release the old and retain the new
+	[lastUsedLocation release];
+	lastUsedLocation = [newLocation retain];
 	
 	[[GNLayerManager sharedManager] updateToCenterLocation:newLocation];
 	
@@ -324,10 +338,6 @@
 	span.longitudeDelta = 0.5;
 	region.center = newLocation.coordinate;
 	region.span = span;
-	
-//	[self.mapView setCenterCoordinate:newLocation.coordinate animated:YES];
-//	[self.mapView setRegion:region animated:YES];
-	NSLog(@"Using!");
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
