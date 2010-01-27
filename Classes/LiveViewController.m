@@ -108,20 +108,20 @@
 	// specification
 	// see http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html
 	// or lecture 9 of the Stanford class
-	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:@"Academic" image:[UIImage imageNamed:@"academic.png"]] autorelease];
 	GNLayer *layer = [[[CarletonBuildingsLayer alloc] init] autorelease];
+	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:layer.name image:[UIImage imageNamed:@"academic.png"]] autorelease];
 	[self.toggleBarController addToggleItem:item];
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
 		
-	item = [[[GNToggleItem alloc] initWithTitle:@"Dining" image:[UIImage imageNamed:@"food.png"]] autorelease];
 	layer = [[[DiningAreasLayer alloc] init] autorelease];
+	item = [[[GNToggleItem alloc] initWithTitle:layer.name image:[UIImage imageNamed:@"food.png"]] autorelease];
 	[self.toggleBarController addToggleItem:item];
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];	
 	
-	item = [[[GNToggleItem alloc] initWithTitle:@"Tweets" image:[UIImage imageNamed:@"bird.png"]] autorelease];
 	layer = [[[TweetLayer alloc] init] autorelease];
+	item = [[[GNToggleItem alloc] initWithTitle:layer.name image:[UIImage imageNamed:@"bird.png"]] autorelease];
 	[self.toggleBarController addToggleItem:item];
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
