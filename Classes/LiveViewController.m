@@ -141,6 +141,12 @@
 	return [self.itemsToLayers objectForKey:item];
 }
 
+// Return the list of layers as the user has sorted them
+// TODO: This needs to actually obey user order
+- (NSArray *)userOrderedLayers {
+	return [[GNLayerManager sharedManager] layers];
+}
+
 // For a GNLandmark, return an array of its active layers sorted according to
 // the order specified by the user using the GNToggleBar
 - (NSArray *)sortedLayersForLandmark:(GNLandmark *)landmark {
