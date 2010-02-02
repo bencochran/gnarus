@@ -100,6 +100,7 @@
 	cell.textLabel.text = [layer name];
 	if ([layer layerIsUserModifiable] == NO) {
 		[cell.textLabel setTextColor:[UIColor lightGrayColor]];
+		[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 	}
     return cell;
 }
@@ -110,8 +111,11 @@
 	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
 	// [self.navigationController pushViewController:anotherViewController];
 	// [anotherViewController release];
-	UIViewController *editingViewController = [(GNLayer *)[self.layers objectAtIndex:indexPath.row] getEditingViewController];
-	[self.navigationController pushViewController:editingViewController animated:YES];
+	GNLayer *layer = [self.layers objectAtIndex:indexPath.row];
+	if ([layer layerIsUserModifiable] == YES){
+		UIViewController *editingViewController = [layer getEditingViewController];
+		[self.navigationController pushViewController:editingViewController animated:YES];
+	}
 	
 	//GNAddLandmarkInfoViewController *landmarkInfoViewController = [[GNAddLandmarkInfoViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	//landmarkInfoViewController.layers = self.layers;

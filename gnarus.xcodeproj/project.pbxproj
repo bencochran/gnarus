@@ -14,7 +14,6 @@
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		A2920D96111794AC00625576 /* GNAddLandmarkLayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2920D95111794AC00625576 /* GNAddLandmarkLayersViewController.m */; };
-		A2A144491117AAEE00CDD28C /* GNAddLandmarkInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A144481117AAEE00CDD28C /* GNAddLandmarkInfoViewController.m */; };
 		A2DA6475111656520099E39D /* GNAddLandmarkMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DA6473111656520099E39D /* GNAddLandmarkMapViewController.m */; };
 		A2DA6476111656520099E39D /* GNAddLandmarkMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */; };
 		B81A805F10A1171900FDDD60 /* InfoBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A805E10A1171900FDDD60 /* InfoBubble.m */; };
@@ -111,8 +110,6 @@
 		8D1107310486CEB800E47090 /* gnarus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "gnarus-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		A2920D94111794AC00625576 /* GNAddLandmarkLayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAddLandmarkLayersViewController.h; sourceTree = "<group>"; };
 		A2920D95111794AC00625576 /* GNAddLandmarkLayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAddLandmarkLayersViewController.m; sourceTree = "<group>"; };
-		A2A144471117AAEE00CDD28C /* GNAddLandmarkInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAddLandmarkInfoViewController.h; sourceTree = "<group>"; };
-		A2A144481117AAEE00CDD28C /* GNAddLandmarkInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAddLandmarkInfoViewController.m; sourceTree = "<group>"; };
 		A2DA6472111656520099E39D /* GNAddLandmarkMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAddLandmarkMapViewController.h; sourceTree = "<group>"; };
 		A2DA6473111656520099E39D /* GNAddLandmarkMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAddLandmarkMapViewController.m; sourceTree = "<group>"; };
 		A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GNAddLandmarkMapViewController.xib; sourceTree = "<group>"; };
@@ -166,8 +163,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A2A144471117AAEE00CDD28C /* GNAddLandmarkInfoViewController.h */,
-				A2A144481117AAEE00CDD28C /* GNAddLandmarkInfoViewController.m */,
 				A2920D94111794AC00625576 /* GNAddLandmarkLayersViewController.h */,
 				A2920D95111794AC00625576 /* GNAddLandmarkLayersViewController.m */,
 				A2DA6472111656520099E39D /* GNAddLandmarkMapViewController.h */,
@@ -405,7 +400,6 @@
 				B8721F5D11085040009F078F /* LayerListViewController.m in Sources */,
 				A2DA6475111656520099E39D /* GNAddLandmarkMapViewController.m in Sources */,
 				A2920D96111794AC00625576 /* GNAddLandmarkLayersViewController.m in Sources */,
-				A2A144491117AAEE00CDD28C /* GNAddLandmarkInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
