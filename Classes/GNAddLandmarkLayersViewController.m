@@ -7,7 +7,6 @@
 //
 
 #import "GNAddLandmarkLayersViewController.h"
-#import "GNAddLandmarkINfoViewController.h"
 
 
 @implementation GNAddLandmarkLayersViewController
