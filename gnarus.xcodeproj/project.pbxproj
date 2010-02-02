@@ -13,6 +13,10 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		A2920D96111794AC00625576 /* GNAddLandmarkLayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2920D95111794AC00625576 /* GNAddLandmarkLayersViewController.m */; };
+		A2A144491117AAEE00CDD28C /* GNAddLandmarkInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2A144481117AAEE00CDD28C /* GNAddLandmarkInfoViewController.m */; };
+		A2DA6475111656520099E39D /* GNAddLandmarkMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DA6473111656520099E39D /* GNAddLandmarkMapViewController.m */; };
+		A2DA6476111656520099E39D /* GNAddLandmarkMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */; };
 		B81A805F10A1171900FDDD60 /* InfoBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A805E10A1171900FDDD60 /* InfoBubble.m */; };
 		B833706210A150650036C038 /* InfoBubbleController.m in Sources */ = {isa = PBXBuildFile; fileRef = B833706110A150650036C038 /* InfoBubbleController.m */; };
 		B83A411A1107DCE400C2FD2D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83A41191107DCE400C2FD2D /* MapKit.framework */; };
@@ -22,7 +26,7 @@
 		B84493F210B1B9FA00A0E348 /* academic.png in Resources */ = {isa = PBXBuildFile; fileRef = B84493F110B1B9FA00A0E348 /* academic.png */; };
 		B867CF3510A9F380001A24A7 /* Locations.plist in Resources */ = {isa = PBXBuildFile; fileRef = B867CF3410A9F380001A24A7 /* Locations.plist */; };
 		B8721F5D11085040009F078F /* LayerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8721F5C11085040009F078F /* LayerListViewController.m */; };
-		B8721F6A11085157009F078F /* CarletonBuildingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8721F6911085157009F078F /* CarletonBuildingsView.xib */; };
+		B8721F6A11085157009F078F /* CarletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8721F6911085157009F078F /* CarletonView.xib */; };
 		B88092E810A9E40F0061E490 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B88092E710A9E40F0061E490 /* QuartzCore.framework */; };
 		B88092EE10A9E4220061E490 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B88092ED10A9E4220061E490 /* CoreLocation.framework */; };
 		B88D782110CF857E003A76A1 /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = B88D782010CF857E003A76A1 /* bird.png */; };
@@ -42,13 +46,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = A215FFFC10B2546600774314;
 			remoteInfo = TesterApp;
-		};
-		B8747DB710F5755400B1938E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A251AE6A10F522FC0041E1D7;
-			remoteInfo = LMUnitTests;
 		};
 		B880D1A3109779CC005601EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -112,6 +109,13 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* gnarus_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gnarus_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* gnarus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "gnarus-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		A2920D94111794AC00625576 /* GNAddLandmarkLayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAddLandmarkLayersViewController.h; sourceTree = "<group>"; };
+		A2920D95111794AC00625576 /* GNAddLandmarkLayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAddLandmarkLayersViewController.m; sourceTree = "<group>"; };
+		A2A144471117AAEE00CDD28C /* GNAddLandmarkInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAddLandmarkInfoViewController.h; sourceTree = "<group>"; };
+		A2A144481117AAEE00CDD28C /* GNAddLandmarkInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAddLandmarkInfoViewController.m; sourceTree = "<group>"; };
+		A2DA6472111656520099E39D /* GNAddLandmarkMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAddLandmarkMapViewController.h; sourceTree = "<group>"; };
+		A2DA6473111656520099E39D /* GNAddLandmarkMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAddLandmarkMapViewController.m; sourceTree = "<group>"; };
+		A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GNAddLandmarkMapViewController.xib; sourceTree = "<group>"; };
 		B81A805D10A1171900FDDD60 /* InfoBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoBubble.h; sourceTree = "<group>"; };
 		B81A805E10A1171900FDDD60 /* InfoBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoBubble.m; sourceTree = "<group>"; };
 		B833706010A150650036C038 /* InfoBubbleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoBubbleController.h; sourceTree = "<group>"; };
@@ -124,7 +128,7 @@
 		B867CF3410A9F380001A24A7 /* Locations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Locations.plist; sourceTree = "<group>"; };
 		B8721F5B11085040009F078F /* LayerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerListViewController.h; sourceTree = "<group>"; };
 		B8721F5C11085040009F078F /* LayerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerListViewController.m; sourceTree = "<group>"; };
-		B8721F6911085157009F078F /* CarletonBuildingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CarletonBuildingsView.xib; path = external/LayerManager/CarletonBuildingsView.xib; sourceTree = SOURCE_ROOT; };
+		B8721F6911085157009F078F /* CarletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CarletonView.xib; path = external/LayerManager/CarletonView.xib; sourceTree = "<group>"; };
 		B88092E710A9E40F0061E490 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B88092ED10A9E4220061E490 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B880D19C109779CC005601EF /* GNToggleBar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GNToggleBar.xcodeproj; path = external/GNToggleBar/GNToggleBar.xcodeproj; sourceTree = "<group>"; };
@@ -162,6 +166,13 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A2A144471117AAEE00CDD28C /* GNAddLandmarkInfoViewController.h */,
+				A2A144481117AAEE00CDD28C /* GNAddLandmarkInfoViewController.m */,
+				A2920D94111794AC00625576 /* GNAddLandmarkLayersViewController.h */,
+				A2920D95111794AC00625576 /* GNAddLandmarkLayersViewController.m */,
+				A2DA6472111656520099E39D /* GNAddLandmarkMapViewController.h */,
+				A2DA6473111656520099E39D /* GNAddLandmarkMapViewController.m */,
+				A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */,
 				B896C16C109FFDDC00259858 /* LiveViewController.h */,
 				B896C16D109FFDDC00259858 /* LiveViewController.m */,
 				1D3623240D0F684500981E51 /* gnarusAppDelegate.h */,
@@ -208,7 +219,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				B8721F6911085157009F078F /* CarletonBuildingsView.xib */,
+				B8721F6911085157009F078F /* CarletonView.xib */,
 				B88D782010CF857E003A76A1 /* bird.png */,
 				B84493A210B1B59C00A0E348 /* sports.png */,
 				B84493F110B1B9FA00A0E348 /* academic.png */,
@@ -263,7 +274,6 @@
 			children = (
 				B8BC14BD109EBE25000701DF /* libLayerManager.a */,
 				B806601B10D037D5006248A8 /* TesterApp.app */,
-				B8747DB810F5755400B1938E /* LMUnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -330,13 +340,6 @@
 			remoteRef = B806601A10D037D5006248A8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		B8747DB810F5755400B1938E /* LMUnitTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = LMUnitTests.octest;
-			remoteRef = B8747DB710F5755400B1938E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		B880D1A4109779CC005601EF /* libGNToggleBar.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -382,7 +385,8 @@
 				B84493F210B1B9FA00A0E348 /* academic.png in Resources */,
 				B8FC80A510B1DCC800CA8F7C /* Icon.png in Resources */,
 				B88D782110CF857E003A76A1 /* bird.png in Resources */,
-				B8721F6A11085157009F078F /* CarletonBuildingsView.xib in Resources */,
+				B8721F6A11085157009F078F /* CarletonView.xib in Resources */,
+				A2DA6476111656520099E39D /* GNAddLandmarkMapViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +403,9 @@
 				B81A805F10A1171900FDDD60 /* InfoBubble.m in Sources */,
 				B833706210A150650036C038 /* InfoBubbleController.m in Sources */,
 				B8721F5D11085040009F078F /* LayerListViewController.m in Sources */,
+				A2DA6475111656520099E39D /* GNAddLandmarkMapViewController.m in Sources */,
+				A2920D96111794AC00625576 /* GNAddLandmarkLayersViewController.m in Sources */,
+				A2A144491117AAEE00CDD28C /* GNAddLandmarkInfoViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

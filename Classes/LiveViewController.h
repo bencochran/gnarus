@@ -11,6 +11,7 @@
 #import <GnarusToggleBar/GnarusToggleBar.h>
 #import <LayerManager/LayerManager.h>
 #import <MapKit/MapKit.h>
+#import "GNAddLandmarkMapViewController.h"
 
 @interface LiveViewController : UIViewController <ARViewDelegate, CLLocationManagerDelegate, UIAccelerometerDelegate, GNToggleBarDelegate> {
 	ARGeoViewController *_arViewController;
