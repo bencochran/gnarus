@@ -11,6 +11,7 @@
 
 @interface GNAddLandmarkLayersViewController : UITableViewController {
 	NSArray *_layers;
+	GNLayer *selectedLayer;
 }
 
 @property (nonatomic, retain) NSArray *layers;

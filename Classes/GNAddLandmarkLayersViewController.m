@@ -29,6 +29,10 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (GNLayer *)getSelectedLayer {
+	return selectedLayer;
+	
+}
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -112,6 +116,7 @@
 	// [anotherViewController release];
 	GNLayer *layer = [self.layers objectAtIndex:indexPath.row];
 	if ([layer layerIsUserModifiable] == YES){
+		selectedLayer = layer;
 		UIViewController *editingViewController = [layer getEditingViewController];
 		[self.navigationController pushViewController:editingViewController animated:YES];
 	}

@@ -12,6 +12,7 @@
 @interface GNAddLandmarkMapViewController : UIViewController {
 	//MKMapView *_mapView;
 	NSArray *_layers;
+	CLLocation *selectedLocation;
 }
 
 @property (nonatomic, retain) NSArray *layers;
