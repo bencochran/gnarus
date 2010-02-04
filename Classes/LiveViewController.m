@@ -92,6 +92,13 @@
 	NSLog(@"Running in simulator");
 #endif
 	
+	UIButton *addButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	[addButton setTitle:@"+" forState:UIControlStateNormal];
+	addButton.frame = CGRectMake(280, 5, 35, 35);
+	addButton.alpha = 0.8;
+	[addButton addTarget:self action:@selector(didSelectPlus:) forControlEvents:UIControlEventTouchUpInside];
+	[self.view addSubview:addButton];
+	
 	// Add toggle bar
 	self.toggleBarController = [[[GNToggleBarController alloc] init] autorelease];
 	self.toggleBarController.delegate = self;
@@ -108,20 +115,20 @@
 	// specification
 	// see http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html
 	// or lecture 9 of the Stanford class
-	GNLayer *layer = [[[CarletonBuildingsLayer alloc] init] autorelease];
-	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:layer.name image:[UIImage imageNamed:@"academic.png"]] autorelease];
+	GNLayer *layer = [[[CarletonLayer alloc] init] autorelease];
+	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]] autorelease];
 	[self.toggleBarController addToggleItem:item];
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
-		
-	layer = [[[DiningAreasLayer alloc] init] autorelease];
-	item = [[[GNToggleItem alloc] initWithTitle:layer.name image:[UIImage imageNamed:@"food.png"]] autorelease];
+	
+	layer = [[[FoodLayer alloc] init] autorelease];
+	item = [[[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]] autorelease];
 	[self.toggleBarController addToggleItem:item];
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];	
 	
 	layer = [[[TweetLayer alloc] init] autorelease];
-	item = [[[GNToggleItem alloc] initWithTitle:layer.name image:[UIImage imageNamed:@"bird.png"]] autorelease];
+	item = [[[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]] autorelease];
 	[self.toggleBarController addToggleItem:item];
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
@@ -139,6 +146,12 @@
 - (GNLayer *)layerForToggleItem:(GNToggleItem*)item {
 	NSLog(@"self.itemsToLayers: %@", self.itemsToLayers);
 	return [self.itemsToLayers objectForKey:item];
+}
+
+// Return the list of layers as the user has sorted them
+// TODO: This needs to actually obey user order
+- (NSArray *)userOrderedLayers {
+	return [[GNLayerManager sharedManager] layers];
 }
 
 // For a GNLandmark, return an array of its active layers sorted according to
@@ -420,6 +433,15 @@
 		UIViewController *viewController = [layer viewControllerForLandmark:landmark];
 		[self.navigationController pushViewController:viewController animated:YES];
 	}
+
+}
+
+- (void)didSelectPlus:(id)sender {
+	
+	GNAddLandmarkMapViewController *landmarkMapViewController = [[GNAddLandmarkMapViewController alloc] initWithNibName:@"GNAddLandmarkMapViewController" bundle:nil];
+	landmarkMapViewController.layers = self.userOrderedLayers;
+	[self.navigationController pushViewController:landmarkMapViewController animated:YES];
+	[landmarkMapViewController release];
 
 }
 
