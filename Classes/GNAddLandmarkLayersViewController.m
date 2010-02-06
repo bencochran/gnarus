@@ -12,12 +12,14 @@
 @implementation GNAddLandmarkLayersViewController
 
 @synthesize layers=_layers;
+//, selectedLayer =_selectedLayer, selectedLocation = _selectedLocation;
 
-- (id)initWithStyle:(UITableViewStyle)style {
+- (id)initWithLocation:(CLLocation *)location {
     // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-    if (self = [super initWithStyle:style]) {
+    if (self = [super initWithStyle:UITableViewStylePlain]) {
 		self.title = @"Layers";
 		self.layers = nil;
+		selectedLocation = location;
 	}
     return self;
 }
@@ -27,11 +29,6 @@
     [super viewDidLoad];	
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
-
-- (GNLayer *)getSelectedLayer {
-	return selectedLayer;
-	
 }
 
 /*
@@ -117,7 +114,7 @@
 	GNLayer *layer = [self.layers objectAtIndex:indexPath.row];
 	if ([layer layerIsUserModifiable] == YES){
 		selectedLayer = layer;
-		UIViewController *editingViewController = [layer getEditingViewController];
+		UIViewController *editingViewController = [layer getEditingViewControllerWithLocation:selectedLocation];
 		[self.navigationController pushViewController:editingViewController animated:YES];
 	}
 	
