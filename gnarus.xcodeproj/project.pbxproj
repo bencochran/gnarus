@@ -14,6 +14,14 @@
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		A2920D96111794AC00625576 /* GNAddLandmarkLayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2920D95111794AC00625576 /* GNAddLandmarkLayersViewController.m */; };
+		A2D898D3111F75EE0017026F /* GNMutablePlacemark.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D898D0111F75EE0017026F /* GNMutablePlacemark.m */; };
+		A2D898D4111F75EE0017026F /* GNPinAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D898D2111F75EE0017026F /* GNPinAnnotationView.m */; };
+		A2D89914111F7B550017026F /* Pin.png in Resources */ = {isa = PBXBuildFile; fileRef = A2D8990E111F7B550017026F /* Pin.png */; };
+		A2D89915111F7B550017026F /* PinDown1.png in Resources */ = {isa = PBXBuildFile; fileRef = A2D8990F111F7B550017026F /* PinDown1.png */; };
+		A2D89916111F7B550017026F /* PinDown2.png in Resources */ = {isa = PBXBuildFile; fileRef = A2D89910111F7B550017026F /* PinDown2.png */; };
+		A2D89917111F7B550017026F /* PinDown3.png in Resources */ = {isa = PBXBuildFile; fileRef = A2D89911111F7B550017026F /* PinDown3.png */; };
+		A2D89918111F7B550017026F /* PinFloating.png in Resources */ = {isa = PBXBuildFile; fileRef = A2D89912111F7B550017026F /* PinFloating.png */; };
+		A2D89919111F7B550017026F /* PinShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = A2D89913111F7B550017026F /* PinShadow.png */; };
 		A2DA6475111656520099E39D /* GNAddLandmarkMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DA6473111656520099E39D /* GNAddLandmarkMapViewController.m */; };
 		A2DA6476111656520099E39D /* GNAddLandmarkMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */; };
 		B805EA69111F5A0D00C3E65B /* academic.png in Resources */ = {isa = PBXBuildFile; fileRef = B805EA66111F5A0D00C3E65B /* academic.png */; };
@@ -113,6 +121,16 @@
 		8D1107310486CEB800E47090 /* gnarus-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "gnarus-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		A2920D94111794AC00625576 /* GNAddLandmarkLayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAddLandmarkLayersViewController.h; sourceTree = "<group>"; };
 		A2920D95111794AC00625576 /* GNAddLandmarkLayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAddLandmarkLayersViewController.m; sourceTree = "<group>"; };
+		A2D898CF111F75EE0017026F /* GNMutablePlacemark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNMutablePlacemark.h; sourceTree = "<group>"; };
+		A2D898D0111F75EE0017026F /* GNMutablePlacemark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNMutablePlacemark.m; sourceTree = "<group>"; };
+		A2D898D1111F75EE0017026F /* GNPinAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNPinAnnotationView.h; sourceTree = "<group>"; };
+		A2D898D2111F75EE0017026F /* GNPinAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNPinAnnotationView.m; sourceTree = "<group>"; };
+		A2D8990E111F7B550017026F /* Pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pin.png; sourceTree = "<group>"; };
+		A2D8990F111F7B550017026F /* PinDown1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinDown1.png; sourceTree = "<group>"; };
+		A2D89910111F7B550017026F /* PinDown2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinDown2.png; sourceTree = "<group>"; };
+		A2D89911111F7B550017026F /* PinDown3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinDown3.png; sourceTree = "<group>"; };
+		A2D89912111F7B550017026F /* PinFloating.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinFloating.png; sourceTree = "<group>"; };
+		A2D89913111F7B550017026F /* PinShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinShadow.png; sourceTree = "<group>"; };
 		A2DA6472111656520099E39D /* GNAddLandmarkMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAddLandmarkMapViewController.h; sourceTree = "<group>"; };
 		A2DA6473111656520099E39D /* GNAddLandmarkMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAddLandmarkMapViewController.m; sourceTree = "<group>"; };
 		A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GNAddLandmarkMapViewController.xib; path = Classes/GNAddLandmarkMapViewController.xib; sourceTree = "<group>"; };
@@ -176,6 +194,10 @@
 				A2920D95111794AC00625576 /* GNAddLandmarkLayersViewController.m */,
 				A2DA6472111656520099E39D /* GNAddLandmarkMapViewController.h */,
 				A2DA6473111656520099E39D /* GNAddLandmarkMapViewController.m */,
+				A2D898CF111F75EE0017026F /* GNMutablePlacemark.h */,
+				A2D898D0111F75EE0017026F /* GNMutablePlacemark.m */,
+				A2D898D1111F75EE0017026F /* GNPinAnnotationView.h */,
+				A2D898D2111F75EE0017026F /* GNPinAnnotationView.m */,
 				B896C16C109FFDDC00259858 /* LiveViewController.h */,
 				B896C16D109FFDDC00259858 /* LiveViewController.m */,
 				1D3623240D0F684500981E51 /* gnarusAppDelegate.h */,
@@ -225,6 +247,12 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A2D8990E111F7B550017026F /* Pin.png */,
+				A2D8990F111F7B550017026F /* PinDown1.png */,
+				A2D89910111F7B550017026F /* PinDown2.png */,
+				A2D89911111F7B550017026F /* PinDown3.png */,
+				A2D89912111F7B550017026F /* PinFloating.png */,
+				A2D89913111F7B550017026F /* PinShadow.png */,
 				A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */,
 				B8721F6911085157009F078F /* CarletonView.xib */,
 				B84493A210B1B59C00A0E348 /* sports.png */,
@@ -394,6 +422,12 @@
 				B805EA69111F5A0D00C3E65B /* academic.png in Resources */,
 				B805EA6A111F5A0D00C3E65B /* bird.png in Resources */,
 				B805EA6B111F5A0D00C3E65B /* food.png in Resources */,
+				A2D89914111F7B550017026F /* Pin.png in Resources */,
+				A2D89915111F7B550017026F /* PinDown1.png in Resources */,
+				A2D89916111F7B550017026F /* PinDown2.png in Resources */,
+				A2D89917111F7B550017026F /* PinDown3.png in Resources */,
+				A2D89918111F7B550017026F /* PinFloating.png in Resources */,
+				A2D89919111F7B550017026F /* PinShadow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +446,8 @@
 				B8721F5D11085040009F078F /* LayerListViewController.m in Sources */,
 				A2DA6475111656520099E39D /* GNAddLandmarkMapViewController.m in Sources */,
 				A2920D96111794AC00625576 /* GNAddLandmarkLayersViewController.m in Sources */,
+				A2D898D3111F75EE0017026F /* GNMutablePlacemark.m in Sources */,
+				A2D898D4111F75EE0017026F /* GNPinAnnotationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
