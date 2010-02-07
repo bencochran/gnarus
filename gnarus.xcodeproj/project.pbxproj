@@ -16,6 +16,9 @@
 		A2920D96111794AC00625576 /* GNAddLandmarkLayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2920D95111794AC00625576 /* GNAddLandmarkLayersViewController.m */; };
 		A2DA6475111656520099E39D /* GNAddLandmarkMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DA6473111656520099E39D /* GNAddLandmarkMapViewController.m */; };
 		A2DA6476111656520099E39D /* GNAddLandmarkMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */; };
+		B805EA69111F5A0D00C3E65B /* academic.png in Resources */ = {isa = PBXBuildFile; fileRef = B805EA66111F5A0D00C3E65B /* academic.png */; };
+		B805EA6A111F5A0D00C3E65B /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = B805EA67111F5A0D00C3E65B /* bird.png */; };
+		B805EA6B111F5A0D00C3E65B /* food.png in Resources */ = {isa = PBXBuildFile; fileRef = B805EA68111F5A0D00C3E65B /* food.png */; };
 		B81A805F10A1171900FDDD60 /* InfoBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A805E10A1171900FDDD60 /* InfoBubble.m */; };
 		B833706210A150650036C038 /* InfoBubbleController.m in Sources */ = {isa = PBXBuildFile; fileRef = B833706110A150650036C038 /* InfoBubbleController.m */; };
 		B83A411A1107DCE400C2FD2D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83A41191107DCE400C2FD2D /* MapKit.framework */; };
@@ -113,6 +116,9 @@
 		A2DA6472111656520099E39D /* GNAddLandmarkMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAddLandmarkMapViewController.h; sourceTree = "<group>"; };
 		A2DA6473111656520099E39D /* GNAddLandmarkMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAddLandmarkMapViewController.m; sourceTree = "<group>"; };
 		A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GNAddLandmarkMapViewController.xib; sourceTree = "<group>"; };
+		B805EA66111F5A0D00C3E65B /* academic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = academic.png; path = external/LayerManager/academic.png; sourceTree = "<group>"; };
+		B805EA67111F5A0D00C3E65B /* bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bird.png; path = external/LayerManager/bird.png; sourceTree = "<group>"; };
+		B805EA68111F5A0D00C3E65B /* food.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = food.png; path = external/LayerManager/food.png; sourceTree = "<group>"; };
 		B81A805D10A1171900FDDD60 /* InfoBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoBubble.h; sourceTree = "<group>"; };
 		B81A805E10A1171900FDDD60 /* InfoBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoBubble.m; sourceTree = "<group>"; };
 		B833706010A150650036C038 /* InfoBubbleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoBubbleController.h; sourceTree = "<group>"; };
@@ -229,6 +235,9 @@
 				B8FC80A410B1DCC800CA8F7C /* Icon.png */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* gnarus-Info.plist */,
+				B805EA66111F5A0D00C3E65B /* academic.png */,
+				B805EA67111F5A0D00C3E65B /* bird.png */,
+				B805EA68111F5A0D00C3E65B /* food.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -382,6 +391,9 @@
 				B8FC80A510B1DCC800CA8F7C /* Icon.png in Resources */,
 				B8721F6A11085157009F078F /* CarletonView.xib in Resources */,
 				A2DA6476111656520099E39D /* GNAddLandmarkMapViewController.xib in Resources */,
+				B805EA69111F5A0D00C3E65B /* academic.png in Resources */,
+				B805EA6A111F5A0D00C3E65B /* bird.png in Resources */,
+				B805EA6B111F5A0D00C3E65B /* food.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
