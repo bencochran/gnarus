@@ -16,10 +16,17 @@
 @synthesize mapView=_mapView;
 
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil centerLocation:(CLLocationCoordinate2D)mapCenter {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         // Custom initialization
 		self.title = @"Landmarks";
+		
+#if TARGET_IPHONE_SIMULATOR
+		mapCenter.latitude = 44.456586120748355;
+		mapCenter.longitude = -93.15977096557617;
+#endif
+		NSLog(@"center: %f, %f", mapCenter.latitude, mapCenter.longitude);
+		userCoordinate = mapCenter;
     }
     return self;
 }
@@ -32,10 +39,9 @@
 	self.navigationItem.rightBarButtonItem = addButton;
 	[addButton release];
 	
-	/////////////////////////////////////// Center map somewhere in Carleton
+	NSLog(@"new center: %f, %f", userCoordinate.latitude, userCoordinate.longitude);
 	MKCoordinateRegion region;
-	region.center.latitude = 44.459949;
-	region.center.longitude = -93.152363;
+	region.center = userCoordinate;
 	region.span.latitudeDelta = 0.005;
 	region.span.longitudeDelta = 0.005;
 	[self.mapView setRegion:region];
@@ -47,8 +53,6 @@
 	landmarkLayersViewController.layers = self.layers;
 	[self.navigationController pushViewController:landmarkLayersViewController animated:YES];
 	[landmarkLayersViewController release];
-		
-	
 }
 
 -(CLLocation *)getSelectedLocation {

@@ -438,7 +438,8 @@
 
 - (void)didSelectPlus:(id)sender {
 	
-	GNAddLandmarkMapViewController *landmarkMapViewController = [[GNAddLandmarkMapViewController alloc] initWithNibName:@"GNAddLandmarkMapViewController" bundle:nil];
+	GNAddLandmarkMapViewController *landmarkMapViewController = [[GNAddLandmarkMapViewController alloc]
+																 initWithNibName:@"GNAddLandmarkMapViewController" bundle:nil centerLocation:lastUsedLocation.coordinate];
 	landmarkMapViewController.layers = self.userOrderedLayers;
 	[self.navigationController pushViewController:landmarkMapViewController animated:YES];
 	[landmarkMapViewController release];
