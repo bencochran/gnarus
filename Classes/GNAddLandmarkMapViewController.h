@@ -9,15 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 
-@interface GNAddLandmarkMapViewController : UIViewController {
-	//MKMapView *_mapView;
+@interface GNAddLandmarkMapViewController : UIViewController <MKMapViewDelegate> {
+	MKMapView *_mapView;
 	NSArray *_layers;
 	CLLocation *selectedLocation;
 }
 
 @property (nonatomic, retain) NSArray *layers;
-
-//@property (nonatomic, retain) MKMapView *mapView;
+@property (nonatomic, retain) IBOutlet MKMapView *mapView;
 
 - (void)addLandmark;
 
