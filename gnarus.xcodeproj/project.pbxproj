@@ -33,6 +33,9 @@
 		B896C1EC10A003F100259858 /* libARKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B880D3301097A719005601EF /* libARKit.a */; };
 		B896C3CA10A0186600259858 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B896C3C910A0186600259858 /* bg.jpg */; };
 		B8FC80A510B1DCC800CA8F7C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FC80A410B1DCC800CA8F7C /* Icon.png */; };
+		FC242C02111F4B7E003AFB03 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C01111F4B7E003AFB03 /* libz.1.2.3.dylib */; };
+		FC242C05111F4BA2003AFB03 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C04111F4BA2003AFB03 /* CFNetwork.framework */; };
+		FC242C3C111F4D09003AFB03 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C3B111F4D09003AFB03 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +135,9 @@
 		B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LayerManager.xcodeproj; path = external/LayerManager/LayerManager.xcodeproj; sourceTree = "<group>"; };
 		B8F1044310CB85C900B6F7A9 /* libisimulate.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libisimulate.a; sourceTree = "<group>"; };
 		B8FC80A410B1DCC800CA8F7C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		FC242C01111F4B7E003AFB03 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
+		FC242C04111F4BA2003AFB03 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		FC242C3B111F4D09003AFB03 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +154,9 @@
 				B88092E810A9E40F0061E490 /* QuartzCore.framework in Frameworks */,
 				B88092EE10A9E4220061E490 /* CoreLocation.framework in Frameworks */,
 				B83A411A1107DCE400C2FD2D /* MapKit.framework in Frameworks */,
+				FC242C02111F4B7E003AFB03 /* libz.1.2.3.dylib in Frameworks */,
+				FC242C05111F4BA2003AFB03 /* CFNetwork.framework in Frameworks */,
+				FC242C3C111F4D09003AFB03 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +201,9 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				FC242C01111F4B7E003AFB03 /* libz.1.2.3.dylib */,
+				FC242C04111F4BA2003AFB03 /* CFNetwork.framework */,
+				FC242C3B111F4D09003AFB03 /* SystemConfiguration.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -422,6 +434,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = gnarus_Prefix.pch;
+				HEADER_SEARCH_PATHS = "external/**";
 				INFOPLIST_FILE = "gnarus-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
