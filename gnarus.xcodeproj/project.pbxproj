@@ -109,7 +109,7 @@
 		A2920D95111794AC00625576 /* GNAddLandmarkLayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAddLandmarkLayersViewController.m; sourceTree = "<group>"; };
 		A2DA6472111656520099E39D /* GNAddLandmarkMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAddLandmarkMapViewController.h; sourceTree = "<group>"; };
 		A2DA6473111656520099E39D /* GNAddLandmarkMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAddLandmarkMapViewController.m; sourceTree = "<group>"; };
-		A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GNAddLandmarkMapViewController.xib; sourceTree = "<group>"; };
+		A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GNAddLandmarkMapViewController.xib; path = Classes/GNAddLandmarkMapViewController.xib; sourceTree = "<group>"; };
 		B81A805D10A1171900FDDD60 /* InfoBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoBubble.h; sourceTree = "<group>"; };
 		B81A805E10A1171900FDDD60 /* InfoBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoBubble.m; sourceTree = "<group>"; };
 		B833706010A150650036C038 /* InfoBubbleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoBubbleController.h; sourceTree = "<group>"; };
@@ -161,7 +161,6 @@
 				A2920D95111794AC00625576 /* GNAddLandmarkLayersViewController.m */,
 				A2DA6472111656520099E39D /* GNAddLandmarkMapViewController.h */,
 				A2DA6473111656520099E39D /* GNAddLandmarkMapViewController.m */,
-				A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */,
 				B896C16C109FFDDC00259858 /* LiveViewController.h */,
 				B896C16D109FFDDC00259858 /* LiveViewController.m */,
 				1D3623240D0F684500981E51 /* gnarusAppDelegate.h */,
@@ -208,6 +207,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */,
 				B8721F6911085157009F078F /* CarletonView.xib */,
 				B84493A210B1B59C00A0E348 /* sports.png */,
 				B844939E10B1B58300A0E348 /* trees.png */,
