@@ -49,6 +49,7 @@
 	region.span.latitudeDelta = 0.005;
 	region.span.longitudeDelta = 0.005;
 	[_mapView setRegion:region];
+	_mapView.showsUserLocation = YES;
 	
 	// Add annotations for the closest landmarks
 	_annotations = [[NSMutableSet alloc] init];
@@ -128,7 +129,7 @@
 		annotationView = (GNPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"NewLandmark"];
 		if (annotationView == nil) {
 			annotationView = [[[GNPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"NewLandmark"] autorelease];
-			annotationView.pinColor = MKPinAnnotationColorRed;
+			annotationView.pinColor = MKPinAnnotationColorPurple;
 			annotationView.animatesDrop = YES;
 			annotationView.canShowCallout = YES;
 		}
