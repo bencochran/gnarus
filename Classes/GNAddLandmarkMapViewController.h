@@ -15,14 +15,12 @@
 	NSArray *_layers;
 	NSMutableSet *_annotations;
 	GNMutablePlacemark *_addedAnnotation;
-	CLLocation *selectedLocation;
-	CLLocationCoordinate2D userCoordinate;
+	CLLocation *_selectedLocation;
+	CLLocationCoordinate2D _userCoordinate;
 }
 
 @property (nonatomic, retain) NSArray *layers;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
-@property (nonatomic, retain) NSMutableSet *annotations;
-@property (nonatomic, retain) GNMutablePlacemark *addedAnnotation;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil centerLocation:(CLLocationCoordinate2D)mapCenter;
 - (void)addAnnotation;

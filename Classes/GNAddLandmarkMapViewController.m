@@ -9,13 +9,12 @@
 #import "GNAddLandmarkMapViewController.h"
 #import "GNAddLandmarkLayersViewController.h"
 #import "GNPinAnnotationView.h"
+#import <LayerManager/LayerManager.h>
 
 @implementation GNAddLandmarkMapViewController
 
 @synthesize layers=_layers;
 @synthesize mapView=_mapView;
-@synthesize annotations=_annotations;
-@synthesize addedAnnotation=_addedAnnotation;
  
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil centerLocation:(CLLocationCoordinate2D)mapCenter {
@@ -27,8 +26,8 @@
 		mapCenter.latitude = 44.456586120748355;
 		mapCenter.longitude = -93.15977096557617;
 #endif
-		NSLog(@"center: %f, %f", mapCenter.latitude, mapCenter.longitude);
-		userCoordinate = mapCenter;
+		NSLog(@"Center: %f, %f", mapCenter.latitude, mapCenter.longitude);
+		_userCoordinate = mapCenter;
     }
     return self;
 }
@@ -41,35 +40,47 @@
 	self.navigationItem.rightBarButtonItem = addButton;
 	[addButton release];
 	
-	self.addedAnnotation = nil;
-	selectedLocation = nil;
+	_addedAnnotation = nil;
+	_selectedLocation = nil;
 	
-	NSLog(@"new center: %f, %f", userCoordinate.latitude, userCoordinate.longitude);
+	NSLog(@"New center: %f, %f", _userCoordinate.latitude, _userCoordinate.longitude);
 	MKCoordinateRegion region;
-	region.center = userCoordinate;
+	region.center = _userCoordinate;
 	region.span.latitudeDelta = 0.005;
 	region.span.longitudeDelta = 0.005;
-	[self.mapView setRegion:region];
+	[_mapView setRegion:region];
+	
+	// Add annotations for the closest landmarks
+	_annotations = [[NSMutableSet alloc] init];
+	GNMutablePlacemark *landmarkPlacemark;
+	for (GNLandmark *landmark in [[GNLayerManager sharedManager] closestLandmarks]) {
+		landmarkPlacemark = [[GNMutablePlacemark alloc] initWithCoordinate:landmark.coordinate addressDictionary:nil];
+		landmarkPlacemark.title = landmark.name;
+		landmarkPlacemark.subtitle = nil;
+		[_annotations addObject:landmarkPlacemark];
+		[_mapView addAnnotation:landmarkPlacemark];
+		[landmarkPlacemark release];
+	}
 }
 
 - (void)addAnnotation {
 	self.navigationItem.rightBarButtonItem.enabled = NO;
-	self.addedAnnotation = [[GNMutablePlacemark alloc] initWithCoordinate:self.mapView.centerCoordinate addressDictionary:nil];
-	self.addedAnnotation.title = @"Drag to move pin";
-	self.addedAnnotation.subtitle = @"Press arrow to edit information";
-	[self.mapView addAnnotation:self.addedAnnotation];
+	_addedAnnotation = [[GNMutablePlacemark alloc] initWithCoordinate:self.mapView.centerCoordinate addressDictionary:nil];
+	_addedAnnotation.title = @"Drag to move pin";
+	_addedAnnotation.subtitle = @"Press arrow to edit information";
+	[_mapView addAnnotation:_addedAnnotation];
 }
 
 - (void)addLandmarkWithLocation:(CLLocation *)location {
 	NSLog(@"Adding landmark with center: %f, %f", location.coordinate.latitude, location.coordinate.longitude);
 	GNAddLandmarkLayersViewController *landmarkLayersViewController = [[GNAddLandmarkLayersViewController alloc] initWithLocation:location];
-	landmarkLayersViewController.layers = self.layers;
+	landmarkLayersViewController.layers = _layers;
 	[self.navigationController pushViewController:landmarkLayersViewController animated:YES];
 	[landmarkLayersViewController release];
 }
 
 -(CLLocation *)getSelectedLocation {
-	return selectedLocation;
+	return _selectedLocation;
 }
 
 /*
@@ -98,9 +109,9 @@
     [_mapView release];
 	
 	[_layers release];
-	[self.annotations release];
-	[self.addedAnnotation release];
-	[selectedLocation release];
+	[_annotations release];
+	[_addedAnnotation release];
+	[_selectedLocation release];
 	
 	[super dealloc];
 }
@@ -111,22 +122,35 @@
 		return nil;
 	}
 	
-	GNPinAnnotationView *annotationView = (GNPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"NewLandmark"];
-	if (annotationView == nil) {
-		annotationView = [[[GNPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"NewLandmark"] autorelease];
-		annotationView.pinColor = MKPinAnnotationColorRed;
-		annotationView.animatesDrop = YES;
-		annotationView.canShowCallout = YES;
+	MKPinAnnotationView *annotationView;
+	
+	if(annotation == _addedAnnotation) {
+		annotationView = (GNPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"NewLandmark"];
+		if (annotationView == nil) {
+			annotationView = [[[GNPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"NewLandmark"] autorelease];
+			annotationView.pinColor = MKPinAnnotationColorRed;
+			annotationView.animatesDrop = YES;
+			annotationView.canShowCallout = YES;
+		}
+		// Dragging annotation will need _mapView to convert new point to coordinate
+		((GNPinAnnotationView *) annotationView).mapView = mapView;
+		
+		UIImageView *leftIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PinFloating.png"]];
+		annotationView.leftCalloutAccessoryView = leftIconView;
+		[leftIconView release];
+		
+		UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+		annotationView.rightCalloutAccessoryView = rightButton;	
 	}
-	// Dragging annotation will need _mapView to convert new point to coordinate
-	annotationView.mapView = mapView;
-	
-	UIImageView *leftIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PinFloating.png"]];
-	annotationView.leftCalloutAccessoryView = leftIconView;
-	[leftIconView release];
-	
-	UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-	annotationView.rightCalloutAccessoryView = rightButton;		
+	else {
+		annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
+		if (annotationView == nil) {
+			annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotation.title] autorelease];
+			annotationView.pinColor = MKPinAnnotationColorRed;
+			annotationView.animatesDrop = NO;
+			annotationView.canShowCallout = YES;
+		}
+	}
 	
 	return annotationView;
 }
@@ -134,12 +158,12 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
 	if ([control isKindOfClass:[UIButton class]]) {
-		if (selectedLocation) {
-			[selectedLocation release];
-			selectedLocation = nil;
+		if (_selectedLocation) {
+			[_selectedLocation release];
+			_selectedLocation = nil;
 		}
-		selectedLocation = [[CLLocation alloc] initWithLatitude:self.addedAnnotation.coordinate.latitude longitude:self.addedAnnotation.coordinate.longitude];
-		[self addLandmarkWithLocation:selectedLocation];
+		_selectedLocation = [[CLLocation alloc] initWithLatitude:_addedAnnotation.coordinate.latitude longitude:_addedAnnotation.coordinate.longitude];
+		[self addLandmarkWithLocation:_selectedLocation];
 	}
 }
 
