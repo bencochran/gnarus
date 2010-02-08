@@ -136,7 +136,7 @@
 		// Dragging annotation will need _mapView to convert new point to coordinate
 		((GNPinAnnotationView *) annotationView).mapView = mapView;
 		
-		UIImageView *leftIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PinFloating.png"]];
+		UIImageView *leftIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PinFloatingPurple.png"]];
 		annotationView.leftCalloutAccessoryView = leftIconView;
 		[leftIconView release];
 		
