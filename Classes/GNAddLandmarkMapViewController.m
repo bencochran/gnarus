@@ -87,7 +87,7 @@
 - (void)addAnnotation {
 	self.navigationItem.rightBarButtonItem.enabled = NO;
 	_addedAnnotation = [[GNMutablePlacemark alloc] initWithCoordinate:self.mapView.centerCoordinate addressDictionary:nil];
-	_addedAnnotation.title = @"Drag to move pin";
+	_addedAnnotation.title = @"Drag To Move Pin";
 	[_mapView addAnnotation:_addedAnnotation];
 	[_mapView selectAnnotation:_addedAnnotation animated:YES];
 	[self droppedPinChanged];
