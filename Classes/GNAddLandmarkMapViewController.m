@@ -128,14 +128,14 @@
 		annotationView = (GNPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"NewLandmark"];
 		if (annotationView == nil) {
 			annotationView = [[[GNPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"NewLandmark"] autorelease];
-			annotationView.pinColor = MKPinAnnotationColorRed;
+			annotationView.pinColor = MKPinAnnotationColorPurple;
 			annotationView.animatesDrop = YES;
 			annotationView.canShowCallout = YES;
 		}
 		// Dragging annotation will need _mapView to convert new point to coordinate
 		((GNPinAnnotationView *) annotationView).mapView = mapView;
 		
-		UIImageView *leftIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PinFloating.png"]];
+		UIImageView *leftIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PinFloatingPurple.png"]];
 		annotationView.leftCalloutAccessoryView = leftIconView;
 		[leftIconView release];
 		
