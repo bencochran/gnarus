@@ -39,9 +39,9 @@
 	CAKeyframeAnimation *pinBounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"contents"];
 	
 	NSMutableArray *values = [NSMutableArray array];
-	[values addObject:(id)[UIImage imageNamed:@"PinDown1.png"].CGImage];
-	[values addObject:(id)[UIImage imageNamed:@"PinDown2.png"].CGImage];
-	[values addObject:(id)[UIImage imageNamed:@"PinDown3.png"].CGImage];
+	[values addObject:(id)[UIImage imageNamed:@"PinDown1Purple.png"].CGImage];
+	[values addObject:(id)[UIImage imageNamed:@"PinDown2Purple.png"].CGImage];
+	[values addObject:(id)[UIImage imageNamed:@"PinDown3Purple.png"].CGImage];
 	
 	[pinBounceAnimation setValues:values];
 	pinBounceAnimation.duration = 0.1;
@@ -53,7 +53,7 @@
 	
 	CAKeyframeAnimation *pinFloatingAnimation = [CAKeyframeAnimation animationWithKeyPath:@"contents"];
 	
-	[pinFloatingAnimation setValues:[NSArray arrayWithObject:(id)[UIImage imageNamed:@"PinFloating.png"].CGImage]];
+	[pinFloatingAnimation setValues:[NSArray arrayWithObject:(id)[UIImage imageNamed:@"PinFloatingPurple.png"].CGImage]];
 	pinFloatingAnimation.duration = 0.2;
 	
 	return pinFloatingAnimation;
@@ -114,11 +114,11 @@
 	if ((self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier])) {
 		self.canShowCallout = YES;
 		
-		self.image = [UIImage imageNamed:@"Pin.png"];
+		self.image = [UIImage imageNamed:@"PinPurple.png"];
 		self.centerOffset = CGPointMake(8, -10);
 		self.calloutOffset = CGPointMake(-8, 0);
 		
-		_pinShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PinShadow.png"]];
+		_pinShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PinShadowPurple.png"]];
 		_pinShadow.frame = CGRectMake(0, 0, 32, 39);
 		_pinShadow.hidden = YES;
 		[self addSubview:_pinShadow];

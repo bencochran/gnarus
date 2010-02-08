@@ -43,11 +43,6 @@
 		FC242C05111F4BA2003AFB03 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C04111F4BA2003AFB03 /* CFNetwork.framework */; };
 		FC242C3C111F4D09003AFB03 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C3B111F4D09003AFB03 /* SystemConfiguration.framework */; };
 		FC6DC031111FCF33002462E1 /* plusButton.png in Resources */ = {isa = PBXBuildFile; fileRef = FC6DC030111FCF33002462E1 /* plusButton.png */; };
-		FC9693F41120AB1700218696 /* Pin.png in Resources */ = {isa = PBXBuildFile; fileRef = FC9693EF1120AB1700218696 /* Pin.png */; };
-		FC9693F51120AB1700218696 /* PinDown1.png in Resources */ = {isa = PBXBuildFile; fileRef = FC9693F01120AB1700218696 /* PinDown1.png */; };
-		FC9693F61120AB1700218696 /* PinDown2.png in Resources */ = {isa = PBXBuildFile; fileRef = FC9693F11120AB1700218696 /* PinDown2.png */; };
-		FC9693F71120AB1700218696 /* PinDown3.png in Resources */ = {isa = PBXBuildFile; fileRef = FC9693F21120AB1700218696 /* PinDown3.png */; };
-		FC9693F81120AB1700218696 /* PinFloating.png in Resources */ = {isa = PBXBuildFile; fileRef = FC9693F31120AB1700218696 /* PinFloating.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,11 +154,6 @@
 		FC242C04111F4BA2003AFB03 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FC242C3B111F4D09003AFB03 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FC6DC030111FCF33002462E1 /* plusButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plusButton.png; sourceTree = "<group>"; };
-		FC9693EF1120AB1700218696 /* Pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pin.png; sourceTree = "<group>"; };
-		FC9693F01120AB1700218696 /* PinDown1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinDown1.png; sourceTree = "<group>"; };
-		FC9693F11120AB1700218696 /* PinDown2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinDown2.png; sourceTree = "<group>"; };
-		FC9693F21120AB1700218696 /* PinDown3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinDown3.png; sourceTree = "<group>"; };
-		FC9693F31120AB1700218696 /* PinFloating.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinFloating.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,11 +239,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FC9693EF1120AB1700218696 /* Pin.png */,
-				FC9693F01120AB1700218696 /* PinDown1.png */,
-				FC9693F11120AB1700218696 /* PinDown2.png */,
-				FC9693F21120AB1700218696 /* PinDown3.png */,
-				FC9693F31120AB1700218696 /* PinFloating.png */,
 				A2D89913111F7B550017026F /* PinShadow.png */,
 				FC6DC030111FCF33002462E1 /* plusButton.png */,
 				A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */,
@@ -427,11 +412,6 @@
 				B805EA6B111F5A0D00C3E65B /* food.png in Resources */,
 				A2D89919111F7B550017026F /* PinShadow.png in Resources */,
 				FC6DC031111FCF33002462E1 /* plusButton.png in Resources */,
-				FC9693F41120AB1700218696 /* Pin.png in Resources */,
-				FC9693F51120AB1700218696 /* PinDown1.png in Resources */,
-				FC9693F61120AB1700218696 /* PinDown2.png in Resources */,
-				FC9693F71120AB1700218696 /* PinDown3.png in Resources */,
-				FC9693F81120AB1700218696 /* PinFloating.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
