@@ -53,6 +53,8 @@
 
 @implementation GNPinAnnotationView
 
+NSString *const DDAnnotationCoordinateDidChangeNotification = @"DDAnnotationCoordinateDidChangeNotification";
+
 + (CAAnimation *)_pinBounceAnimation {
 	
 	CAKeyframeAnimation *pinBounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"contents"];
@@ -243,7 +245,7 @@
 			CLLocationCoordinate2D newCoordinate = [_mapView convertPoint:newCenter toCoordinateFromView:self.superview];
 			theAnnotation.coordinate = newCoordinate;
 			
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"DDAnnotationCoordinateDidChangeNotification" object:theAnnotation];
+			[[NSNotificationCenter defaultCenter] postNotificationName:DDAnnotationCoordinateDidChangeNotification object:theAnnotation];
 			
 			// Clean up the state information.
 			_startLocation = CGPointZero;

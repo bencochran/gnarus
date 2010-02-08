@@ -28,6 +28,8 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
+extern NSString *const DDAnnotationCoordinateDidChangeNotification;
+
 @interface GNPinAnnotationView : MKPinAnnotationView {
 	
 @private
