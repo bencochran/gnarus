@@ -128,7 +128,7 @@
 		annotationView = (GNPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"NewLandmark"];
 		if (annotationView == nil) {
 			annotationView = [[[GNPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"NewLandmark"] autorelease];
-			annotationView.pinColor = MKPinAnnotationColorRed;
+			annotationView.pinColor = MKPinAnnotationColorPurple;
 			annotationView.animatesDrop = YES;
 			annotationView.canShowCallout = YES;
 		}
