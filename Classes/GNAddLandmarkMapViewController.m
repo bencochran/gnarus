@@ -49,6 +49,7 @@
 	region.span.latitudeDelta = 0.005;
 	region.span.longitudeDelta = 0.005;
 	[_mapView setRegion:region];
+	_mapView.showsUserLocation = YES;
 	
 	// Add annotations for the closest landmarks
 	_annotations = [[NSMutableSet alloc] init];
