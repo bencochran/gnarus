@@ -23,6 +23,7 @@
 		self.title = @"Landmarks";
 		
 #if TARGET_IPHONE_SIMULATOR
+		// Make the simulator put us in an interesting location.
 		mapCenter.latitude = 44.456586120748355;
 		mapCenter.longitude = -93.15977096557617;
 #endif
@@ -51,6 +52,12 @@
 	[_mapView setRegion:region];
 	_mapView.showsUserLocation = YES;
 	
+	// We want to know when the pin is moved
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(droppedPinChanged)
+												 name:DDAnnotationCoordinateDidChangeNotification 
+											   object:nil];		
+	
 	// Add annotations for the closest landmarks
 	_annotations = [[NSMutableSet alloc] init];
 	GNMutablePlacemark *landmarkPlacemark;
@@ -64,13 +71,37 @@
 	}
 }
 
+- (void)droppedPinChanged {	
+	if (geocoder) {
+		geocoder.cancel;
+		geocoder.delegate = nil;
+		[geocoder release];
+		geocoder = nil;
+	}
+	
+	geocoder = [[MKReverseGeocoder alloc] initWithCoordinate:_addedAnnotation.coordinate];
+	geocoder.delegate = self;
+	[geocoder start];	
+}
+
 - (void)addAnnotation {
 	self.navigationItem.rightBarButtonItem.enabled = NO;
 	_addedAnnotation = [[GNMutablePlacemark alloc] initWithCoordinate:self.mapView.centerCoordinate addressDictionary:nil];
-	_addedAnnotation.title = @"Drag to move pin";
-	_addedAnnotation.subtitle = @"Press arrow to edit information";
+	_addedAnnotation.title = @"Drag To Move Pin";
 	[_mapView addAnnotation:_addedAnnotation];
+	[_mapView selectAnnotation:_addedAnnotation animated:YES];
+	[self droppedPinChanged];
 }
+
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFindPlacemark:(MKPlacemark *)placemark {
+	_addedAnnotation.subtitle = [[placemark.addressDictionary valueForKey:@"FormattedAddressLines"] componentsJoinedByString:@", "];
+}
+
+- (void)reverseGeocoder:(MKReverseGeocoder *)geocoder didFailWithError:(NSError *)error {
+	_addedAnnotation.subtitle = nil;
+}
+
+
 
 - (void)addLandmarkWithLocation:(CLLocation *)location {
 	NSLog(@"Adding landmark with center: %f, %f", location.coordinate.latitude, location.coordinate.longitude);
@@ -109,6 +140,9 @@
 	_mapView.delegate = nil;
     [_mapView release];
 	
+	geocoder.delegate = nil;
+	[geocoder release];
+	
 	[_layers release];
 	[_annotations release];
 	[_addedAnnotation release];
@@ -135,11 +169,7 @@
 		}
 		// Dragging annotation will need _mapView to convert new point to coordinate
 		((GNPinAnnotationView *) annotationView).mapView = mapView;
-		
-		UIImageView *leftIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PinFloatingPurple.png"]];
-		annotationView.leftCalloutAccessoryView = leftIconView;
-		[leftIconView release];
-		
+				
 		UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 		annotationView.rightCalloutAccessoryView = rightButton;	
 	}

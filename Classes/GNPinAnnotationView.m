@@ -1,9 +1,28 @@
 //
 //  GNPinAnnotationView.m
-//  MapKitDragAndDrop
+//  Adapted from http://github.com/digdog/MapKitDragAndDrop
 //
-//  Created by iComps on 2/3/10.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//  Created by digdog on 7/24/09.
+//  Copyright 2009 Ching-Lan 'digdog' HUANG and digdog software.
+//
+//  Permission is hereby granted, free of charge, to any person obtaining
+//  a copy of this software and associated documentation files (the
+//  "Software"), to deal in the Software without restriction, including
+//  without limitation the rights to use, copy, modify, merge, publish,
+//  distribute, sublicense, and/or sell copies of the Software, and to
+//  permit persons to whom the Software is furnished to do so, subject to
+//  the following conditions:
+//   
+//  The above copyright notice and this permission notice shall be
+//  included in all copies or substantial portions of the Software.
+//   
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+//  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+//  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+//  NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+//  LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+//  OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+//  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 #import <CoreGraphics/CoreGraphics.h>	// For CGPointZero
@@ -33,6 +52,8 @@
 #pragma mark DDAnnotationView implementation
 
 @implementation GNPinAnnotationView
+
+NSString *const DDAnnotationCoordinateDidChangeNotification = @"DDAnnotationCoordinateDidChangeNotification";
 
 + (CAAnimation *)_pinBounceAnimation {
 	
@@ -118,7 +139,7 @@
 		self.centerOffset = CGPointMake(8, -10);
 		self.calloutOffset = CGPointMake(-8, 0);
 		
-		_pinShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PinShadowPurple.png"]];
+		_pinShadow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"PinShadow.png"]];
 		_pinShadow.frame = CGRectMake(0, 0, 32, 39);
 		_pinShadow.hidden = YES;
 		[self addSubview:_pinShadow];
@@ -224,7 +245,7 @@
 			CLLocationCoordinate2D newCoordinate = [_mapView convertPoint:newCenter toCoordinateFromView:self.superview];
 			theAnnotation.coordinate = newCoordinate;
 			
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"DDAnnotationCoordinateDidChangeNotification" object:theAnnotation];
+			[[NSNotificationCenter defaultCenter] postNotificationName:DDAnnotationCoordinateDidChangeNotification object:theAnnotation];
 			
 			// Clean up the state information.
 			_startLocation = CGPointZero;

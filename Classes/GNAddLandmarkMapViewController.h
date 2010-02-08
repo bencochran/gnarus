@@ -10,13 +10,14 @@
 #import <MapKit/MapKit.h>
 #import "GNMutablePlacemark.h"
 
-@interface GNAddLandmarkMapViewController : UIViewController <MKMapViewDelegate> {
+@interface GNAddLandmarkMapViewController : UIViewController <MKMapViewDelegate, MKReverseGeocoderDelegate> {
 	MKMapView *_mapView;
 	NSArray *_layers;
 	NSMutableSet *_annotations;
 	GNMutablePlacemark *_addedAnnotation;
 	CLLocation *_selectedLocation;
 	CLLocationCoordinate2D _userCoordinate;
+	MKReverseGeocoder *geocoder;
 }
 
 @property (nonatomic, retain) NSArray *layers;
