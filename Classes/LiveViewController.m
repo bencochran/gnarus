@@ -17,8 +17,9 @@
 			mapView=_mapView, toggleBarController=_toggleBarController,
 			itemsToLayers=_itemsToLayers;
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-	if (self = [super initWithCoder:aDecoder]) {
+
+- (id)init {
+	if (self = [super init]) {
 		self.wantsFullScreenLayout = NO;
 		pointingDown = NO;
 		lastUsedLocation = nil;
@@ -29,6 +30,7 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	self.view = [[[UIView alloc] init] autorelease];
+	self.view.backgroundColor = [UIColor blackColor];
 	//self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 }
 
@@ -55,8 +57,6 @@
 
 	self.arViewController = [[ARGeoViewController alloc] initWithLocationManager:self.locationManager accelerometer:accelerometer];	
 	self.arViewController.delegate = self;
-		
-	[self.view addSubview:self.arViewController.view];
 	
 	self.mapView = [[MKMapView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	[self.view addSubview:self.mapView];
@@ -252,7 +252,12 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[self.arViewController viewWillAppear:NO];
+	[super viewWillAppear:animated];
+
+	// Put the ARKit view at the bottom of the view hierarchy
+	[self.view insertSubview:self.arViewController.view atIndex:0];
+	
+	[self.arViewController viewWillAppear:animated];
 	[self.navigationController setNavigationBarHidden:YES animated:animated];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:animated];
 	
@@ -262,16 +267,24 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
 	[self.arViewController viewDidAppear:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
 	[self.locationManager stopUpdatingLocation];
 	
 	// Stop locationManager from listening
 	[self.arViewController viewWillDisappear:animated];
 	[self.navigationController setNavigationBarHidden:NO animated:animated];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	[self.arViewController.cameraController dismissModalViewControllerAnimated:NO];
+	[self.arViewController.view removeFromSuperview];
 }
 
 - (void)buttonClick:(id)sender {

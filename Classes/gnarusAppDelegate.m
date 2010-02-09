@@ -17,7 +17,7 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	[application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 	
-	LiveViewController *viewController = [[LiveViewController alloc] initWithCoder:nil];
+	LiveViewController *viewController = [[LiveViewController alloc] init];
 	
 	self.navController = [[UINavigationController alloc] initWithRootViewController:viewController];
 	[viewController release];
