@@ -94,9 +94,8 @@
 #endif
 	
 	UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	UIImage *addButtonImage = [UIImage imageNamed:@"plusButton.png"];
-	[addButton setImage:addButtonImage forState:UIControlStateNormal];
-	addButton.frame = CGRectMake(282, 7, 33, 30);
+	[addButton setImage:[UIImage imageNamed:@"plusButton.png"] forState:UIControlStateNormal];
+	addButton.frame = CGRectMake(self.view.frame.size.width - 38, [[UIApplication sharedApplication] statusBarFrame].size.height + 7, 33, 30);
 	addButton.alpha = 0.65;
 	[addButton addTarget:self action:@selector(didSelectPlus:) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:addButton];
