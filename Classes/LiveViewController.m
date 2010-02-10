@@ -58,15 +58,6 @@
 	self.arViewController = [[ARGeoViewController alloc] initWithLocationManager:self.locationManager accelerometer:accelerometer];	
 	self.arViewController.delegate = self;
 	
-	self.mapView = [[MKMapView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	[self.view addSubview:self.mapView];
-	
-//	self.mapView.zoomEnabled = NO;
-//	self.mapView.scrollEnabled = NO;
-	self.mapView.showsUserLocation = YES;
-	
-	self.mapView.alpha = 0;
-	
 	//self.view = self.arViewController.view;
 	//[arViewController release];
 	
@@ -74,7 +65,6 @@
 
 #else
 	self.arViewController = nil;
-	self.mapView = nil;
 	
 	// Add image
 	UIImageView *imageView = [[[UIImageView alloc] initWithFrame:self.view.frame] autorelease];
@@ -90,6 +80,17 @@
 	[self.view addSubview:infoBubbleController.view];	
 	
 	NSLog(@"Running in simulator");
+#endif
+	
+	self.mapView = [[MKMapView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	[self.view addSubview:self.mapView];
+	
+	//	self.mapView.zoomEnabled = NO;
+	//	self.mapView.scrollEnabled = NO;
+	self.mapView.showsUserLocation = YES;
+
+#if !TARGET_IPHONE_SIMULATOR
+	self.mapView.alpha = 0;	
 #endif
 	
 	UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -210,7 +211,7 @@
 
 	// Set up a region centered on the user, initialize its span to be 0
 	MKCoordinateRegion region;
-	region.center = self.arViewController.centerLocation.coordinate;
+	region.center = lastUsedLocation.coordinate;
 	region.span.latitudeDelta = 0;
 	region.span.longitudeDelta = 0;
 
@@ -390,6 +391,8 @@
 
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
 
+#if !TARGET_IPHONE_SIMULATOR
+
 	if (acceleration.z < -0.8 && !pointingDown) {
 		pointingDown = YES;
 		
@@ -407,6 +410,8 @@
 		[UIView commitAnimations];
 		NSLog(@"now facing up");
 	}
+#endif
+
 }
 
 #pragma mark ARKit Delegate
