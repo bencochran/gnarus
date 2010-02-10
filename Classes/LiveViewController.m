@@ -134,6 +134,12 @@
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
 	
+	layer = [[[WikiLayer alloc] init] autorelease];
+	item = [[[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]] autorelease];
+	[self.toggleBarController addToggleItem:item];
+	[self.itemsToLayers setObject:layer forKey:item];
+	[[GNLayerManager sharedManager] addLayer:layer active:NO];
+	
 	// Add ourself as an observer to LayerManager updates
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(locationsUpdated:)
