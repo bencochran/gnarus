@@ -20,7 +20,7 @@
 
 - (id)init {
 	if (self = [super init]) {
-		self.wantsFullScreenLayout = NO;
+		self.wantsFullScreenLayout = YES;
 		pointingDown = NO;
 		lastUsedLocation = nil;
 	}
@@ -82,7 +82,7 @@
 	NSLog(@"Running in simulator");
 #endif
 	
-	self.mapView = [[MKMapView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+	self.mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
 	[self.view addSubview:self.mapView];
 	
 	//	self.mapView.zoomEnabled = NO;
@@ -266,7 +266,7 @@
 	
 	[self.arViewController viewWillAppear:animated];
 	[self.navigationController setNavigationBarHidden:YES animated:animated];
-	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:animated];
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:animated];
 	
     // Once configured, the location manager must be "started".
     [self.locationManager startUpdatingLocation];
@@ -276,6 +276,18 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	[self.arViewController viewDidAppear:NO];
+
+	// Because presenting the camera modally covers up the status bar, let's set
+	// it to come back after a short delay.
+	// This looks a little gross. But at least we have a status bar.
+	//
+	// TODO: Fix the status bar so it never disappears.
+	// Dunno how right now though
+	[self performSelector:@selector(resetStatusBar:) withObject:nil afterDelay:0.05];
+}
+
+- (void)resetStatusBar:(id)object {
+	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
