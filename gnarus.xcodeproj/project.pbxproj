@@ -29,6 +29,7 @@
 		B844939F10B1B58300A0E348 /* trees.png in Resources */ = {isa = PBXBuildFile; fileRef = B844939E10B1B58300A0E348 /* trees.png */; };
 		B84493A310B1B59C00A0E348 /* sports.png in Resources */ = {isa = PBXBuildFile; fileRef = B84493A210B1B59C00A0E348 /* sports.png */; };
 		B867CF3510A9F380001A24A7 /* Locations.plist in Resources */ = {isa = PBXBuildFile; fileRef = B867CF3410A9F380001A24A7 /* Locations.plist */; };
+		B87136FE112284B300091359 /* wiki.png in Resources */ = {isa = PBXBuildFile; fileRef = B87136FD112284B300091359 /* wiki.png */; };
 		B8721F5D11085040009F078F /* LayerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B8721F5C11085040009F078F /* LayerListViewController.m */; };
 		B8721F6A11085157009F078F /* CarletonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8721F6911085157009F078F /* CarletonView.xib */; };
 		B88092E810A9E40F0061E490 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B88092E710A9E40F0061E490 /* QuartzCore.framework */; };
@@ -137,6 +138,7 @@
 		B844939E10B1B58300A0E348 /* trees.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trees.png; sourceTree = "<group>"; };
 		B84493A210B1B59C00A0E348 /* sports.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sports.png; sourceTree = "<group>"; };
 		B867CF3410A9F380001A24A7 /* Locations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Locations.plist; sourceTree = "<group>"; };
+		B87136FD112284B300091359 /* wiki.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wiki.png; path = external/LayerManager/wiki.png; sourceTree = "<group>"; };
 		B8721F5B11085040009F078F /* LayerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerListViewController.h; sourceTree = "<group>"; };
 		B8721F5C11085040009F078F /* LayerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerListViewController.m; sourceTree = "<group>"; };
 		B8721F6911085157009F078F /* CarletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CarletonView.xib; path = external/LayerManager/CarletonView.xib; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				B805EA66111F5A0D00C3E65B /* academic.png */,
 				B805EA67111F5A0D00C3E65B /* bird.png */,
 				B805EA68111F5A0D00C3E65B /* food.png */,
+				B87136FD112284B300091359 /* wiki.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				B805EA6B111F5A0D00C3E65B /* food.png in Resources */,
 				A2D89919111F7B550017026F /* PinShadow.png in Resources */,
 				FC6DC031111FCF33002462E1 /* plusButton.png in Resources */,
+				B87136FE112284B300091359 /* wiki.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
