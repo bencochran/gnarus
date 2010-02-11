@@ -52,37 +52,22 @@
 	
 	
 #if !TARGET_IPHONE_SIMULATOR
-
 	NSLog(@"location manager: %@", self.locationManager);
 
 	self.arViewController = [[ARGeoViewController alloc] initWithLocationManager:self.locationManager accelerometer:accelerometer];	
 	self.arViewController.delegate = self;
-	
-	//self.view = self.arViewController.view;
-	//[arViewController release];
-	
+		
 	NSLog(@"Running on device");
 
 #else
 	self.arViewController = nil;
 	
-	// Add image
-	UIImageView *imageView = [[[UIImageView alloc] initWithFrame:self.view.frame] autorelease];
-	imageView.contentMode = UIViewContentModeScaleAspectFill;
-	imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-	imageView.image = [UIImage imageNamed:@"bg.jpg"];
-	[self.view addSubview:imageView];
-	
-	// Add an info bubble
-	InfoBubbleController *infoBubbleController = [[[InfoBubbleController alloc] init] autorelease];
-	infoBubbleController.title = @"Memorial Hall";
-	infoBubbleController.view.center = self.view.center;
-	[self.view addSubview:infoBubbleController.view];	
-	
 	NSLog(@"Running in simulator");
 #endif
 	
 	self.mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
+	self.mapView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+
 	[self.view addSubview:self.mapView];
 	
 	//	self.mapView.zoomEnabled = NO;
@@ -97,6 +82,7 @@
 	[addButton setImage:[UIImage imageNamed:@"plusButton.png"] forState:UIControlStateNormal];
 	addButton.frame = CGRectMake(self.view.frame.size.width - 38, [[UIApplication sharedApplication] statusBarFrame].size.height + 7, 33, 30);
 	addButton.alpha = 0.65;
+	addButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
 	[addButton addTarget:self action:@selector(didSelectPlus:) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:addButton];
 	
@@ -305,24 +291,13 @@
 	[self.arViewController.view removeFromSuperview];
 }
 
-- (void)buttonClick:(id)sender {
-
-	UIViewController *viewController = [[UIViewController alloc] init];
-	viewController.title = @"Hello";
-
-	UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 95, 21)] autorelease];
-	label.text = @"Hello, world";
-	label.center = viewController.view.center;
-	label.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-	[viewController.view addSubview:label];
-
-	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (BOOL)shouldAutorotateViewsToInterfaceOrientation:(UIInterfaceOrientation)possibleOrientation {
-    return (possibleOrientation != UIInterfaceOrientationPortraitUpsideDown);
-}
+//- (BOOL)shouldAutorotateViewsToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+//    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+//}
 
 - (void)didReceiveMemoryWarning {
 	// Releases the view if it doesn't have a superview.
