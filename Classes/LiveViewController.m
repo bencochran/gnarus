@@ -46,15 +46,14 @@
     //locationManager.distanceFilter = [[setupInfo objectForKey:kSetupInfoKeyDistanceFilter] doubleValue];
 	
 	
-	UIAccelerometer *accelerometer = [UIAccelerometer sharedAccelerometer];
-	accelerometer.updateInterval = 0.01;
-	accelerometer.delegate = self;
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name: UIDeviceOrientationDidChangeNotification object:nil];
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];	
 	
 	
 #if !TARGET_IPHONE_SIMULATOR
 	NSLog(@"location manager: %@", self.locationManager);
 
-	self.arViewController = [[ARGeoViewController alloc] initWithLocationManager:self.locationManager accelerometer:accelerometer];	
+	self.arViewController = [[ARGeoViewController alloc] initWithLocationManager:self.locationManager];	
 	self.arViewController.delegate = self;
 		
 	NSLog(@"Running on device");
@@ -371,30 +370,21 @@
     }
 }
 
-#pragma mark Accelerometer Manager
-
-#define kFilteringFactor 0.05
-
-- (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
+- (void)deviceOrientationDidChange:(NSNotification *)notification {
 
 #if !TARGET_IPHONE_SIMULATOR
-
-	if (acceleration.z < -0.8 && !pointingDown) {
-		pointingDown = YES;
-		
+	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+	
+	if (orientation == UIDeviceOrientationFaceUp) {		
 		[UIView beginAnimations:@"ShowMap" context:nil];
 		[UIView setAnimationDuration:0.5];
 		self.mapView.alpha = 1;
 		[UIView commitAnimations];
-		NSLog(@"now facing down");
-	} else if (acceleration.z > -0.5 && pointingDown) {
-		pointingDown = NO;
-		
+	} else {
 		[UIView beginAnimations:@"ShowMap" context:nil];
 		[UIView setAnimationDuration:0.5];
 		self.mapView.alpha = 0;
 		[UIView commitAnimations];
-		NSLog(@"now facing up");
 	}
 #endif
 

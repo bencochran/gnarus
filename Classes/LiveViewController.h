@@ -13,7 +13,7 @@
 #import <MapKit/MapKit.h>
 #import "GNAddLandmarkMapViewController.h"
 
-@interface LiveViewController : UIViewController <ARViewDelegate, CLLocationManagerDelegate, UIAccelerometerDelegate, GNToggleBarDelegate> {
+@interface LiveViewController : UIViewController <ARViewDelegate, CLLocationManagerDelegate, GNToggleBarDelegate> {
 	ARGeoViewController *_arViewController;
 	
 	MKMapView *_mapView;
