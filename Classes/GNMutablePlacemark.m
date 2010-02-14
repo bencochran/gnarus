@@ -35,14 +35,22 @@
 @synthesize coordinate = _coordinate;
 @synthesize title = _title;
 @synthesize subtitle = _subtitle;
+@synthesize landmark = _landmark;
 
 #pragma mark -
 #pragma mark MKPlacemark Boilerplate
 
-- (id)initWithCoordinate:(CLLocationCoordinate2D)newCoordinate addressDictionary:(NSDictionary *)newAddressDictionary {
-	
-	if ((self = [super initWithCoordinate:newCoordinate addressDictionary:newAddressDictionary])) {
-		_coordinate = newCoordinate;		
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate addressDictionary:(NSDictionary *)addressDictionary {
+	if ((self = [super initWithCoordinate:coordinate addressDictionary:addressDictionary])) {
+		_coordinate = coordinate;
+		_landmark = nil;
+	}
+	return self;
+}
+
+- (id)initWithLandmark:(GNLandmark *)myLandmark addressDictionary:(NSDictionary *)addressDictionary {
+	if ((self = [self initWithCoordinate:myLandmark.coordinate addressDictionary:addressDictionary])) {
+		_landmark = [myLandmark retain];
 	}
 	return self;
 }
@@ -50,6 +58,7 @@
 - (void)dealloc {
 	[_title release];
 	[_subtitle release];
+	[_landmark release];
 	[super dealloc];
 }
 

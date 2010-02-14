@@ -27,6 +27,7 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
+#import <LayerManager/LayerManager.h>
 
 @interface GNMutablePlacemark : MKPlacemark {
 
@@ -34,12 +35,15 @@
 	CLLocationCoordinate2D _coordinate;
 	NSString *_title;
 	NSString *_subtitle;
+	GNLandmark *_landmark;
 }
 
 // Re-declare MKAnnotation's readonly property 'coordinate' to readwrite
 @property (nonatomic, readwrite, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *subtitle;
+@property (nonatomic, readonly, retain) GNLandmark *landmark;
 
-- (id)initWithCoordinate:(CLLocationCoordinate2D)newCoordinate addressDictionary:(NSDictionary *)newAddressDictionary;
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate addressDictionary:(NSDictionary *)addressDictionary;
+- (id)initWithLandmark:(GNLandmark *)myLandmark addressDictionary:(NSDictionary *)newAddressDictionary;
 @end

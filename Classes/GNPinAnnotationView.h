@@ -27,11 +27,12 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
+#import "GNMutablePlacemark.h"
 
 extern NSString *const DDAnnotationCoordinateDidChangeNotification;
 
 @interface GNPinAnnotationView : MKPinAnnotationView {
-	
+
 @private
     BOOL				_isMoving;
     CGPoint				_startLocation;

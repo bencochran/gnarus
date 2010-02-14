@@ -13,12 +13,13 @@
 	NSArray *_layers;
 	GNLayer *selectedLayer;
 	CLLocation *selectedLocation;
+	GNLandmark *selectedLandmark;
 }
 
 @property (nonatomic, retain) NSArray *layers;
 //@property (nonatomic, retain) GNLayer *selectedLayer;
 //@property (nonatomic, retain) CLLocation *selectedLocation;
 
-- (id)initWithLocation:(CLLocation *)location;
+- (id)initWithLocation:(CLLocation *)location andLandmark:(GNLandmark *)landmark;
 
 @end

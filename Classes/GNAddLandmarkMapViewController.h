@@ -8,23 +8,26 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <LayerManager/LayerManager.h>
 #import "GNMutablePlacemark.h"
 
 @interface GNAddLandmarkMapViewController : UIViewController <MKMapViewDelegate, MKReverseGeocoderDelegate> {
 	MKMapView *_mapView;
+	CLLocationCoordinate2D _userCoordinate;
+	
 	NSArray *_layers;
+	
 	NSMutableSet *_annotations;
 	GNMutablePlacemark *_addedAnnotation;
-	CLLocation *_selectedLocation;
-	CLLocationCoordinate2D _userCoordinate;
+	
 	MKReverseGeocoder *geocoder;
 }
 
-@property (nonatomic, retain) NSArray *layers;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
+@property (nonatomic, retain) NSArray *layers;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil centerLocation:(CLLocationCoordinate2D)mapCenter;
 - (void)addAnnotation;
-- (void)addLandmarkWithLocation:(CLLocation *)location;
+- (void)addLandmarkWithLocation:(CLLocation *)location andLandmark:(GNLandmark *)landmark;
 
 @end

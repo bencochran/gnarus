@@ -14,11 +14,13 @@
 @synthesize layers=_layers;
 //, selectedLayer =_selectedLayer, selectedLocation = _selectedLocation;
 
-- (id)initWithLocation:(CLLocation *)location {
+- (id)initWithLocation:(CLLocation *)location andLandmark:(GNLandmark *)landmark{
     // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
     if (self = [super initWithStyle:UITableViewStylePlain]) {
 		self.title = @"Layers";
 		self.layers = nil;
+		NSLog([landmark name]);
+		selectedLandmark = landmark;
 		selectedLocation = location;
 	}
     return self;
@@ -114,7 +116,7 @@
 	GNLayer *layer = [self.layers objectAtIndex:indexPath.row];
 	if ([layer layerIsUserModifiable] == YES){
 		selectedLayer = layer;
-		UIViewController *editingViewController = [layer getEditingViewControllerWithLocation:selectedLocation];
+		UIViewController *editingViewController = [layer getEditingViewControllerWithLocation:selectedLocation andLandmark:selectedLandmark];
 		[self.navigationController pushViewController:editingViewController animated:YES];
 	}
 	

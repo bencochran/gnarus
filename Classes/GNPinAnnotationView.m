@@ -28,7 +28,6 @@
 #import <CoreGraphics/CoreGraphics.h>	// For CGPointZero
 #import <QuartzCore/QuartzCore.h>		// For CAAnimation
 #import "GNPinAnnotationView.h"
-#import "GNMutablePlacemark.h"
 
 @interface GNPinAnnotationView ()
 

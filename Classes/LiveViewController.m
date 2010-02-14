@@ -17,7 +17,6 @@
 			mapView=_mapView, toggleBarController=_toggleBarController,
 			itemsToLayers=_itemsToLayers;
 
-
 - (id)init {
 	if (self = [super init]) {
 		self.wantsFullScreenLayout = YES;
@@ -44,7 +43,6 @@
     // When "tracking" the user, the distance filter can be used to control the frequency with which location measurements
     // are delivered by the manager. If the change in distance is less than the filter, a location will not be delivered.
     //locationManager.distanceFilter = [[setupInfo objectForKey:kSetupInfoKeyDistanceFilter] doubleValue];
-	
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name: UIDeviceOrientationDidChangeNotification object:nil];
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];	
@@ -150,14 +148,10 @@
 // the order specified by the user using the GNToggleBar
 - (NSArray *)sortedLayersForLandmark:(GNLandmark *)landmark {
 	// Copy the main (ordered) array of layers from the toggle bar then filter
-	// it based on whether or not each ayer is in the landmark's active layer
-	// list
+	// it based on whether or not each ayer is in the landmark's active layer list
 	NSMutableArray* returnArray = [NSMutableArray array];
-	
 	NSArray* activeLayers = landmark.activeLayers;
-	
 	GNLayer* layer;
-	
 	for (GNToggleItem* item in [self.toggleBarController activeToggleItems]) {
 		layer = [self layerForToggleItem:item];
 		if ([activeLayers containsObject:layer]) {
@@ -173,18 +167,15 @@
 // When items are toggled, let the layer manager know about it
 - (void)toggleBarController:(GNToggleBarController *)toggleBarController toggleItem:(GNToggleItem *)toggleItem changedToState:(BOOL)active {
 	GNLayer *layer = [self layerForToggleItem:toggleItem];
-
 	[[GNLayerManager sharedManager] setLayer:layer active:active];
-	
-	// Update our landmarks
-	[[GNLayerManager sharedManager] updateWithPreviousLocation];
+	[[GNLayerManager sharedManager] updateWithPreviousLocation];	// Update our landmarks
 }
 
 
 - (void)locationsUpdated:(NSNotification *)note {	
 	NSArray *landmarks = [note.userInfo objectForKey:@"landmarks"];
 
-	// By default we'll mark all location for removal
+	// By default we'll mark all locations for removal
 	NSMutableArray *locationsToRemove = [NSMutableArray arrayWithArray:self.arViewController.locations];
 	
 	// We'll do the same for annotations, marking them for removal by default
@@ -193,12 +184,11 @@
 	// Never remove the userLocation annotation
 	[annotationsToRemove removeObject:self.mapView.userLocation];
 
-	// Set up a region centered on the user, initialize its span to be 0
+	// Set up a region centered on the user, initialize its span to 0
 	MKCoordinateRegion region;
 	region.center = lastUsedLocation.coordinate;
 	region.span.latitudeDelta = 0;
 	region.span.longitudeDelta = 0;
-
 	
 	for (GNLandmark *landmark in landmarks) {
 		
@@ -206,14 +196,13 @@
 			// Don't remove locations that are still around
 			[locationsToRemove removeObject:landmark];
 		} else {
-			// But if it wasn't going to be removed that means we need to
-			// add it.
+			// But if it wasn't going to be removed
+			// that means we need to add it.
 			[self.arViewController addLocation:landmark withTitle:landmark.name];
 		}
-
-
-		// Use the same logic for annotations that we use for locations in the
-		// ARView
+		
+		// Use the same logic for annotations that we use
+		// for locations in the ARView
 		if ([annotationsToRemove containsObject:landmark]) {
 			[annotationsToRemove removeObject:landmark];
 		} else {
@@ -222,8 +211,7 @@
 		
 		// For the region's span, compute the delta-lat/lon from each coordinate
 		// to the center, double it (since the center's in, well, the center),
-		// and make it the official delta-lat/lon if it's larger than the
-		// previous value
+		// and make it the official delta-lat/lon if it's larger than the previous value
 		region.span.latitudeDelta = MAX(region.span.latitudeDelta,
 										fabs(region.center.latitude - landmark.coordinate.latitude) * 2 + 0.002);
 		region.span.longitudeDelta = MAX(region.span.longitudeDelta,
@@ -322,12 +310,10 @@
 #pragma mark Location Manager
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-    // Test that the horizontal accuracy does not indicate an invalid
-	// measurement
+    // Test that the horizontal accuracy does not indicate an invalid measurement
     if (newLocation.horizontalAccuracy < 0) return;
 	
-    // Test the age of the location measurement to determine if the measurement
-	// is cached
+    // Test the age of the location measurement to determine if the measurement is cached
     NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
     if (locationAge > 5.0) return;
 
@@ -340,10 +326,10 @@
 	// location and was stored within 5 minutes of the new location, skip
 	// updating our layer manager.
 	if (lastUsedLocation != nil && [lastUsedLocation getDistanceFrom:newLocation] < 10 && -[lastUsedLocation.timestamp timeIntervalSinceDate:newLocation.timestamp] < 60 * 5) {
-		NSLog(@"Ignoring");
+		NSLog(@"Ignoring new location");
 		return;
 	}
-	NSLog(@"Using");
+	NSLog(@"Using new location");
 	
 	// Release the old and retain the new
 	[lastUsedLocation release];
@@ -437,14 +423,14 @@
 
 }
 
+// Called when the "+" button in the upper right corner of the view is pressed:
+// Goes into 
 - (void)didSelectPlus:(id)sender {
-	
 	GNAddLandmarkMapViewController *landmarkMapViewController = [[GNAddLandmarkMapViewController alloc]
 																 initWithNibName:@"GNAddLandmarkMapViewController" bundle:nil centerLocation:lastUsedLocation.coordinate];
 	landmarkMapViewController.layers = self.userOrderedLayers;
 	[self.navigationController pushViewController:landmarkMapViewController animated:YES];
 	[landmarkMapViewController release];
-
 }
 
 @end

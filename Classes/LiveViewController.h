@@ -29,16 +29,14 @@
 }
 
 @property (nonatomic, retain) ARGeoViewController *arViewController;
-@property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) MKMapView *mapView;
+@property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) GNToggleBarController *toggleBarController;
 @property (nonatomic, retain) NSMutableDictionary *itemsToLayers;
 @property (nonatomic, readonly) NSArray *userOrderedLayers;
 
-- (NSArray *) sortedLayersForLandmark:(GNLandmark *)landmark;
-
+- (NSArray *)sortedLayersForLandmark:(GNLandmark *)landmark;
 - (UIView *)viewForCoordinate:(ARCoordinate *)coordinate;
-
 - (NSArray *)userOrderedLayers;
 
 @end
