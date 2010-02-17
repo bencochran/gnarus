@@ -134,7 +134,6 @@
 
 // For a GNToggleItem, return its associated GNLayer
 - (GNLayer *)layerForToggleItem:(GNToggleItem*)item {
-	NSLog(@"self.itemsToLayers: %@", self.itemsToLayers);
 	return [self.itemsToLayers objectForKey:item];
 }
 
