@@ -20,8 +20,8 @@
 		self.title = @"Layers";
 		self.layers = nil;
 		NSLog([landmark name]);
-		selectedLandmark = landmark;
-		selectedLocation = location;
+		selectedLandmark = [landmark retain];
+		selectedLocation = [location retain];
 	}
     return self;
 }
@@ -66,7 +66,7 @@
 	// [anotherViewController release];
 	GNLayer *layer = [self.layers objectAtIndex:indexPath.row];
 	if ([layer layerIsUserModifiable] == YES){
-		selectedLayer = layer;
+		selectedLayer = [layer retain];
 		UIViewController *editingViewController = [layer getEditingViewControllerWithLocation:selectedLocation andLandmark:selectedLandmark];
 		[self.navigationController pushViewController:editingViewController animated:YES];
 	}
@@ -80,6 +80,10 @@
 
 - (void)dealloc {
 	[_layers release];
+	[selectedLayer release];
+	[selectedLocation release];
+	[selectedLandmark release];
+	
     [super dealloc];
 }
 

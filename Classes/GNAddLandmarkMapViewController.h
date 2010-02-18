@@ -17,7 +17,6 @@
 	
 	NSArray *_layers;
 	
-	NSMutableSet *_annotations;
 	GNMutablePlacemark *_addedAnnotation;
 	
 	MKReverseGeocoder *geocoder;

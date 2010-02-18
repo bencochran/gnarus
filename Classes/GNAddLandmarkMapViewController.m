@@ -59,30 +59,13 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(landmarksUpdated:)
 												 name:GNEditableLandmarksUpdated
-											   object:nil];
-	
-//	// Add annotations for the closest landmarks
-//	_annotations = [[NSMutableSet alloc] init];
-//	GNMutablePlacemark *landmarkPlacemark;
-//	for (GNLandmark *landmark in [[GNLayerManager sharedManager] closestLandmarks]) {
-//		landmarkPlacemark = [[GNMutablePlacemark alloc] initWithLandmark:landmark addressDictionary:nil];
-//		landmarkPlacemark.title = landmark.name;
-//		NSString *subtitleString = [[landmark.activeLayers objectAtIndex:0] name];
-//		for (int i = 1; i < [landmark.activeLayers count]; i++) {
-//			subtitleString = [subtitleString stringByAppendingString:@", "];
-//			subtitleString = [subtitleString stringByAppendingString:[[landmark.activeLayers objectAtIndex:i] name]];
-//		}
-//		landmarkPlacemark.subtitle = subtitleString;
-//		[_annotations addObject:landmarkPlacemark];
-//		[_mapView addAnnotation:landmarkPlacemark];
-//		[landmarkPlacemark release];
-//	}
+											   object:nil];	
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	
-	[[GNLayerManager sharedManager] updateEditableLandmarksForLocation:[[CLLocation alloc] initWithLatitude:_userCoordinate.latitude longitude:_userCoordinate.longitude]];
+	[[GNLayerManager sharedManager] updateEditableLandmarksForLocation:[[[CLLocation alloc] initWithLatitude:_userCoordinate.latitude longitude:_userCoordinate.longitude] autorelease]];
 }
 
 - (void)landmarksUpdated:(NSNotification *)note {
@@ -185,7 +168,7 @@
 	[geocoder release];
 	
 	[_layers release];
-	[_addedAnnotation release];
+	[_addedAnnotation release];	
 	
 	[super dealloc];
 }
