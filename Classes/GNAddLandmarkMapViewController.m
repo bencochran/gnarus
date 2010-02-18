@@ -24,10 +24,9 @@
 		
 #if TARGET_IPHONE_SIMULATOR
 		// Make the simulator put us in an interesting location.
-		//mapCenter.latitude = 43;
-		//mapCenter.longitude = -92;
+		mapCenter.latitude = 44.46087059486058;
+		mapCenter.longitude = -93.1536018848419;
 #endif
-		NSLog(@"Map center: %f, %f", mapCenter.latitude, mapCenter.longitude);
 		
 		_userCoordinate = mapCenter;
     }
@@ -50,30 +49,66 @@
 	[_mapView setRegion:region];
 	_mapView.showsUserLocation = YES;
 	
-	NSLog(@"User location: %f, %f", _userCoordinate.latitude, _userCoordinate.longitude);
-	
 	// We want to know when the pin is moved
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(droppedPinChanged)
 												 name:DDAnnotationCoordinateDidChangeNotification 
 											   object:nil];		
 	
-	// Add annotations for the closest landmarks
-	_annotations = [[NSMutableSet alloc] init];
-	GNMutablePlacemark *landmarkPlacemark;
-	for (GNLandmark *landmark in [[GNLayerManager sharedManager] closestLandmarks]) {
-		landmarkPlacemark = [[GNMutablePlacemark alloc] initWithLandmark:landmark addressDictionary:nil];
-		landmarkPlacemark.title = landmark.name;
-		NSString *subtitleString = [[landmark.activeLayers objectAtIndex:0] name];
-		for (int i = 1; i < [landmark.activeLayers count]; i++) {
-			subtitleString = [subtitleString stringByAppendingString:@", "];
-			subtitleString = [subtitleString stringByAppendingString:[[landmark.activeLayers objectAtIndex:i] name]];
+	// We want to know when new user-editable landmarks are available
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(landmarksUpdated:)
+												 name:GNEditableLandmarksUpdated
+											   object:nil];
+	
+//	// Add annotations for the closest landmarks
+//	_annotations = [[NSMutableSet alloc] init];
+//	GNMutablePlacemark *landmarkPlacemark;
+//	for (GNLandmark *landmark in [[GNLayerManager sharedManager] closestLandmarks]) {
+//		landmarkPlacemark = [[GNMutablePlacemark alloc] initWithLandmark:landmark addressDictionary:nil];
+//		landmarkPlacemark.title = landmark.name;
+//		NSString *subtitleString = [[landmark.activeLayers objectAtIndex:0] name];
+//		for (int i = 1; i < [landmark.activeLayers count]; i++) {
+//			subtitleString = [subtitleString stringByAppendingString:@", "];
+//			subtitleString = [subtitleString stringByAppendingString:[[landmark.activeLayers objectAtIndex:i] name]];
+//		}
+//		landmarkPlacemark.subtitle = subtitleString;
+//		[_annotations addObject:landmarkPlacemark];
+//		[_mapView addAnnotation:landmarkPlacemark];
+//		[landmarkPlacemark release];
+//	}
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	[[GNLayerManager sharedManager] updateEditableLandmarksForLocation:[[CLLocation alloc] initWithLatitude:_userCoordinate.latitude longitude:_userCoordinate.longitude]];
+}
+
+- (void)landmarksUpdated:(NSNotification *)note {
+	NSArray *landmarks = [note.userInfo objectForKey:@"landmarks"];
+	
+	NSLog(@"size of landmarks array: %i", [landmarks count]);
+	
+	// We'll do the same for annotations, marking them for removal by default
+	NSMutableArray *annotationsToRemove = [NSMutableArray arrayWithArray:self.mapView.annotations];
+	
+	// Never remove the userLocation annotation
+	[annotationsToRemove removeObject:self.mapView.userLocation];
+		
+	for (GNLandmark *landmark in landmarks) {
+		
+		// Use the same logic for annotations that we use
+		// for locations in the ARView
+		if ([annotationsToRemove containsObject:landmark]) {
+			[annotationsToRemove removeObject:landmark];
+		} else {
+			[self.mapView addAnnotation:landmark];
 		}
-		landmarkPlacemark.subtitle = subtitleString;
-		[_annotations addObject:landmarkPlacemark];
-		[_mapView addAnnotation:landmarkPlacemark];
-		[landmarkPlacemark release];
 	}
+	
+	// Finally, remove annotations that actually don't exist anymore
+	[self.mapView removeAnnotations:annotationsToRemove];
 }
 
 - (void)droppedPinChanged {	
@@ -150,7 +185,6 @@
 	[geocoder release];
 	
 	[_layers release];
-	[_annotations release];
 	[_addedAnnotation release];
 	
 	[super dealloc];
@@ -194,7 +228,13 @@
 {
 	if ([control isKindOfClass:[UIButton class]]) {
 		CLLocation *selectedLocation = [[CLLocation alloc] initWithLatitude:view.annotation.coordinate.latitude longitude:view.annotation.coordinate.longitude];
-		[self addLandmarkWithLocation:selectedLocation andLandmark:((GNMutablePlacemark *) (view.annotation)).landmark];
+		GNLandmark *landmarkToAdd;
+		if ([view.annotation isKindOfClass:[GNLandmark class]]) {
+			landmarkToAdd = (GNLandmark *) view.annotation;
+		} else {
+			landmarkToAdd = ((GNMutablePlacemark *) view.annotation).landmark;
+		}
+		[self addLandmarkWithLocation:selectedLocation andLandmark:landmarkToAdd];
 		[selectedLocation release];
 	}
 }
