@@ -151,7 +151,7 @@
 	NSLog(@"Adding landmark with existing landmark: %@", landmark);
 	
 	GNAddLandmarkLayersViewController *landmarkLayersViewController = [[GNAddLandmarkLayersViewController alloc] initWithLocation:location andLandmark:landmark];
-	landmarkLayersViewController.layers = _layers;
+	landmarkLayersViewController.layers = self.layers;
 	[self.navigationController pushViewController:landmarkLayersViewController animated:YES];
 	[landmarkLayersViewController release];
 }
