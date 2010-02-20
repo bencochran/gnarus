@@ -78,7 +78,11 @@
 	
 	// Never remove the userLocation annotation
 	[annotationsToRemove removeObject:self.mapView.userLocation];
-		
+	// Never remove the DDED ANNOTATION
+	if (_addedAnnotation) {
+		[annotationsToRemove removeObject:_addedAnnotation];
+	}
+	
 	for (GNLandmark *landmark in landmarks) {
 		
 		// Use the same logic for annotations that we use

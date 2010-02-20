@@ -17,8 +17,6 @@
 }
 
 @property (nonatomic, retain) NSArray *layers;
-//@property (nonatomic, retain) GNLayer *selectedLayer;
-//@property (nonatomic, retain) CLLocation *selectedLocation;
 
 - (id)initWithLocation:(CLLocation *)location andLandmark:(GNLandmark *)landmark;
 

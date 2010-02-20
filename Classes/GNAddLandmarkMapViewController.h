@@ -16,7 +16,6 @@
 	CLLocationCoordinate2D _userCoordinate;
 	
 	NSArray *_layers;
-	
 	GNMutablePlacemark *_addedAnnotation;
 	
 	MKReverseGeocoder *geocoder;
