@@ -123,7 +123,7 @@
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
 	
-	layer = [[[FlickrLayer alloc] init] autorelease];
+	layer = [[[SportingArenasLayer alloc] init] autorelease];
 	item = [[[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]] autorelease];
 	[self.toggleBarController addToggleItem:item];
 	[self.itemsToLayers setObject:layer forKey:item];
