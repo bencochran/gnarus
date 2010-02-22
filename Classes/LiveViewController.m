@@ -315,7 +315,20 @@
 #pragma mark Location Manager
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-    // Test that the horizontal accuracy does not indicate an invalid measurement
+#if TARGET_IPHONE_SIMULATOR
+	// Make the simulator put us in an interesting location.
+	CLLocationCoordinate2D coordinate;
+	coordinate.latitude = 44.4624651543;
+	coordinate.longitude = -93.1527388251;
+	newLocation = [[[CLLocation alloc] initWithCoordinate:coordinate	altitude:0 horizontalAccuracy:1 verticalAccuracy:1 timestamp:[NSDate date]] autorelease];
+
+	CLLocationCoordinate2D oldCoordinate;
+	oldCoordinate.latitude = 45.46087059486058;
+	oldCoordinate.longitude = -93.1536018848419;
+	oldLocation = [[[CLLocation alloc] initWithCoordinate:oldCoordinate	altitude:0 horizontalAccuracy:1 verticalAccuracy:1 timestamp:[NSDate dateWithTimeIntervalSinceNow:-100000]] autorelease];
+#endif
+    
+	// Test that the horizontal accuracy does not indicate an invalid measurement
     if (newLocation.horizontalAccuracy < 0) return;
 	
     // Test the age of the location measurement to determine if the measurement is cached
