@@ -425,7 +425,6 @@
 		UIViewController *viewController = [layer viewControllerForLandmark:landmark];
 		[self.navigationController pushViewController:viewController animated:YES];
 	}
-
 }
 
 // Called when the "+" button in the upper right corner of the view is pressed:
