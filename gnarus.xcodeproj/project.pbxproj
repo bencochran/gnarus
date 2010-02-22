@@ -39,6 +39,8 @@
 		B896C1EB10A003EE00259858 /* libGNToggleBar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B880D1A4109779CC005601EF /* libGNToggleBar.a */; };
 		B896C1EC10A003F100259858 /* libARKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B880D3301097A719005601EF /* libARKit.a */; };
 		B896C3CA10A0186600259858 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B896C3C910A0186600259858 /* bg.jpg */; };
+		B8A906E81133340E007C9EB4 /* FlickrView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8A906E71133340E007C9EB4 /* FlickrView.xib */; };
+		B8A906F011333424007C9EB4 /* FoodView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8A906EF11333424007C9EB4 /* FoodView.xib */; };
 		B8FC80A510B1DCC800CA8F7C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FC80A410B1DCC800CA8F7C /* Icon.png */; };
 		FC242C02111F4B7E003AFB03 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C01111F4B7E003AFB03 /* libz.1.2.3.dylib */; };
 		FC242C05111F4BA2003AFB03 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C04111F4BA2003AFB03 /* CFNetwork.framework */; };
@@ -149,6 +151,8 @@
 		B896C16C109FFDDC00259858 /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
 		B896C16D109FFDDC00259858 /* LiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveViewController.m; sourceTree = "<group>"; };
 		B896C3C910A0186600259858 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
+		B8A906E71133340E007C9EB4 /* FlickrView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FlickrView.xib; path = external/LayerManager/FlickrView.xib; sourceTree = "<group>"; };
+		B8A906EF11333424007C9EB4 /* FoodView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FoodView.xib; path = external/LayerManager/FoodView.xib; sourceTree = "<group>"; };
 		B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LayerManager.xcodeproj; path = external/LayerManager/LayerManager.xcodeproj; sourceTree = "<group>"; };
 		B8F1044310CB85C900B6F7A9 /* libisimulate.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libisimulate.a; sourceTree = "<group>"; };
 		B8FC80A410B1DCC800CA8F7C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -257,6 +261,8 @@
 				B805EA67111F5A0D00C3E65B /* bird.png */,
 				B805EA68111F5A0D00C3E65B /* food.png */,
 				B87136FD112284B300091359 /* wiki.png */,
+				B8A906E71133340E007C9EB4 /* FlickrView.xib */,
+				B8A906EF11333424007C9EB4 /* FoodView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -416,6 +422,8 @@
 				A2D89919111F7B550017026F /* PinShadow.png in Resources */,
 				FC6DC031111FCF33002462E1 /* plusButton.png in Resources */,
 				B87136FE112284B300091359 /* wiki.png in Resources */,
+				B8A906E81133340E007C9EB4 /* FlickrView.xib in Resources */,
+				B8A906F011333424007C9EB4 /* FoodView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
