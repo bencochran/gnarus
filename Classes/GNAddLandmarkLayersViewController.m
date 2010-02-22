@@ -19,7 +19,6 @@
     if (self = [super initWithStyle:UITableViewStylePlain]) {
 		self.title = @"Layers";
 		self.layers = nil;
-		NSLog([landmark name]);
 		selectedLandmark = [landmark retain];
 		selectedLocation = [location retain];
 	}
