@@ -123,18 +123,22 @@
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
 	
-	layer = [[[SportingArenasLayer alloc] init] autorelease];
+	//layer = [[[SportingArenasLayer alloc] init] autorelease];
+	//item = [[[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]] autorelease];
+	//[self.toggleBarController addToggleItem:item];
+	//[self.itemsToLayers setObject:layer forKey:item];
+	//[[GNLayerManager sharedManager] addLayer:layer active:NO];
+	
+	layer = [[[FlickrLayer alloc] init] retain];
 	item = [[[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]] autorelease];
 	[self.toggleBarController addToggleItem:item];
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
-	
-	// Add ourself as an observer to LayerManager updates
+		// Add ourself as an observer to LayerManager update
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(locationsUpdated:)
 												 name:GNLandmarksUpdated
 											   object:[GNLayerManager sharedManager]];
-	 
     [super viewDidLoad];
 }
 
