@@ -46,6 +46,7 @@
 		FC242C05111F4BA2003AFB03 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C04111F4BA2003AFB03 /* CFNetwork.framework */; };
 		FC242C3C111F4D09003AFB03 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C3B111F4D09003AFB03 /* SystemConfiguration.framework */; };
 		FC54672F11337BB00069EA00 /* flickr.png in Resources */ = {isa = PBXBuildFile; fileRef = FC54672E11337BB00069EA00 /* flickr.png */; };
+		FC54677F113385E80069EA00 /* SportingArenasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC54677E113385E80069EA00 /* SportingArenasView.xib */; };
 		FC6DC031111FCF33002462E1 /* plusButton.png in Resources */ = {isa = PBXBuildFile; fileRef = FC6DC030111FCF33002462E1 /* plusButton.png */; };
 /* End PBXBuildFile section */
 
@@ -161,6 +162,7 @@
 		FC242C04111F4BA2003AFB03 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FC242C3B111F4D09003AFB03 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FC54672E11337BB00069EA00 /* flickr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flickr.png; path = external/LayerManager/flickr.png; sourceTree = "<group>"; };
+		FC54677E113385E80069EA00 /* SportingArenasView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SportingArenasView.xib; path = external/LayerManager/SportingArenasView.xib; sourceTree = "<group>"; };
 		FC6DC030111FCF33002462E1 /* plusButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plusButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -264,6 +266,7 @@
 				B805EA67111F5A0D00C3E65B /* bird.png */,
 				B805EA68111F5A0D00C3E65B /* food.png */,
 				B87136FD112284B300091359 /* wiki.png */,
+				FC54677E113385E80069EA00 /* SportingArenasView.xib */,
 				B8A906E71133340E007C9EB4 /* FlickrView.xib */,
 				B8A906EF11333424007C9EB4 /* FoodView.xib */,
 			);
@@ -428,6 +431,7 @@
 				B8A906E81133340E007C9EB4 /* FlickrView.xib in Resources */,
 				B8A906F011333424007C9EB4 /* FoodView.xib in Resources */,
 				FC54672F11337BB00069EA00 /* flickr.png in Resources */,
+				FC54677F113385E80069EA00 /* SportingArenasView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
