@@ -415,7 +415,6 @@
 		annotationView.animatesDrop = NO;
 		annotationView.canShowCallout = YES;
 		annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-		annotationView.leftCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeContactAdd];
 	}
 	return annotationView;
 }
