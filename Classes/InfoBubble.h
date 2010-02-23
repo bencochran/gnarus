@@ -7,29 +7,31 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <LayerManager/LayerManager.h>
 
 @class BubbleBackgroundView;
-@protocol InfoBubbleDelegate;
+
+extern NSString *const GNSelectedLandmark;
 
 @interface InfoBubble : UIView {
 	BubbleBackgroundView *_bubble;
 	UILabel *_label;
+	GNLandmark *_landmark;
 	
 	CGRect _expandedBounds;
 	CGRect _contractedBounds;
 	BOOL expanded;
-	
-	NSObject<InfoBubbleDelegate> *_delegate;
 }
 
 @property (nonatomic, retain) BubbleBackgroundView *bubble;
 @property (nonatomic, retain) UILabel *label;
+@property (nonatomic, retain) GNLandmark *landmark;
 @property (nonatomic) CGRect expandedBounds;
 @property (nonatomic) CGRect contractedBounds;
-@property (nonatomic, assign) NSObject<InfoBubbleDelegate> *delegate;
 
-+ (id)infoBubbleWithTitle:(NSString *)title;
++ (id)infoBubbleWithLandmark:(GNLandmark *)landmark;
 
+- (id)initWithLandmark:(GNLandmark *)landmark;
 - (void)expand;
 - (void)contract;
 
@@ -40,13 +42,5 @@
 @interface BubbleBackgroundView : UIView {
 
 }
-
-@end
-
-////////////////////////////////////////////////////////////
-
-@protocol InfoBubbleDelegate
-
-- (void)didSelectBubble:(InfoBubble *)bubble;
 
 @end

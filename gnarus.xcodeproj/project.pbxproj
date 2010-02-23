@@ -23,7 +23,6 @@
 		B805EA6A111F5A0D00C3E65B /* bird.png in Resources */ = {isa = PBXBuildFile; fileRef = B805EA67111F5A0D00C3E65B /* bird.png */; };
 		B805EA6B111F5A0D00C3E65B /* food.png in Resources */ = {isa = PBXBuildFile; fileRef = B805EA68111F5A0D00C3E65B /* food.png */; };
 		B81A805F10A1171900FDDD60 /* InfoBubble.m in Sources */ = {isa = PBXBuildFile; fileRef = B81A805E10A1171900FDDD60 /* InfoBubble.m */; };
-		B833706210A150650036C038 /* InfoBubbleController.m in Sources */ = {isa = PBXBuildFile; fileRef = B833706110A150650036C038 /* InfoBubbleController.m */; };
 		B83A411A1107DCE400C2FD2D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83A41191107DCE400C2FD2D /* MapKit.framework */; };
 		B844939D10B1B57600A0E348 /* gas.png in Resources */ = {isa = PBXBuildFile; fileRef = B844939C10B1B57600A0E348 /* gas.png */; };
 		B844939F10B1B58300A0E348 /* trees.png in Resources */ = {isa = PBXBuildFile; fileRef = B844939E10B1B58300A0E348 /* trees.png */; };
@@ -135,8 +134,6 @@
 		B805EA68111F5A0D00C3E65B /* food.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = food.png; path = external/LayerManager/food.png; sourceTree = "<group>"; };
 		B81A805D10A1171900FDDD60 /* InfoBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoBubble.h; sourceTree = "<group>"; };
 		B81A805E10A1171900FDDD60 /* InfoBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoBubble.m; sourceTree = "<group>"; };
-		B833706010A150650036C038 /* InfoBubbleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoBubbleController.h; sourceTree = "<group>"; };
-		B833706110A150650036C038 /* InfoBubbleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoBubbleController.m; sourceTree = "<group>"; };
 		B83A41191107DCE400C2FD2D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		B844939C10B1B57600A0E348 /* gas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gas.png; sourceTree = "<group>"; };
 		B844939E10B1B58300A0E348 /* trees.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trees.png; sourceTree = "<group>"; };
@@ -206,8 +203,6 @@
 				1D3623250D0F684500981E51 /* gnarusAppDelegate.m */,
 				B81A805D10A1171900FDDD60 /* InfoBubble.h */,
 				B81A805E10A1171900FDDD60 /* InfoBubble.m */,
-				B833706010A150650036C038 /* InfoBubbleController.h */,
-				B833706110A150650036C038 /* InfoBubbleController.m */,
 				B8721F5B11085040009F078F /* LayerListViewController.h */,
 				B8721F5C11085040009F078F /* LayerListViewController.m */,
 			);
@@ -446,7 +441,6 @@
 				1D3623260D0F684500981E51 /* gnarusAppDelegate.m in Sources */,
 				B896C16E109FFDDC00259858 /* LiveViewController.m in Sources */,
 				B81A805F10A1171900FDDD60 /* InfoBubble.m in Sources */,
-				B833706210A150650036C038 /* InfoBubbleController.m in Sources */,
 				B8721F5D11085040009F078F /* LayerListViewController.m in Sources */,
 				A2DA6475111656520099E39D /* GNAddLandmarkMapViewController.m in Sources */,
 				A2920D96111794AC00625576 /* GNAddLandmarkLayersViewController.m in Sources */,
