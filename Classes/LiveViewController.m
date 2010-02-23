@@ -70,6 +70,7 @@
 	//	self.mapView.zoomEnabled = NO;
 	//	self.mapView.scrollEnabled = NO;
 	self.mapView.showsUserLocation = YES;
+	self.mapView.delegate = self;
 
 #if !TARGET_IPHONE_SIMULATOR
 	self.mapView.alpha = 0;	
@@ -397,6 +398,44 @@
 	}
 #endif
 
+}
+
+#pragma mark MapKit Delegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+	if (annotation == self.mapView.userLocation) {
+		return nil;
+	}
+	
+	MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"GNLiveViewMapAnnotation"];
+	if (annotationView == nil) {
+		annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotation.title] autorelease];
+		annotationView.pinColor = MKPinAnnotationColorRed;
+		annotationView.animatesDrop = NO;
+		annotationView.canShowCallout = YES;
+		annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+	}
+	return annotationView;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+	if ([control isKindOfClass:[UIButton class]]) {
+		GNLandmark *landmark = (GNLandmark *)view.annotation;
+		if (landmark.activeLayers.count > 1) {
+			// If we have more than one active layer for that landmark, give us a
+			// list of layers to drill down in to
+			LayerListViewController *layerList = [[LayerListViewController alloc] initWithLandmark:landmark];
+			[self.navigationController pushViewController:layerList animated:YES];
+			[layerList release];
+		} else {
+			// Otherwise, take us straight into the ViewController for the only
+			// layer
+			GNLayer *layer = [landmark.activeLayers objectAtIndex:0];
+			UIViewController *viewController = [layer viewControllerForLandmark:landmark];
+			[self.navigationController pushViewController:viewController animated:YES];
+		}
+	}
 }
 
 #pragma mark ARKit Delegate
