@@ -45,6 +45,7 @@
 		FC242C02111F4B7E003AFB03 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C01111F4B7E003AFB03 /* libz.1.2.3.dylib */; };
 		FC242C05111F4BA2003AFB03 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C04111F4BA2003AFB03 /* CFNetwork.framework */; };
 		FC242C3C111F4D09003AFB03 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C3B111F4D09003AFB03 /* SystemConfiguration.framework */; };
+		FC54672F11337BB00069EA00 /* flickr.png in Resources */ = {isa = PBXBuildFile; fileRef = FC54672E11337BB00069EA00 /* flickr.png */; };
 		FC6DC031111FCF33002462E1 /* plusButton.png in Resources */ = {isa = PBXBuildFile; fileRef = FC6DC030111FCF33002462E1 /* plusButton.png */; };
 /* End PBXBuildFile section */
 
@@ -159,6 +160,7 @@
 		FC242C01111F4B7E003AFB03 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		FC242C04111F4BA2003AFB03 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FC242C3B111F4D09003AFB03 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FC54672E11337BB00069EA00 /* flickr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flickr.png; path = external/LayerManager/flickr.png; sourceTree = "<group>"; };
 		FC6DC030111FCF33002462E1 /* plusButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plusButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -250,6 +252,7 @@
 				A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */,
 				B8721F6911085157009F078F /* CarletonView.xib */,
 				B84493A210B1B59C00A0E348 /* sports.png */,
+				FC54672E11337BB00069EA00 /* flickr.png */,
 				B844939E10B1B58300A0E348 /* trees.png */,
 				B844939C10B1B57600A0E348 /* gas.png */,
 				B867CF3410A9F380001A24A7 /* Locations.plist */,
@@ -424,6 +427,7 @@
 				B87136FE112284B300091359 /* wiki.png in Resources */,
 				B8A906E81133340E007C9EB4 /* FlickrView.xib in Resources */,
 				B8A906F011333424007C9EB4 /* FoodView.xib in Resources */,
+				FC54672F11337BB00069EA00 /* flickr.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
