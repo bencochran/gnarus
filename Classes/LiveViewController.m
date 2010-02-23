@@ -8,7 +8,7 @@
 
 #import "LiveViewController.h"
 #import <ARKit/ARKit.h>
-#import "InfoBubbleController.h"
+#import "InfoBubble.h"
 #import "LayerListViewController.h"
 
 @implementation LiveViewController
@@ -47,19 +47,19 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name: UIDeviceOrientationDidChangeNotification object:nil];
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];	
 	
+	// Listen to GNSelectedLandmark notifications from all objects
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(didSelectLandmark:)
+												 name:GNSelectedLandmark
+											   object:nil];
+	
 	
 #if !TARGET_IPHONE_SIMULATOR
-	NSLog(@"location manager: %@", self.locationManager);
-
 	self.arViewController = [[ARGeoViewController alloc] initWithLocationManager:self.locationManager];	
 	self.arViewController.delegate = self;
-		
-	NSLog(@"Running on device");
 
 #else
 	self.arViewController = nil;
-	
-	NSLog(@"Running in simulator");
 #endif
 	
 	self.mapView = [[MKMapView alloc] initWithFrame:self.view.bounds];
@@ -259,7 +259,8 @@
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
 	[self.arViewController viewDidAppear:NO];
-
+	[self.arViewController updateLocations:nil];
+	
 	// Because presenting the camera modally covers up the status bar, let's set
 	// it to come back after a short delay.
 	// This looks a little gross. But at least we have a status bar.
@@ -370,7 +371,7 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-	NSLog(@"error: %@", error);
+	NSLog(@"location manager failed with error: %@", error);
 
     // The location "unknown" error simply means the manager is currently unable
 	// to get the location.
@@ -414,6 +415,7 @@
 		annotationView.animatesDrop = NO;
 		annotationView.canShowCallout = YES;
 		annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+		annotationView.leftCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeContactAdd];
 	}
 	return annotationView;
 }
@@ -445,18 +447,21 @@
 	if (geoCoordinate.geoLocation != nil) {
 		GNLandmark *landmark = (GNLandmark *)geoCoordinate.geoLocation;
 		if (landmark.name != nil) {
-			InfoBubbleController *infoBubbleController = [InfoBubbleController bubbleControllerForLandmark:landmark];
-			
-			[[NSNotificationCenter defaultCenter] addObserver:self
-													 selector:@selector(didSelectLandmark:)
-														 name:GNSelectedLandmark
-													   object:landmark];
-
-			// infoBubbleController needs to stick around so we retain it
-			// this should be done in a better way as we're currently leaking
-			// memory here
-			[infoBubbleController retain];
-			return infoBubbleController.view;
+			InfoBubble *bubble = [InfoBubble infoBubbleWithLandmark:landmark];
+			return bubble;
+//			
+//			InfoBubbleController *infoBubbleController = [InfoBubbleController bubbleControllerForLandmark:landmark];
+//			
+//			[[NSNotificationCenter defaultCenter] addObserver:self
+//													 selector:@selector(didSelectLandmark:)
+//														 name:GNSelectedLandmark
+//													   object:landmark];
+//
+//			// infoBubbleController needs to stick around so we retain it
+//			// this should be done in a better way as we're currently leaking
+//			// memory here
+//			[infoBubbleController retain];
+//			return infoBubbleController.view;
 		}
 	}
 	return nil;

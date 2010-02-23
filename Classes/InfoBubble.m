@@ -11,15 +11,20 @@
 
 @implementation InfoBubble
 
-@synthesize bubble=_bubble, label=_label, expandedBounds=_expandedBounds,
-			contractedBounds=_contractedBounds, delegate=_delegate;
+NSString *const GNSelectedLandmark = @"GNSelectedLandmark";
 
-+ (id)infoBubbleWithTitle:(NSString *)title {
-	return [[[InfoBubble alloc] initWithTitle:title] autorelease];
+@synthesize bubble=_bubble, label=_label, expandedBounds=_expandedBounds,
+			contractedBounds=_contractedBounds, landmark=_landmark;
+
++ (id)infoBubbleWithLandmark:(GNLandmark *)landmark {
+	return [[[InfoBubble alloc] initWithLandmark:landmark] autorelease];
 }
 
-- (id)initWithTitle:(NSString *)title {
+
+- (id)initWithLandmark:(GNLandmark *)landmark {
 	if (self = [super init]) {
+		self.landmark = landmark;
+		
 		self.backgroundColor = [UIColor clearColor];
 		self.alpha = 0.8;
 		self.contentMode = UIViewContentModeRedraw;
@@ -28,7 +33,7 @@
 		
 		// Use the size of the text to determine the width of this info bubble
 		UIFont *font = [UIFont boldSystemFontOfSize:14];
-		CGSize labelSize = [title sizeWithFont:font constrainedToSize:CGSizeMake(150, 0) lineBreakMode:UILineBreakModeTailTruncation];
+		CGSize labelSize = [landmark.name sizeWithFont:font constrainedToSize:CGSizeMake(150, 0) lineBreakMode:UILineBreakModeTailTruncation];
 
 		self.contractedBounds = CGRectMake(0, 0, labelSize.width + 35, 79);
 		self.expandedBounds = CGRectMake(-25, 0, labelSize.width + 85, 79);
@@ -50,7 +55,7 @@
 //		self.label.center = center;
 
 		self.label.backgroundColor = [UIColor clearColor];
-		self.label.text = title;
+		self.label.text = landmark.name;
 		self.label.textColor = [UIColor whiteColor];
 		self.label.shadowColor = [UIColor blackColor];
 		self.label.shadowOffset = CGSizeMake(0, -1);
@@ -103,11 +108,10 @@
 	UITouch *touch = [touches anyObject];
 	NSLog(@"touch ended: %@", touch);
 	
-	NSLog(@"delegate: %@", self.delegate);
-	
-	if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectBubble:)]) {
-		[self.delegate didSelectBubble:self];
-	}
+	NSLog(@"Will post notification for landmark: %@", self.landmark);
+	[[NSNotificationCenter defaultCenter] postNotificationName:GNSelectedLandmark
+														object:self.landmark
+													  userInfo:nil];	
 	
 //	if (expanded) {
 //		[self contract];
