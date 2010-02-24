@@ -53,13 +53,45 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(droppedPinChanged)
 												 name:DDAnnotationCoordinateDidChangeNotification 
-											   object:nil];		
-	
+											   object:nil];
+
 	// We want to know when new user-editable landmarks are available
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(landmarksUpdated:)
 												 name:GNEditableLandmarksUpdated
-											   object:nil];	
+											   object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(ignorePinCallouts) 
+												 name:dragStarted 
+											   object:nil];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self 
+											 selector:@selector(hearPinCallouts) 
+												 name:dragIsDone 
+											   object:nil];
+	
+}
+
+-(void)ignorePinCallouts{
+	NSLog(@"Ignoring Pin Callouts");
+	GNLandmark *annotation;
+	GNPinAnnotationView *annotationView;
+	for (annotation in self.mapView.annotations){
+		NSLog(@"Annotation: %@", annotation.title);
+		annotationView = (GNPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
+		annotationView.canShowCallout = NO;
+	}	
+}
+
+-(void)hearPinCallouts{
+	NSLog(@"Hearing Pin Callouts");
+	GNLandmark *annotation;
+	GNPinAnnotationView *annotationView;
+	for (annotation in self.mapView.annotations){
+		annotationView = (GNPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
+		annotationView.canShowCallout = YES;
+	}	
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -178,7 +210,6 @@
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-	
 	if (annotation == mapView.userLocation) {
 		return nil;
 	}

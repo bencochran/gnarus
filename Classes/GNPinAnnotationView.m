@@ -53,6 +53,8 @@
 @implementation GNPinAnnotationView
 
 NSString *const DDAnnotationCoordinateDidChangeNotification = @"DDAnnotationCoordinateDidChangeNotification";
+NSString *const dragStarted = @"dragStarted";
+NSString *const dragIsDone = @"dragIsDone";
 
 + (CAAnimation *)_pinBounceAnimation {
 	
@@ -191,7 +193,8 @@ NSString *const DDAnnotationCoordinateDidChangeNotification = @"DDAnnotationCoor
     _startLocation = [aTouch locationInView:[self superview]];
     _originalCenter = self.center;
 	
-    [super touchesBegan:touches withEvent:event];	
+    [super touchesBegan:touches withEvent:event];
+	[[NSNotificationCenter defaultCenter] postNotificationName:dragStarted object:nil];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -245,7 +248,6 @@ NSString *const DDAnnotationCoordinateDidChangeNotification = @"DDAnnotationCoor
 			theAnnotation.coordinate = newCoordinate;
 			
 			[[NSNotificationCenter defaultCenter] postNotificationName:DDAnnotationCoordinateDidChangeNotification object:theAnnotation];
-			
 			// Clean up the state information.
 			_startLocation = CGPointZero;
 			_originalCenter = CGPointZero;
@@ -267,6 +269,7 @@ NSString *const DDAnnotationCoordinateDidChangeNotification = @"DDAnnotationCoor
 	} else {
 		[super touchesEnded:touches withEvent:event];
 	}
+	[[NSNotificationCenter defaultCenter] postNotificationName:dragIsDone object:nil];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -295,7 +298,8 @@ NSString *const DDAnnotationCoordinateDidChangeNotification = @"DDAnnotationCoor
 		}		
     } else {
         [super touchesCancelled:touches withEvent:event];		
-	}	
+	}
+	[[NSNotificationCenter defaultCenter] postNotificationName:dragIsDone object:nil];
 }
 
 @end

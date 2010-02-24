@@ -53,7 +53,6 @@
 												 name:GNSelectedLandmark
 											   object:nil];
 	
-	
 #if !TARGET_IPHONE_SIMULATOR
 	self.arViewController = [[ARGeoViewController alloc] initWithLocationManager:self.locationManager];	
 	self.arViewController.delegate = self;
