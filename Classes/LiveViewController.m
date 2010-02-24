@@ -53,6 +53,12 @@
 												 name:GNSelectedLandmark
 											   object:nil];
 	
+	// Listen to GNLayerUpdateFailed notifications from all objects
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(layerUpdateFailed:)
+												 name:GNLayerUpdateFailed
+											   object:nil];
+	
 #if !TARGET_IPHONE_SIMULATOR
 	self.arViewController = [[ARGeoViewController alloc] initWithLocationManager:self.locationManager];	
 	self.arViewController.delegate = self;
@@ -140,7 +146,10 @@
 											 selector:@selector(locationsUpdated:)
 												 name:GNLandmarksUpdated
 											   object:[GNLayerManager sharedManager]];
-    [super viewDidLoad];
+
+    [HUDView showHUDStyle:HUDViewStyleSpinner status:@"Locating" statusDetails:nil];
+	
+	[super viewDidLoad];
 }
 
 // For a GNToggleItem, return its associated GNLayer
@@ -240,6 +249,17 @@
 	}
 }
 
+- (void)layerUpdateFailed:(NSNotification *)note {	
+	GNLayer *layer = [note object];
+	NSError *error = [[note userInfo] objectForKey:@"error"];
+	
+	[HUDView showHUDStyle:HUDViewStyleError status:@"Error"  statusDetails:[[error userInfo] objectForKey:@"NSLocalizedDescription"] forTime:3];
+
+	
+	NSLog(@"Live view controller noted error: %@ from layer: %@", error, layer);
+	
+}
+
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
@@ -323,7 +343,7 @@
 
 #pragma mark Location Manager
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {	
 #if TARGET_IPHONE_SIMULATOR
 	// Make the simulator put us in an interesting location.
 	CLLocationCoordinate2D coordinate;
@@ -357,6 +377,8 @@
 		return;
 	}
 	NSLog(@"Using new location");
+	
+	[HUDView dismiss];
 	
 	// Release the old and retain the new
 	[lastUsedLocation release];

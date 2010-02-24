@@ -12,6 +12,7 @@
 #import <LayerManager/LayerManager.h>
 #import <MapKit/MapKit.h>
 #import "GNAddLandmarkMapViewController.h"
+#import "HUDView.h"
 
 @interface LiveViewController : UIViewController <ARViewDelegate, CLLocationManagerDelegate, GNToggleBarDelegate, MKMapViewDelegate> {
 	ARGeoViewController *_arViewController;
@@ -25,7 +26,6 @@
 	
 	GNToggleBarController *_toggleBarController;
 	NSMutableDictionary *_itemsToLayers;
-
 }
 
 @property (nonatomic, retain) ARGeoViewController *arViewController;

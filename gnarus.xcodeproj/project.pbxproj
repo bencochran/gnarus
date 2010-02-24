@@ -41,6 +41,8 @@
 		B8A906E81133340E007C9EB4 /* FlickrView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8A906E71133340E007C9EB4 /* FlickrView.xib */; };
 		B8A906F011333424007C9EB4 /* FoodView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B8A906EF11333424007C9EB4 /* FoodView.xib */; };
 		B8FC80A510B1DCC800CA8F7C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FC80A410B1DCC800CA8F7C /* Icon.png */; };
+		B8FF1BA111349317005B2A1E /* HUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = B8FF1BA011349317005B2A1E /* HUDView.m */; };
+		B8FF1C331134CCB5005B2A1E /* error-x.png in Resources */ = {isa = PBXBuildFile; fileRef = B8FF1C321134CCB5005B2A1E /* error-x.png */; };
 		FC242C02111F4B7E003AFB03 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C01111F4B7E003AFB03 /* libz.1.2.3.dylib */; };
 		FC242C05111F4BA2003AFB03 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C04111F4BA2003AFB03 /* CFNetwork.framework */; };
 		FC242C3C111F4D09003AFB03 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC242C3B111F4D09003AFB03 /* SystemConfiguration.framework */; };
@@ -155,6 +157,9 @@
 		B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LayerManager.xcodeproj; path = external/LayerManager/LayerManager.xcodeproj; sourceTree = "<group>"; };
 		B8F1044310CB85C900B6F7A9 /* libisimulate.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libisimulate.a; sourceTree = "<group>"; };
 		B8FC80A410B1DCC800CA8F7C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		B8FF1B9F11349317005B2A1E /* HUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUDView.h; sourceTree = "<group>"; };
+		B8FF1BA011349317005B2A1E /* HUDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUDView.m; sourceTree = "<group>"; };
+		B8FF1C321134CCB5005B2A1E /* error-x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "error-x.png"; path = "Resources/error-x.png"; sourceTree = "<group>"; };
 		FC242C01111F4B7E003AFB03 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		FC242C04111F4BA2003AFB03 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FC242C3B111F4D09003AFB03 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -205,6 +210,8 @@
 				B81A805E10A1171900FDDD60 /* InfoBubble.m */,
 				B8721F5B11085040009F078F /* LayerListViewController.h */,
 				B8721F5C11085040009F078F /* LayerListViewController.m */,
+				B8FF1B9F11349317005B2A1E /* HUDView.h */,
+				B8FF1BA011349317005B2A1E /* HUDView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -244,6 +251,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B8FF1C321134CCB5005B2A1E /* error-x.png */,
 				A2D89913111F7B550017026F /* PinShadow.png */,
 				FC6DC030111FCF33002462E1 /* plusButton.png */,
 				A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */,
@@ -427,6 +435,7 @@
 				B8A906F011333424007C9EB4 /* FoodView.xib in Resources */,
 				FC54672F11337BB00069EA00 /* flickr.png in Resources */,
 				FC54677F113385E80069EA00 /* SportingArenasView.xib in Resources */,
+				B8FF1C331134CCB5005B2A1E /* error-x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +455,7 @@
 				A2920D96111794AC00625576 /* GNAddLandmarkLayersViewController.m in Sources */,
 				A2D898D3111F75EE0017026F /* GNMutablePlacemark.m in Sources */,
 				A2D898D4111F75EE0017026F /* GNPinAnnotationView.m in Sources */,
+				B8FF1BA111349317005B2A1E /* HUDView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
