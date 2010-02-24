@@ -261,6 +261,9 @@
 	[self.arViewController viewDidAppear:NO];
 	[self.arViewController updateLocations:nil];
 	
+	// Always update the LayerManager when the view become active again
+	[[GNLayerManager sharedManager] updateWithPreviousLocation];
+	
 	// Because presenting the camera modally covers up the status bar, let's set
 	// it to come back after a short delay.
 	// This looks a little gross. But at least we have a status bar.
