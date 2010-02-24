@@ -66,7 +66,7 @@
 	GNLayer *layer = [self.layers objectAtIndex:indexPath.row];
 	if ([layer layerIsUserModifiable] == YES){
 		selectedLayer = [layer retain];
-		UIViewController *editingViewController = [layer getEditingViewControllerWithLocation:selectedLocation andLandmark:selectedLandmark];
+		GNEditingTableViewController *editingViewController = (GNEditingTableViewController *)[layer getEditingViewControllerWithLocation:selectedLocation andLandmark:selectedLandmark];
 		[self.navigationController pushViewController:editingViewController animated:YES];
 	}
 	
