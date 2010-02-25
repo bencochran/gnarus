@@ -11,6 +11,19 @@
 #import "InfoBubble.h"
 #import "LayerListViewController.h"
 
+// Private methods
+@interface LiveViewController ()
+
+- (void)addConnection;
+- (void)removeConnection;
+- (NSArray *)sortedLayersForLandmark:(GNLandmark *)landmark;
+- (UIView *)viewForCoordinate:(ARCoordinate *)coordinate;
+- (NSArray *)userOrderedLayers;
+
+
+@end
+
+
 @implementation LiveViewController
 
 @synthesize arViewController=_arViewController, locationManager=_locationManager,
@@ -22,6 +35,7 @@
 		self.wantsFullScreenLayout = YES;
 		pointingDown = NO;
 		lastUsedLocation = nil;
+		connectionCount = 0;
 	}
 	return self;
 }
@@ -58,6 +72,19 @@
 											 selector:@selector(layerUpdateFailed:)
 												 name:GNLayerUpdateFailed
 											   object:nil];
+	
+	// Listen to GNLayerDidStartUpdating notifications from all objects
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(layerStartedUpdating:)
+												 name:GNLayerDidStartUpdating
+											   object:nil];
+	
+	// Listen to GNLayerDidFinishUpdating notifications from all objects
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(layerFinishedUpdating:)
+												 name:GNLayerDidFinishUpdating
+											   object:nil];
+	
 	
 #if !TARGET_IPHONE_SIMULATOR
 	self.arViewController = [[ARGeoViewController alloc] initWithLocationManager:self.locationManager];	
@@ -249,15 +276,42 @@
 	}
 }
 
+- (void)layerStartedUpdating:(NSNotification *)note {	
+//	GNLayer *layer = [note object];
+//	NSLog(@"started updating layer: %@", layer);
+	[self addConnection];
+}
+
+- (void)layerFinishedUpdating:(NSNotification *)note {	
+//	GNLayer *layer = [note object];
+//	NSLog(@"finished updating layer: %@", layer);
+	[self removeConnection];
+}
+
 - (void)layerUpdateFailed:(NSNotification *)note {	
 	GNLayer *layer = [note object];
 	NSError *error = [[note userInfo] objectForKey:@"error"];
 	
-	[HUDView showHUDStyle:HUDViewStyleError status:@"Error"  statusDetails:[[error userInfo] objectForKey:@"NSLocalizedDescription"] forTime:3];
+	[self removeConnection];
+	[HUDView showHUDStyle:HUDViewStyleError
+				   status:@"Error" 
+			statusDetails:[[error userInfo] objectForKey:@"NSLocalizedDescription"]
+				  forTime:3];
 
+//	NSLog(@"Live view controller noted error: %@ from layer: %@", error, layer);
 	
-	NSLog(@"Live view controller noted error: %@ from layer: %@", error, layer);
-	
+}
+
+- (void)addConnection {
+	connectionCount++;
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+}
+
+- (void)removeConnection {
+	connectionCount--;
+	if (connectionCount < 1) {
+		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
