@@ -74,23 +74,16 @@
 }
 
 -(void)ignorePinCallouts{
-	NSLog(@"Ignoring Pin Callouts");
-	GNLandmark *annotation;
-	GNPinAnnotationView *annotationView;
-	for (annotation in self.mapView.annotations){
-		NSLog(@"Annotation: %@", annotation.title);
-		annotationView = (GNPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
-		annotationView.canShowCallout = NO;
+	for (NSObject<MKAnnotation> *annotation in self.mapView.annotations){
+		if (annotation != _addedAnnotation) {
+			[[self.mapView viewForAnnotation:annotation] setEnabled:NO];
+		}
 	}	
 }
 
 -(void)hearPinCallouts{
-	NSLog(@"Hearing Pin Callouts");
-	GNLandmark *annotation;
-	GNPinAnnotationView *annotationView;
-	for (annotation in self.mapView.annotations){
-		annotationView = (GNPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
-		annotationView.canShowCallout = YES;
+	for (NSObject<MKAnnotation> *annotation in self.mapView.annotations){
+		[[self.mapView viewForAnnotation:annotation] setEnabled:YES];
 	}	
 }
 
