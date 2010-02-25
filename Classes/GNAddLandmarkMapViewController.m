@@ -73,7 +73,7 @@
 	
 }
 
--(void)ignorePinCallouts{
+-(void)ignorePinCallouts {
 	for (NSObject<MKAnnotation> *annotation in self.mapView.annotations){
 		if (annotation != _addedAnnotation) {
 			[[self.mapView viewForAnnotation:annotation] setEnabled:NO];
@@ -81,7 +81,7 @@
 	}	
 }
 
--(void)hearPinCallouts{
+-(void)hearPinCallouts {
 	for (NSObject<MKAnnotation> *annotation in self.mapView.annotations){
 		[[self.mapView viewForAnnotation:annotation] setEnabled:YES];
 	}	

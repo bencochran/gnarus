@@ -144,6 +144,8 @@ NSString *const dragIsDone = @"dragIsDone";
 		_pinShadow.frame = CGRectMake(0, 0, 32, 39);
 		_pinShadow.hidden = YES;
 		[self addSubview:_pinShadow];
+		
+		touchOriginator = NO;
 	}
 	return self;
 }
@@ -192,8 +194,10 @@ NSString *const dragIsDone = @"dragIsDone";
     UITouch* aTouch = [touches anyObject];
     _startLocation = [aTouch locationInView:[self superview]];
     _originalCenter = self.center;
+	touchOriginator = YES;
 	
     [super touchesBegan:touches withEvent:event];
+	[[self superview] bringSubviewToFront:self];
 	[[NSNotificationCenter defaultCenter] postNotificationName:dragStarted object:nil];
 }
 
@@ -204,12 +208,12 @@ NSString *const dragIsDone = @"dragIsDone";
     CGPoint newCenter;
 	
 	// If the user's finger moved more than 5 pixels, begin the drag.
-    if ((abs(newLocation.x - _startLocation.x) > 5.0) || (abs(newLocation.y - _startLocation.y) > 5.0)) {
+    if (touchOriginator && (abs(newLocation.x - _startLocation.x) > 5.0) || (abs(newLocation.y - _startLocation.y) > 5.0)) {
 		_isMoving = YES;		
 	}
 	
 	// If dragging has begun, adjust the position of the view.
-    if (_mapView && _isMoving) {
+    if (_mapView && _isMoving && touchOriginator) {
 		
         newCenter.x = _originalCenter.x + (newLocation.x - _startLocation.x);
         newCenter.y = _originalCenter.y + (newLocation.y - _startLocation.y);
@@ -223,7 +227,7 @@ NSString *const dragIsDone = @"dragIsDone";
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	
-	if (_mapView) {
+	if (_mapView && touchOriginator) {
 		if (_isMoving) {
 			
 			[self.layer addAnimation:[GNPinAnnotationView _liftAndDropAnimation] forKey:@"DDPinAnimation"];		
@@ -269,6 +273,8 @@ NSString *const dragIsDone = @"dragIsDone";
 	} else {
 		[super touchesEnded:touches withEvent:event];
 	}
+	
+	touchOriginator = NO;
 	[[NSNotificationCenter defaultCenter] postNotificationName:dragIsDone object:nil];
 }
 

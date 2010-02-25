@@ -42,6 +42,8 @@ extern NSString *const dragIsDone;
     UIImageView *		_pinShadow;
 	
     MKMapView *			_mapView;
+	
+	BOOL				touchOriginator;
 }
 
 @property (nonatomic, assign) MKMapView *mapView;
