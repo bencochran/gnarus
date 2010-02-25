@@ -30,6 +30,8 @@
 #import "GNMutablePlacemark.h"
 
 extern NSString *const DDAnnotationCoordinateDidChangeNotification;
+extern NSString *const dragStarted;
+extern NSString *const dragIsDone;
 
 @interface GNPinAnnotationView : MKPinAnnotationView {
 
