@@ -11,9 +11,11 @@
 
 @interface LayerListViewController : UITableViewController {
 	GNLandmark *_landmark;
+	NSArray *_layers;
 }
 
 @property (nonatomic, readonly) GNLandmark *landmark;
+@property (nonatomic, readonly) NSArray *layers;
 
 - (id)initWithLandmark:(GNLandmark *)landmark;
 

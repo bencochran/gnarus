@@ -8,7 +8,6 @@
 
 #import "InfoBubble.h"
 
-
 @implementation InfoBubble
 
 NSString *const GNSelectedLandmark = @"GNSelectedLandmark";
@@ -19,7 +18,6 @@ NSString *const GNSelectedLandmark = @"GNSelectedLandmark";
 + (id)infoBubbleWithLandmark:(GNLandmark *)landmark {
 	return [[[InfoBubble alloc] initWithLandmark:landmark] autorelease];
 }
-
 
 - (id)initWithLandmark:(GNLandmark *)landmark {
 	if (self = [super init]) {
@@ -459,4 +457,3 @@ NSString *const GNSelectedLandmark = @"GNSelectedLandmark";
 }
 
 @end
-

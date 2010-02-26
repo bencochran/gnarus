@@ -45,5 +45,5 @@
 @property (nonatomic, readonly, retain) GNLandmark *landmark;
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate addressDictionary:(NSDictionary *)addressDictionary;
-- (id)initWithLandmark:(GNLandmark *)myLandmark addressDictionary:(NSDictionary *)newAddressDictionary;
+- (id)initWithLandmark:(GNLandmark *)myLandmark addressDictionary:(NSDictionary *)addressDictionary;
 @end

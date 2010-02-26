@@ -14,12 +14,13 @@
 // Private methods
 @interface LiveViewController ()
 
-- (void)addConnection;
-- (void)removeConnection;
+- (GNLayer *)layerForToggleItem:(GNToggleItem*)item;
+- (NSArray *)userOrderedLayers;
 - (NSArray *)sortedLayersForLandmark:(GNLandmark *)landmark;
 - (UIView *)viewForCoordinate:(ARCoordinate *)coordinate;
-- (NSArray *)userOrderedLayers;
-
+- (void)addConnection;
+- (void)removeConnection;
+- (void)didSelectPlus:(id)sender;
 
 @end
 
@@ -128,8 +129,7 @@
 	self.toggleBarController.view.frame = barFrame;
 
 	// Instead of initializing the items and layers this way, we'll be
-	// unarchiving archived copies of items/layers using the NSCoder protocol
-	// specification
+	// unarchiving archived copies of items/layers using the NSCoder protocol specification
 	// see http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html
 	// or lecture 9 of the Stanford class
 	GNLayer *layer = [[[CarletonLayer alloc] init] autorelease];
@@ -168,7 +168,7 @@
 	[self.itemsToLayers setObject:layer forKey:item];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
 	
-	// Add ourself as an observer to LayerManager update
+	// Add self as an observer to LayerManager update
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(locationsUpdated:)
 												 name:GNLandmarksUpdated
@@ -196,7 +196,7 @@
 	// Copy the main (ordered) array of layers from the toggle bar then filter
 	// it based on whether or not each ayer is in the landmark's active layer list
 	NSMutableArray* returnArray = [NSMutableArray array];
-	NSArray* activeLayers = landmark.activeLayers;
+	NSArray* activeLayers = [[GNLayerManager sharedManager] activeLayersForLandmark:landmark];
 	GNLayer* layer;
 	for (GNToggleItem* item in [self.toggleBarController activeToggleItems]) {
 		layer = [self layerForToggleItem:item];
@@ -216,7 +216,6 @@
 	[[GNLayerManager sharedManager] setLayer:layer active:active];
 	[[GNLayerManager sharedManager] updateWithPreviousLocation];	// Update our landmarks
 }
-
 
 - (void)locationsUpdated:(NSNotification *)note {	
 	NSArray *landmarks = [note.userInfo objectForKey:@"landmarks"];
@@ -276,20 +275,16 @@
 	}
 }
 
-- (void)layerStartedUpdating:(NSNotification *)note {	
-//	GNLayer *layer = [note object];
-//	NSLog(@"started updating layer: %@", layer);
+- (void)layerStartedUpdating:(NSNotification *)note {
 	[self addConnection];
 }
 
-- (void)layerFinishedUpdating:(NSNotification *)note {	
-//	GNLayer *layer = [note object];
-//	NSLog(@"finished updating layer: %@", layer);
+- (void)layerFinishedUpdating:(NSNotification *)note {
 	[self removeConnection];
 }
 
 - (void)layerUpdateFailed:(NSNotification *)note {	
-	GNLayer *layer = [note object];
+//	GNLayer *layer = [note object];
 	NSError *error = [[note userInfo] objectForKey:@"error"];
 	
 	[self removeConnection];
@@ -299,7 +294,6 @@
 				  forTime:3];
 
 //	NSLog(@"Live view controller noted error: %@ from layer: %@", error, layer);
-	
 }
 
 - (void)addConnection {
@@ -388,9 +382,12 @@
 }
 
 - (void)dealloc {
-	[_locationManager release];
 	[_arViewController release];
+	[_mapView release];
+	[_locationManager release];
 	[lastUsedLocation release];
+	[_toggleBarController release];
+	[_itemsToLayers release];
 	
     [super dealloc];
 }
@@ -403,7 +400,7 @@
 	CLLocationCoordinate2D coordinate;
 	coordinate.latitude = 44.4624651543;
 	coordinate.longitude = -93.1527388251;
-	newLocation = [[[CLLocation alloc] initWithCoordinate:coordinate	altitude:0 horizontalAccuracy:1 verticalAccuracy:1 timestamp:[NSDate date]] autorelease];
+	newLocation = [[[CLLocation alloc] initWithCoordinate:coordinate altitude:0 horizontalAccuracy:1 verticalAccuracy:1 timestamp:[NSDate date]] autorelease];
 
 	CLLocationCoordinate2D oldCoordinate;
 	oldCoordinate.latitude = 45.46087059486058;
@@ -444,12 +441,12 @@
 	MKCoordinateSpan span;
 	span.latitudeDelta = 0.5;
 	span.longitudeDelta = 0.5;
-	region.center = newLocation.coordinate;
 	region.span = span;
+	region.center = newLocation.coordinate;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-	NSLog(@"location manager failed with error: %@", error);
+	NSLog(@"Location manager failed with error: %@", error);
 
     // The location "unknown" error simply means the manager is currently unable
 	// to get the location.
@@ -501,7 +498,8 @@
 {
 	if ([control isKindOfClass:[UIButton class]]) {
 		GNLandmark *landmark = (GNLandmark *)view.annotation;
-		if (landmark.activeLayers.count > 1) {
+		NSArray *layers = [[GNLayerManager sharedManager] activeLayersForLandmark:landmark];
+		if ([layers count] > 1) {
 			// If we have more than one active layer for that landmark, give us a
 			// list of layers to drill down in to
 			LayerListViewController *layerList = [[LayerListViewController alloc] initWithLandmark:landmark];
@@ -510,7 +508,7 @@
 		} else {
 			// Otherwise, take us straight into the ViewController for the only
 			// layer
-			GNLayer *layer = [landmark.activeLayers objectAtIndex:0];
+			GNLayer *layer = [layers objectAtIndex:0];
 			UIViewController *viewController = [layer viewControllerForLandmark:landmark];
 			[self.navigationController pushViewController:viewController animated:YES];
 		}
@@ -551,7 +549,8 @@
 
 - (void)didSelectLandmark:(NSNotification *)note {
 	GNLandmark *landmark = (GNLandmark *)note.object;
-	if (landmark.activeLayers.count > 1) {
+	NSArray *layers = [[GNLayerManager sharedManager] activeLayersForLandmark:landmark];
+	if ([layers count] > 1) {
 		// If we have more than one active layer for that landmark, give us a
 		// list of layers to drill down in to
 		LayerListViewController *layerList = [[LayerListViewController alloc] initWithLandmark:landmark];
@@ -560,14 +559,14 @@
 	} else {
 		// Otherwise, take us straight into the ViewController for the only
 		// layer
-		GNLayer *layer = [landmark.activeLayers objectAtIndex:0];
+		GNLayer *layer = [layers objectAtIndex:0];
 		UIViewController *viewController = [layer viewControllerForLandmark:landmark];
 		[self.navigationController pushViewController:viewController animated:YES];
 	}
 }
 
 // Called when the "+" button in the upper right corner of the view is pressed:
-// Goes into 
+// adds a GNAddLandmarkMapViewController to the navigationController stack
 - (void)didSelectPlus:(id)sender {
 	GNAddLandmarkMapViewController *landmarkMapViewController = [[GNAddLandmarkMapViewController alloc]
 																 initWithNibName:@"GNAddLandmarkMapViewController" bundle:nil centerLocation:lastUsedLocation.coordinate];

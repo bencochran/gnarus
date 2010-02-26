@@ -19,7 +19,6 @@
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         // Custom initialization
 		self.title = @"Landmarks";
-		
 		_addedAnnotation = nil;
 		
 #if TARGET_IPHONE_SIMULATOR
@@ -72,21 +71,37 @@
 											   object:nil];
 }
 
--(void)ignorePinCallouts{
+/*-(void)ignorePinCallouts{
 	NSLog(@"Ignoring Pin Callouts");
+	GNPinAnnotationView *annotationView;
 	for (GNLandmark *annotation in self.mapView.annotations){
 		//NSLog(@"Disable callout: %@", annotation.title);
-		GNPinAnnotationView *annotationView = (GNPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
+		annotationView = (GNPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
 		annotationView.canShowCallout = NO;
 	}	
 }
 
 -(void)hearPinCallouts{
 	NSLog(@"Hearing Pin Callouts");
+	GNPinAnnotationView *annotationView;
 	for (GNLandmark *annotation in self.mapView.annotations){
-		GNPinAnnotationView *annotationView = (GNPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
+		annotationView = (GNPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
 		annotationView.canShowCallout = YES;
 	}	
+}*/
+
+-(void)ignorePinCallouts {
+	for (NSObject<MKAnnotation> *annotation in self.mapView.annotations){
+		if (annotation != _addedAnnotation) {
+			[[self.mapView viewForAnnotation:annotation] setEnabled:NO];
+		}
+	}
+}
+
+-(void)hearPinCallouts {
+	for (NSObject<MKAnnotation> *annotation in self.mapView.annotations){
+		[[self.mapView viewForAnnotation:annotation] setEnabled:YES];
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -98,14 +113,14 @@
 - (void)landmarksUpdated:(NSNotification *)note {
 	NSArray *landmarks = [note.userInfo objectForKey:@"landmarks"];
 	
-	NSLog(@"size of landmarks array: %i", [landmarks count]);
+	NSLog(@"Landmarks updated (in AddLandmarkMapView), number user-editable landmarks: %i", [landmarks count]);
 	
 	// We'll do the same for annotations, marking them for removal by default
 	NSMutableArray *annotationsToRemove = [NSMutableArray arrayWithArray:self.mapView.annotations];
 	
 	// Never remove the userLocation annotation
 	[annotationsToRemove removeObject:self.mapView.userLocation];
-	// Never remove the added annotation
+	// Never remove the added annotation (if it's not nil)
 	if (_addedAnnotation) {
 		[annotationsToRemove removeObject:_addedAnnotation];
 	}

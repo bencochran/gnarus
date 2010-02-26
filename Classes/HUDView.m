@@ -170,7 +170,6 @@ static NSTimer *timer = nil;
 	[_statusDetails release];
 	[_indicator release];
 	
-	
 	[super dealloc];
 }
 
@@ -189,7 +188,6 @@ static NSTimer *timer = nil;
     else {
         self.alpha = 1.0;
     }
-	
 }
 
 - (void)show {

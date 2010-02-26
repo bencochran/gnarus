@@ -13,7 +13,6 @@
 
 @synthesize window, navController;
 
-
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	[application setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
 	
@@ -26,14 +25,10 @@
 	[window makeKeyAndVisible];
 }
 
-
-
-
 - (void)dealloc {
 	[navController release];
     [window release];
     [super dealloc];
 }
-
 
 @end
