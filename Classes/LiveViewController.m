@@ -506,8 +506,7 @@
 			[self.navigationController pushViewController:layerList animated:YES];
 			[layerList release];
 		} else {
-			// Otherwise, take us straight into the ViewController for the only
-			// layer
+			// Otherwise, take us straight into the ViewController for the only layer
 			GNLayer *layer = [layers objectAtIndex:0];
 			UIViewController *viewController = [layer viewControllerForLandmark:landmark];
 			[self.navigationController pushViewController:viewController animated:YES];
