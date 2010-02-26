@@ -91,7 +91,7 @@
 }*/
 
 -(void)ignorePinCallouts {
-	for (NSObject<MKAnnotation> *annotation in self.mapView.annotations){
+	for (NSObject<MKAnnotation> *annotation in self.mapView.annotations) {
 		if (annotation != _addedAnnotation) {
 			[[self.mapView viewForAnnotation:annotation] setEnabled:NO];
 		}
@@ -99,7 +99,7 @@
 }
 
 -(void)hearPinCallouts {
-	for (NSObject<MKAnnotation> *annotation in self.mapView.annotations){
+	for (NSObject<MKAnnotation> *annotation in self.mapView.annotations) {
 		[[self.mapView viewForAnnotation:annotation] setEnabled:YES];
 	}
 }
@@ -222,10 +222,10 @@
 	if (annotation == mapView.userLocation) {
 		return nil;
 	}
-	GNPinAnnotationView *annotationView;
+	MKPinAnnotationView *annotationView;
 	
 	if(annotation == _addedAnnotation) {
-		annotationView = (GNPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"NewLandmark"];
+		annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"NewLandmark"];
 		if (annotationView == nil) {
 			NSLog(@"Adding New Annotation");
 			annotationView = [[[GNPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"NewLandmark"] autorelease];
@@ -238,7 +238,7 @@
 		((GNPinAnnotationView *) annotationView).mapView = mapView;
 	}
 	else {
-		annotationView = (GNPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
+		annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
 		if (annotationView == nil) {
 			annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:annotation.title] autorelease];
 			annotationView.pinColor = MKPinAnnotationColorRed;
@@ -259,7 +259,7 @@
 		if ([view.annotation isKindOfClass:[GNLandmark class]]) {
 			landmarkToAdd = (GNLandmark *) view.annotation;
 		} else {
-			landmarkToAdd = ((GNMutablePlacemark *) view.annotation).landmark;
+			landmarkToAdd = nil;
 		}
 		[self addLandmarkWithLocation:selectedLocation andLandmark:landmarkToAdd];
 		[selectedLocation release];
