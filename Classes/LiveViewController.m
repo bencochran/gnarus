@@ -14,7 +14,7 @@
 // Private methods
 @interface LiveViewController ()
 
-- (GNLayer *)layerForToggleItem:(GNToggleItem*)item;
+- (GNLayer *)layerForToggleItem:(GNToggleItem *)item;
 - (NSArray *)userOrderedLayers;
 - (NSArray *)sortedLayersForLandmark:(GNLandmark *)landmark;
 - (UIView *)viewForCoordinate:(ARCoordinate *)coordinate;
@@ -132,41 +132,37 @@
 	// unarchiving archived copies of items/layers using the NSCoder protocol specification
 	// see http://developer.apple.com/iphone/library/documentation/Cocoa/Reference/Foundation/Protocols/NSCoding_Protocol/Reference/Reference.html
 	// or lecture 9 of the Stanford class
-	GNLayer *layer = [[[CarletonLayer alloc] init] autorelease];
-	GNToggleItem *item = [[[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]] autorelease];
-	[self.toggleBarController addToggleItem:item];
-	[self.itemsToLayers setObject:layer forKey:item];
+	GNLayer *layer = [[CarletonLayer alloc] init];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
+	[layer release];
 	
-	layer = [[[FoodLayer alloc] init] autorelease];
-	item = [[[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]] autorelease];
-	[self.toggleBarController addToggleItem:item];
-	[self.itemsToLayers setObject:layer forKey:item];
-	[[GNLayerManager sharedManager] addLayer:layer active:NO];	
+	layer = [[FoodLayer alloc] init];
+	[[GNLayerManager sharedManager] addLayer:layer active:NO];
+	[layer release];
 	
-	layer = [[[TweetLayer alloc] init] autorelease];
-	item = [[[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]] autorelease];
-	[self.toggleBarController addToggleItem:item];
-	[self.itemsToLayers setObject:layer forKey:item];
+	layer = [[TweetLayer alloc] init];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
+	[layer release];
 	
-	layer = [[[WikiLayer alloc] init] autorelease];
-	item = [[[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]] autorelease];
-	[self.toggleBarController addToggleItem:item];
-	[self.itemsToLayers setObject:layer forKey:item];
+	layer = [[WikiLayer alloc] init];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
+	[layer release];
 	
-	layer = [[[FlickrLayer alloc] init] retain];
-	item = [[[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]] autorelease];
-	[self.toggleBarController addToggleItem:item];
-	[self.itemsToLayers setObject:layer forKey:item];
+	layer = [[FlickrLayer alloc] init];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
-
-	layer = [[[SportingArenasLayer alloc] init] autorelease];
-	item = [[[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]] autorelease];
-	[self.toggleBarController addToggleItem:item];
-	[self.itemsToLayers setObject:layer forKey:item];
+	[layer release];
+	
+	layer = [[SportingArenasLayer alloc] init];
 	[[GNLayerManager sharedManager] addLayer:layer active:NO];
+	[layer release];
+	
+	GNToggleItem *item;
+	for(layer in [[GNLayerManager sharedManager] layers]) {
+		item = [[GNToggleItem alloc] initWithTitle:[layer name] image:[layer getIcon]];
+		[self.toggleBarController addToggleItem:item];
+		[self.itemsToLayers setObject:layer forKey:item];
+		[item release];
+	}
 	
 	// Add self as an observer to LayerManager update
 	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -447,7 +443,6 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
 	NSLog(@"Location manager failed with error: %@", error);
-
     // The location "unknown" error simply means the manager is currently unable
 	// to get the location.
     if ([error code] != kCLErrorLocationUnknown) {
@@ -457,7 +452,6 @@
 }
 
 - (void)deviceOrientationDidChange:(NSNotification *)notification {
-
 #if !TARGET_IPHONE_SIMULATOR
 	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
 	
@@ -473,7 +467,6 @@
 		[UIView commitAnimations];
 	}
 #endif
-
 }
 
 #pragma mark MapKit Delegate
@@ -556,8 +549,7 @@
 		[self.navigationController pushViewController:layerList animated:YES];
 		[layerList release];
 	} else {
-		// Otherwise, take us straight into the ViewController for the only
-		// layer
+		// Otherwise, take us straight into the ViewController for the only layer
 		GNLayer *layer = [layers objectAtIndex:0];
 		UIViewController *viewController = [layer viewControllerForLandmark:landmark];
 		[self.navigationController pushViewController:viewController animated:YES];
