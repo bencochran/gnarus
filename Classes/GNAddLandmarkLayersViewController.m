@@ -12,7 +12,6 @@
 @implementation GNAddLandmarkLayersViewController
 
 @synthesize layers=_layers;
-//, selectedLayer =_selectedLayer, selectedLocation = _selectedLocation;
 
 - (id)initWithLocation:(CLLocation *)location andLandmark:(GNLandmark *)landmark{
     // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
@@ -31,12 +30,10 @@
     return 1;
 }
 
-
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.layers.count;
 }
-
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -57,24 +54,14 @@
     return cell;
 }
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
-	// [self.navigationController pushViewController:anotherViewController];
-	// [anotherViewController release];
+    // Push the editing view controller for the selected layer if it is user modifiable
 	GNLayer *layer = [self.layers objectAtIndex:indexPath.row];
 	if ([layer layerIsUserModifiable] == YES){
 		selectedLayer = [layer retain];
 		GNEditingTableViewController *editingViewController = (GNEditingTableViewController *)[layer getEditingViewControllerWithLocation:selectedLocation andLandmark:selectedLandmark];
 		[self.navigationController pushViewController:editingViewController animated:YES];
 	}
-	
-	//GNAddLandmarkInfoViewController *landmarkInfoViewController = [[GNAddLandmarkInfoViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	//landmarkInfoViewController.layers = self.layers;
-	//[self.navigationController pushViewController:landmarkInfoViewController animated:YES];
-	//[landmarkInfoViewController release];
-	
 }
 
 - (void)dealloc {
@@ -85,6 +72,5 @@
 	
     [super dealloc];
 }
-
 
 @end
