@@ -74,21 +74,17 @@
 
 -(void)ignorePinCallouts{
 	NSLog(@"Ignoring Pin Callouts");
-	GNLandmark *annotation;
-	GNPinAnnotationView *annotationView;
-	for (annotation in self.mapView.annotations){
-		NSLog(@"Annotation: %@", annotation.title);
-		annotationView = (GNPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
+	for (GNLandmark *annotation in self.mapView.annotations){
+		//NSLog(@"Disable callout: %@", annotation.title);
+		GNPinAnnotationView *annotationView = (GNPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
 		annotationView.canShowCallout = NO;
 	}	
 }
 
 -(void)hearPinCallouts{
 	NSLog(@"Hearing Pin Callouts");
-	GNLandmark *annotation;
-	GNPinAnnotationView *annotationView;
-	for (annotation in self.mapView.annotations){
-		annotationView = (GNPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
+	for (GNLandmark *annotation in self.mapView.annotations){
+		GNPinAnnotationView *annotationView = (GNPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:annotation.title];
 		annotationView.canShowCallout = YES;
 	}	
 }
@@ -109,13 +105,12 @@
 	
 	// Never remove the userLocation annotation
 	[annotationsToRemove removeObject:self.mapView.userLocation];
-	// Never remove the DDED ANNOTATION
+	// Never remove the added annotation
 	if (_addedAnnotation) {
 		[annotationsToRemove removeObject:_addedAnnotation];
 	}
 	
 	for (GNLandmark *landmark in landmarks) {
-		
 		// Use the same logic for annotations that we use
 		// for locations in the ARView
 		if ([annotationsToRemove containsObject:landmark]) {
@@ -153,7 +148,7 @@
 - (void)addAnnotation {
 	NSLog(@"Adding annotation to: %f, %f", self.mapView.centerCoordinate.latitude, self.mapView.centerCoordinate.longitude);
 	
-	// Deactivate "+" button - don't allow more annotations to be added
+	// Deactivate "+" button: don't allow more annotations to be added
 	self.navigationItem.rightBarButtonItem.enabled = NO;
 	
 	// Create new annotation and add it to the mapView
