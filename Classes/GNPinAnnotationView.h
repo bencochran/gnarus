@@ -1,4 +1,3 @@
-//
 //  GNPinAnnotationView.h
 //  Adapted from http://github.com/digdog/MapKitDragAndDrop
 //
@@ -34,7 +33,7 @@ extern NSString *const dragStarted;
 extern NSString *const dragIsDone;
 
 @interface GNPinAnnotationView : MKPinAnnotationView {
-
+	
 @private
     BOOL				_isMoving;
     CGPoint				_startLocation;
@@ -42,6 +41,8 @@ extern NSString *const dragIsDone;
     UIImageView *		_pinShadow;
 	
     MKMapView *			_mapView;
+	
+	BOOL				touchOriginator;
 }
 
 @property (nonatomic, assign) MKMapView *mapView;
