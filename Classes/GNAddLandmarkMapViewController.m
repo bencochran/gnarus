@@ -70,7 +70,6 @@
 											 selector:@selector(hearPinCallouts) 
 												 name:dragIsDone 
 											   object:nil];
-	
 }
 
 -(void)ignorePinCallouts {
