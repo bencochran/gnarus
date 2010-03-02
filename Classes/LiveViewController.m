@@ -43,9 +43,9 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-	self.view = [[[UIView alloc] init] autorelease];
+	self.view = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
 	self.view.backgroundColor = [UIColor blackColor];
-	//self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -353,6 +353,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
 	[self.arViewController.cameraController dismissModalViewControllerAnimated:NO];
+	[self.arViewController.cameraController.view removeFromSuperview];
 	[self.arViewController.view removeFromSuperview];
 }
 
