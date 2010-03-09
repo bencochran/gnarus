@@ -314,6 +314,9 @@
 	[self.navigationController setNavigationBarHidden:YES animated:animated];
 	[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:animated];
 	
+	// Flush GNLayerManager memory
+	[[GNLayerManager sharedManager] flushAllNonvalidatedInfo];
+	
     // Once configured, the location manager must be "started".
     [self.locationManager startUpdatingLocation];
 	[self.arViewController startListening];
