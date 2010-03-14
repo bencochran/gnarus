@@ -1,6 +1,5 @@
 //
 //  GNAddLandmarkLayersViewController.m
-//  gnarus
 //
 //  Created by iComps on 2/1/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
@@ -14,7 +13,6 @@
 @synthesize layers=_layers;
 
 - (id)initWithLocation:(CLLocation *)location andLandmark:(GNLandmark *)landmark{
-    // Override initWithStyle: if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
     if (self = [super initWithStyle:UITableViewStylePlain]) {
 		self.title = @"Layers";
 		self.layers = nil;

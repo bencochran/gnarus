@@ -37,7 +37,7 @@
 	NSString *_subtitle;
 }
 
-// Re-declare MKAnnotation's readonly property 'coordinate' to readwrite
+// Re-declare MKAnnotation's readonly properties to readwrite
 @property (nonatomic, readwrite, assign) CLLocationCoordinate2D coordinate;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *subtitle;

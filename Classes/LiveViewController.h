@@ -1,6 +1,11 @@
 //
 //  LiveViewController.h
-//  gnarus
+//  The primary control of the Gnarus application.
+//  Displays the camera feed, populates the layers in GNLayerManager, passes new landmark information
+//    from GNLayerManager to ARKit for drawing, handles click events of landmark bubbles by pushing
+//    landmarks' UIViewControllers onto the navigation stack (or pushes a LayersListViewController if
+//    a landmark has more than one active layer), communicates with the GNToggleBar for reordering layers
+//    and turning them on and off, and displays a map view when the phone is held flat.
 //
 //  Created by Ben Cochran on 11/2/09.
 //  Copyright 2009 Ben Cochran. All rights reserved.
@@ -25,6 +30,8 @@
 	BOOL pointingDown;
 	
 	GNToggleBarController *_toggleBarController;
+	// maps each item in the toggle bar to the GNLayer with which
+	// that item is associated
 	NSMutableDictionary *_itemsToLayers;
 	
 	int connectionCount;

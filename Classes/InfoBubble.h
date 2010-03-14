@@ -1,6 +1,7 @@
 //
 //  InfoBubbleView.h
-//  gnarus
+//  A grey translucent bubble to display a landmark's name
+//    and 3D position in the live view
 //
 //  Created by Ben Cochran on 11/3/09.
 //  Copyright 2009 Ben Cochran. All rights reserved.

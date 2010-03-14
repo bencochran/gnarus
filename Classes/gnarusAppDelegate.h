@@ -1,6 +1,7 @@
 //
 //  gnarusAppDelegate.h
-//  gnarus
+//  Sets up the window and navigation controller,
+//    and adds the LiveViewController to the navigation stack
 //
 //  Created by Ben Cochran on 10/27/09.
 //  Copyright Ben Cochran 2009. All rights reserved.
