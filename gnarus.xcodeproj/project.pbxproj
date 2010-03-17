@@ -132,9 +132,9 @@
 		A2DA6472111656520099E39D /* GNAddLandmarkMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GNAddLandmarkMapViewController.h; sourceTree = "<group>"; };
 		A2DA6473111656520099E39D /* GNAddLandmarkMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GNAddLandmarkMapViewController.m; sourceTree = "<group>"; };
 		A2DA6474111656520099E39D /* GNAddLandmarkMapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GNAddLandmarkMapViewController.xib; path = Classes/GNAddLandmarkMapViewController.xib; sourceTree = "<group>"; };
-		B805EA66111F5A0D00C3E65B /* academic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = academic.png; path = external/LayerManager/academic.png; sourceTree = "<group>"; };
-		B805EA67111F5A0D00C3E65B /* bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bird.png; path = external/LayerManager/bird.png; sourceTree = "<group>"; };
-		B805EA68111F5A0D00C3E65B /* food.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = food.png; path = external/LayerManager/food.png; sourceTree = "<group>"; };
+		B805EA66111F5A0D00C3E65B /* academic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = academic.png; path = external/LayerManager/Resources/academic.png; sourceTree = "<group>"; };
+		B805EA67111F5A0D00C3E65B /* bird.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bird.png; path = external/LayerManager/Resources/bird.png; sourceTree = "<group>"; };
+		B805EA68111F5A0D00C3E65B /* food.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = food.png; path = external/LayerManager/Resources/food.png; sourceTree = "<group>"; };
 		B81A805D10A1171900FDDD60 /* InfoBubble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoBubble.h; sourceTree = "<group>"; };
 		B81A805E10A1171900FDDD60 /* InfoBubble.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoBubble.m; sourceTree = "<group>"; };
 		B83A41191107DCE400C2FD2D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -142,10 +142,10 @@
 		B844939E10B1B58300A0E348 /* trees.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = trees.png; sourceTree = "<group>"; };
 		B84493A210B1B59C00A0E348 /* sports.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sports.png; sourceTree = "<group>"; };
 		B867CF3410A9F380001A24A7 /* Locations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Locations.plist; sourceTree = "<group>"; };
-		B87136FD112284B300091359 /* wiki.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wiki.png; path = external/LayerManager/wiki.png; sourceTree = "<group>"; };
+		B87136FD112284B300091359 /* wiki.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wiki.png; path = external/LayerManager/Resources/wiki.png; sourceTree = "<group>"; };
 		B8721F5B11085040009F078F /* LayerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayerListViewController.h; sourceTree = "<group>"; };
 		B8721F5C11085040009F078F /* LayerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayerListViewController.m; sourceTree = "<group>"; };
-		B8721F6911085157009F078F /* CarletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CarletonView.xib; path = external/LayerManager/CarletonView.xib; sourceTree = "<group>"; };
+		B8721F6911085157009F078F /* CarletonView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CarletonView.xib; path = external/LayerManager/Resources/CarletonView.xib; sourceTree = "<group>"; };
 		B88092E710A9E40F0061E490 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B88092ED10A9E4220061E490 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B880D19C109779CC005601EF /* GNToggleBar.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GNToggleBar.xcodeproj; path = external/GNToggleBar/GNToggleBar.xcodeproj; sourceTree = "<group>"; };
@@ -153,8 +153,8 @@
 		B896C16C109FFDDC00259858 /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
 		B896C16D109FFDDC00259858 /* LiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveViewController.m; sourceTree = "<group>"; };
 		B896C3C910A0186600259858 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
-		B8A906E71133340E007C9EB4 /* FlickrView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FlickrView.xib; path = external/LayerManager/FlickrView.xib; sourceTree = "<group>"; };
-		B8A906EF11333424007C9EB4 /* FoodView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FoodView.xib; path = external/LayerManager/FoodView.xib; sourceTree = "<group>"; };
+		B8A906E71133340E007C9EB4 /* FlickrView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FlickrView.xib; path = external/LayerManager/Resources/FlickrView.xib; sourceTree = "<group>"; };
+		B8A906EF11333424007C9EB4 /* FoodView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FoodView.xib; path = external/LayerManager/Resources/FoodView.xib; sourceTree = "<group>"; };
 		B8BC14B5109EBE25000701DF /* LayerManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LayerManager.xcodeproj; path = external/LayerManager/LayerManager.xcodeproj; sourceTree = "<group>"; };
 		B8F1044310CB85C900B6F7A9 /* libisimulate.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libisimulate.a; sourceTree = "<group>"; };
 		B8FC80A410B1DCC800CA8F7C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -164,10 +164,10 @@
 		FC242C01111F4B7E003AFB03 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		FC242C04111F4BA2003AFB03 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FC242C3B111F4D09003AFB03 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		FC54672E11337BB00069EA00 /* flickr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flickr.png; path = external/LayerManager/flickr.png; sourceTree = "<group>"; };
-		FC54677E113385E80069EA00 /* SportingArenasView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SportingArenasView.xib; path = external/LayerManager/SportingArenasView.xib; sourceTree = "<group>"; };
+		FC54672E11337BB00069EA00 /* flickr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = flickr.png; path = external/LayerManager/Resources/flickr.png; sourceTree = "<group>"; };
+		FC54677E113385E80069EA00 /* SportingArenasView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SportingArenasView.xib; path = external/LayerManager/Resources/SportingArenasView.xib; sourceTree = "<group>"; };
 		FC6DC030111FCF33002462E1 /* plusButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plusButton.png; sourceTree = "<group>"; };
-		FC87F6FA113625C3005FA5E4 /* SportsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SportsViewController.xib; path = external/LayerManager/SportsViewController.xib; sourceTree = "<group>"; };
+		FC87F6FA113625C3005FA5E4 /* SportsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SportsViewController.xib; path = external/LayerManager/Resources/SportsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
